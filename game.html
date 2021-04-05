@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gierka</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+<body>
+    
+        
+    </div>
+
+    <div class="fixed inset-0 flex items-center justify-center rounded-lg">
+    <div class="flex " >
+        <div class="flex-initial">
+            
+            <canvas id="canvas1"><img id="myImage" src="SkeletonWalk.png"><img id="myImage2" src="SkeletonDead.png"><img id="background1" src="background1.png"><img id="fireball" src="fireball.png"><img id="potion" src="potion.png"></canvas>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" 
+            integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ==" crossorigin="anonymous"></script>
+            <script src="index.js" type="module"></script>
+        </div>
+    <div class="flex-2 border-8 bg-gray-100 border-gray pl-4 pr-4 pt-4 m-2 select-none rounded-lg">
+
+            <div><span>Score: </span><span id="scoreEL"></span></div>
+            <div><span>Bombs: </span><span id="bombsEL"></span></div>
+            <div><span>Ammo: </span><span id="ammoEL"></span></div>
+            <div><span>Życia: </span><span id="hpEL"></span></div>
+            <div><span>Ile potworów może przejść: </span><span id="hptowerEL"></span></div>
+            <div class="flex">
+                <div class="flex-initial border-8 bg-gray-100 border-gray pl-4 pr-4 pt-4 pb-4 m-2 select-none rounded-lg">
+               
+                     
+                       <div><span>W S A D - sterowanie </span></div>
+                       <div><span>Lewy przycisk myszy - atak</span></div>
+                       <div><span>spacja - podłożenie bomby</span></div>
+                      
+                   </div>
+               </div>
+        
+    </div>
+   
+    
+</div>
+</div>
+<div class="fixed inset-0 flex items-center justify-center rounded-lg" id="modalEl">
+    <div class ="bg-red-100 max-w-md w-full p-6 text-center">
+        <h1 class="text-4xl" id="modalScoreEL">0</h1>
+        <p>punkty</p>
+        <h1 class="text-4xl" id="modalHighScoreEL">0</h1>
+        <p>Rekord</p>
+        <div>
+            <button id="startGameBtn" class="bg-red-500 text-white w-full">Start</button>
+        </div>
+    </div>
+</div>
+
+   
+</body>
+</html>
