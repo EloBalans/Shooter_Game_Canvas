@@ -1,26 +1,20 @@
-export class Buff {
-    constructor(x, y, radius) {
+import { Buff } from "./buff.js";
 
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
+export class Hp extends Buff{
+
+    constructor(x, y, radius,nr) {
+
+        super(x,y,radius,nr)
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');
         this.potion = document.getElementById("potion");
-        this.potionHeight = 16;
+        this.potionHeight = 32;
         this.potionWidth = 16;
-        this.potionFrameX = 2;
+        this.potionFrameX = 0;
         this.potionFrameY = 0;
     }
 
-    draw(){
-      
-        this.c.beginPath();
-        this.c.arc(this.x,this.y,this.radius,0,Math.PI*2)
-        this.c.fillStyle = "rgba(255, 255, 255, 0.00001)";
-        this.c.fill();
-      
-    }
+    
 
     drawPotion(){
         this.c.drawImage(
@@ -41,8 +35,4 @@ export class Buff {
         this.drawPotion();
         
     }
-    
-
-   
-
 }

@@ -1,10 +1,10 @@
-export class Mob {
-    constructor(x, y, hp, color, speed) {
-        this.x = x;
-        this.y = y;
-        this.hp = hp;
-        this.speed = speed;
-        this.color = color;
+
+import { Mob } from "./mob.js";
+
+export class Skeleton extends Mob {
+    constructor(x, y, hp, color, speed,nr) {
+        super(x,y,hp,color,speed,nr);
+       
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');
         this.mobSpriteWalk = document.getElementById("myImage");
@@ -20,19 +20,8 @@ export class Mob {
     
     draw(){
         
-
         if(this.hp>0){
             this.drawWalk();
-            // this.c.beginPath();
-            // this.c.shadowColor="black";
-            // this.c.shadowOffsetY=this.radius/2;
-            // this.c.shadowBlur=5;
-            // this.c.arc(this.x, this.y, this.radius,0, Math.PI * 2,);
-            // this.c.fillStyle = "rgba(0,0,0,0.1)";
-            // this.c.fill();
-            // this.c.shadowColor="black";
-            // this.c.shadowOffsetY=0;
-            // this.c.shadowBlur=0;
         }else{
             this.hp=0;
             this.drawDeath();
@@ -41,32 +30,15 @@ export class Mob {
         
     }
 
-    hpDraw(){
-        this.c.beginPath();
-        this.c.rect(this.x-10,this.y-14,44,12)
-        this.c.fillStyle = "black";
-        this.c.fill();
-
-        this.c.beginPath();
-        this.c.rect(this.x-8,this.y-13,this.hp,10)
-        this.c.fillStyle = "red";
-        this.c.fill();
-
-       
-
-    }
 
     update(){
         this.draw();
         this.hpDraw();
-        
   
         if(this.hp>0){
             this.x = this.x +this.speed.x/this.hp*20;
             this.y = this.y +this.speed.y/this.hp*20;
         }
-        
-      
     }
 
     drawWalk(){
@@ -104,20 +76,5 @@ export class Mob {
             if(this.mobFrameXDead<14){
                 this.mobFrameXDead += 1;
             }
-       
-         
-        
-           
     }    
-            
-           
-   
-
-   
-    
-
-   
-
-
 }
-

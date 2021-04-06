@@ -18,16 +18,25 @@
     <div class="flex " >
         <div class="flex-initial">
             
-            <canvas id="canvas1"><img id="myImage" src="SkeletonWalk.png"><img id="myImage2" src="SkeletonDead.png"><img id="background1" src="background1.png"><img id="fireball" src="fireball.png"><img id="potion" src="potion.png"></canvas>
+            <canvas id="canvas1">
+                <img id="myImage" src="assets/SkeletonWalk.png">
+                <img id="myImage2" src="assets/SkeletonDead.png">
+                <img id="worm" src="assets/Worm.png">
+                <img id="background1" src="assets/background1.png">
+                <img id="fireball" src="assets/fireball.png">
+                <img id="potion" src="assets/potion.png">
+            </canvas>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js" 
             integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ==" crossorigin="anonymous"></script>
-            <script src="index.js" type="module"></script>
+            <script src="js/index.js" type="module"></script>
         </div>
     <div class="flex-2 border-8 bg-gray-100 border-gray pl-4 pr-4 pt-4 m-2 select-none rounded-lg">
 
-            <div><span>Score: </span><span id="scoreEL"></span></div>
-            <div><span>Bombs: </span><span id="bombsEL"></span></div>
-            <div><span>Ammo: </span><span id="ammoEL"></span></div>
+            <button id="pauseGameBtn" class="bg-gray-200">Pauza</button>
+            <button class="bg-gray-200"><a href="index.html">Wybór map</a></button>
+            <div><span>Punkty: </span><span id="scoreEL"></span></div>
+            <div><span>Bomby: </span><span id="bombsEL"></span></div>
+            <div><span>Mana: </span><span id="ammoEL"></span></div>
             <div><span>Życia: </span><span id="hpEL"></span></div>
             <div><span>Ile potworów może przejść: </span><span id="hptowerEL"></span></div>
             <div class="flex">
@@ -46,6 +55,16 @@
     
 </div>
 </div>
+<div class="fixed inset-0 flex items-center justify-center rounded-lg" style="display:none;" id="pauseEl">
+    <div class ="bg-red-100 max-w-md w-full p-6 text-center">
+        <h1 class="text-4xl" id="modalScoreEL">0</h1>
+        <p>punkty</p>
+       
+            <button id="unpauseGameBtn" class="bg-red-500 text-white w-full">Wznów</button>
+        </div>
+    </div>
+</div>
+
 <div class="fixed inset-0 flex items-center justify-center rounded-lg" id="modalEl">
     <div class ="bg-red-100 max-w-md w-full p-6 text-center">
         <h1 class="text-4xl" id="modalScoreEL">0</h1>

@@ -1,7 +1,9 @@
 import { Player } from "./player.js";
-import { Mob } from "./mob.js";
+import { Worm} from "./mobs/worm.js";
+import { Skeleton } from "./mobs/skeleton.js";
 import { Attack } from "./attack.js";
-import { Buff } from "./buff.js";
+import { Mana } from "./buffs/mana.js";
+import { Hp } from "./buffs/hp.js";
 import { Bomb } from "./bomb.js";
 import { Particle } from "./particle.js";
 
@@ -30,10 +32,15 @@ const hptowerEL = document.querySelector('#hptowerEL');
 
 
 const startgameBtn = document.querySelector('#startGameBtn');
+const pausegameBtn = document.querySelector('#pauseGameBtn');
+const unpausegameBtn = document.querySelector('#unpauseGameBtn');
 const modalEl = document.querySelector('#modalEl');
+const pauseEl = document.querySelector('#pauseEl');
 const modalScoreEL = document.querySelector('#modalScoreEL');
 const modalHighScoreEL = document.querySelector('#modalHighScoreEL');
 
+
+pauseEl
 
 scoreEL.innerHTML = player.points;
 ammoEL.innerHTML = player.ammo;
@@ -48,12 +55,12 @@ let animationID;
 
 
 function init(){
-    player = new Player(320,240,10,"blue",2,100,10,3,0,3);
+    player = new Player(320,240,10,"blue",2,70,10,3,0,3);
     attacks = [];
     mobs = [];
-    buffs = [];
     bombs = [];
     particles = [];
+    buffs = [];
     hptowerEL.innerHTML = player.hptower;
     hpEL.innerHTML = player.hp;
     modalScoreEL.innerHTML = player.points;
@@ -104,8 +111,31 @@ function circleRect(cx,cy,radius,rx,ry,rw,rh) {
     return false;
   }
 
-function spawnMob(){
-    setInterval(()=>{
+// function spawnMob(){
+//     setInterval(()=>{
+//         const x = Math.random()<5;
+//         const y = randomY(75,400)
+//         const radius = Math.floor(Math.random()*4+1)*10;
+//         const color = 'green'
+//         const angle = Math.atan2(
+//             0,
+//             1,
+//          );
+//          const velocity = {
+//              x: Math.cos(angle),
+//              y: Math.sin(angle),
+//          }
+//         mobs.push(new Mob(x,y,radius,color,velocity))
+//     },time)
+   
+// }
+
+function spawnMobSkeleton(){
+    if(time>500){
+        time=time-3;
+    }
+   
+    
         const x = Math.random()<5;
         const y = randomY(75,400)
         const radius = Math.floor(Math.random()*4+1)*10;
@@ -118,22 +148,61 @@ function spawnMob(){
              x: Math.cos(angle),
              y: Math.sin(angle),
          }
-        mobs.push(new Mob(x,y,radius,color,velocity))
-    },time)
+         const nr = 1;
+        mobs.push(new Skeleton(x,y,radius,color,velocity,nr))
+    
+    setTimeout(()=>{spawnMobSkeleton();},time)
+}
+
+function spawnMobWorm(){
+    if(time>500){
+        time=time-5;
+    }
+   
+    
+        const x = Math.random()<5;
+        const y = randomY(75,400)
+        const radius = Math.floor(Math.random()*4+1)*10;
+        const color = 'green'
+        const angle = Math.atan2(
+            0,
+            1,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 2;
+        mobs.push(new Worm(x,y,radius,color,velocity,nr))
+    
+    setTimeout(()=>{spawnMobWorm();},time)
+}
+
+
+function spawnManaBuff(){
+    setInterval(()=>{
+        const x = randomY(70,620);
+        const y = randomY(70,400);
+        const radius = 10;
+        const nr = 1
+        buffs.push(new Mana(x,y,radius,nr))
+    },6000)
    
 }
 
-function spawnBuff(){
+function spawnHpBuff(){
     setInterval(()=>{
-        const x = Math.random()*canvas.width;
+        const x = randomY(70,620);
         const y = randomY(70,400);
-        const radius = 5;
-        buffs.push(new Buff(x,y,radius))
-    },10000)
+        const radius = 10;
+        const nr = 2
+        buffs.push(new Hp(x,y,radius,nr))
+    },15000)
    
 }
 
 function animate(){
+    
     
     animationID = requestAnimationFrame(animate);
     c.drawImage(background1,0,0,canvas.width,canvas.height)
@@ -214,22 +283,50 @@ function animate(){
                 },0)
             }
         } )
-        //spawn and delete buffs
-        buffs.forEach((buff, buffindex)=>{
-            buff.update();
-            const dist2 = Math.hypot(buff.x - player.x, buff.y - player.y);
+       
+        //spanw and delete mana buff
+        buffs.forEach((buff,index)=>{
+            
+           
+                buff.update();
+                const dist1 = Math.hypot(buff.x - player.x, buff.y - player.y);
 
-            if(circleRect(buff.x,buff.y,buff.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobmobHeight*2)===true){
-                buffs.splice(buffindex,1)
-            }
-            if(dist2 - buff.radius - player.radius < 1){
-                player.ammo=player.ammo+20;
-                player.bomb=player.bomb+4;
-                ammoEL.innerHTML = player.ammo;
-                bombsEL.innerHTML = player.bomb;
-                buffs.splice(buffindex,1) 
-            }
+                if(circleRect(buff.x,buff.y,buff.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
+                    buffs.splice(index,1)
+                   
+                }
+                if(dist1 - buff.radius - player.radius < 1){
+                    if(buff.nr===1){
+                        player.ammo=player.ammo+20;
+                        player.bomb=player.bomb+4;
+                        ammoEL.innerHTML = player.ammo;
+                        bombsEL.innerHTML = player.bomb;
+                        buffs.splice(index,1) 
+                    }else if(buff.nr===2){
+                        player.hp++;
+                        hpEL.innerHTML = player.hp;
+                        buffs.splice(index,1) 
+                    }
+                    
+                }
+
         }) 
+
+        //spawn and delete hp buff
+        // hps.forEach((hp, hpindex)=>{
+        //     hp.update();
+        //     const dist2 = Math.hypot(hp.x - player.x, hp.y - player.y);
+
+        //     if(circleRect(hp.x,hp.y,hp.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
+        //         hps.splice(hpindex,1)
+        //     }
+        //     if(dist2 - hp.radius - player.radius < 1){
+        //         player.hp++;
+        //         hpEL.innerHTML = player.hp;
+        //         hps.splice(hpindex,1) 
+        //     }
+        // }) 
+
          //spawn and delete bombs
         bombs.forEach((bomb, bombindex)=>{
             bomb.draw();
@@ -247,7 +344,7 @@ function animate(){
                     
                 }
             
-                mob.hp =mob.hp-40;
+                mob.hp = 0;
                 if(mob.hp<=0){
                     player.points=player.points+10;
                     mobs.splice(index, 1)
@@ -289,10 +386,11 @@ function animate(){
 window.addEventListener("keydown", event => player.keys[event.key.toLowerCase()] = true);
 window.addEventListener("keyup", event => player.keys[event.key.toLowerCase()] = false);
 window.addEventListener('click', event =>{
-
+    var pos = getMousePos(canvas, event);
+if(pos.x<canvas.width&&pos.x>0&&pos.y<canvas.height&&pos.y>0&&pauseEl.style.display === 'none'&&modalEl.style.display === 'none'){
     ammoEL.innerHTML = player.ammo;
   
-    var pos = getMousePos(canvas, event);
+    
 
     const angle = Math.atan2(
        pos.y-  player.y,
@@ -313,6 +411,7 @@ window.addEventListener('click', event =>{
         ));
     }
     ammoEL.innerHTML = player.ammo;
+}
 });
 
 window.addEventListener('keydown', event =>{
@@ -332,12 +431,31 @@ window.addEventListener('keydown', event =>{
 
 startgameBtn.addEventListener('click', event =>{
     setTimeout(()=>{
-        checkhighScore()
+        checkhighScore();
         init();
         animate();
-        spawnBuff();
-        spawnMob();
+        spawnManaBuff();
+        spawnHpBuff();
+        spawnMobSkeleton();
+        // spawnMobWorm();
         modalEl.style.display = 'none'
     },100)
+    
+});
+
+pausegameBtn.addEventListener('click', event =>{
+    pauseEl.style.display = 'flex'
+    cancelAnimationFrame(animationID);
+    
+});
+
+unpausegameBtn.addEventListener('click', event =>{
+  
+    pauseEl.style.display = 'none'
+    animate();
+    spawnManaBuff();
+    spawnHpBuff();
+    spawnMobSkeleton();
+    // spawnMobWorm();
     
 });
