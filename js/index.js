@@ -39,6 +39,7 @@ const unpausegameBtn = document.querySelector('#unpauseGameBtn');
 const modalEl = document.querySelector('#modalEl');
 const pauseEl = document.querySelector('#pauseEl');
 const modalScoreEL = document.querySelector('#modalScoreEL');
+const modalScore2EL = document.querySelector('#modalScore2EL');
 const modalHighScoreEL = document.querySelector('#modalHighScoreEL');
 
 
@@ -459,6 +460,8 @@ startgameBtn.addEventListener('click', event =>{
 });
 
 pausegameBtn.addEventListener('click', event =>{
+    
+    modalScore2EL.innerHTML = player.points
     pauseEl.style.display = 'flex'
     cancelAnimationFrame(animationID);
     
