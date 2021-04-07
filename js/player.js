@@ -8,11 +8,19 @@ export class Player{
         this.ammo = ammo;
         this.bomb = bomb;
         this.hp=hp;
-        this.hptower=hptower;
-        this.points=points;
+        this.hptower = hptower;
+        this.points = points;
         this.keys = {};
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');
+
+        this.mage = document.getElementById("mage");
+        this.mageHeight = 64;
+        this.mageWidth = 64;
+        this.mageFrameX = 0;
+        this.mageFrameY = 0;
+        this.timer = 0
+        this.walk = -1; // if walk === -1 left direction 
     }   
     
     draw(){
@@ -27,13 +35,85 @@ export class Player{
         this.c.shadowColor="black";
         this.c.shadowOffsetY=0;
         this.c.shadowBlur=0;
-        this.c.fillText("ammo: "+this.ammo, this.x-5, this.y+25);
-        this.c.fillText("bombs: "+this.bomb, this.x-5, this.y+35);
-        this.c.fillText("points: "+this.points, this.x-5, this.y+45);
-        this.c.fillText("hp: "+this.hp, this.x-5, this.y+55);
-        this.c.fillText("hp tower: "+this.hptower, this.x-5, this.y+65);
+        this.drawWalkMage();
+        // this.drawIdleMage();
+    }
+
+    drawWalkMage(){
+        this.c.save();
+        if(this.walk===-1){
+            this.c.scale(-1,1);
+        }
+        
+        this.c.drawImage(
+            this.mage,
+            this.mageWidth*this.mageFrameX,
+            this.mageHeight*(this.mageFrameY+2),
+            this.mageWidth,this.mageHeight,
+            (this.walk*this.x)-this.mageWidth,
+            this.y-this.mageHeight-48,
+            this.mageWidth*2,
+            this.mageHeight*2
+            );
+
+            this.timer++;
+                if(this.timer===0){
+                    this.mageFrameX =0;
+                }else if(this.timer===7){
+                    this.mageFrameX =1;
+                }else if(this.timer===14){
+                    this.mageFrameX =2
+                }else if(this.timer===21){
+                    this.mageFrameX =3
+                }else if(this.timer===28){
+                    this.mageFrameX =4
+                }else if(this.timer===35){
+                    this.mageFrameX =5
+                }else if(this.timer===42){
+                    this.mageFrameX =6
+                    this.timer= 0
+                }
+        this.c.restore();
+    }
+
+    drawIdleMage(){
+        
+        this.c.drawImage(
+            this.mage,
+            this.mageWidth*this.mageFrameX,
+            this.mageHeight*(this.mageFrameY+0),
+            this.mageWidth,this.mageHeight,
+            this.x-this.mageWidth,
+            this.y-this.mageHeight-48,
+            this.mageWidth*2,
+            this.mageHeight*2
+            );
+
+            this.timer++;
+                if(this.timer2===0){
+                    this.mageFrameX =0;
+                }else if(this.timer===7){
+                    this.mageFrameX =1;
+                }else if(this.timer===14){
+                    this.mageFrameX =2
+                }else if(this.timer===21){
+                    this.mageFrameX =3
+                }else if(this.timer===28){
+                    this.mageFrameX =4
+                }else if(this.timer===35){
+                    this.mageFrameX =5
+                }else if(this.timer===42){
+                    this.mageFrameX =6
+                    this.timer= 0
+                }
+                
+            
+              
+        
         
     }
+
+   
     
     movement(){
         
@@ -41,9 +121,11 @@ export class Player{
             this.y -= this.speed;
         } if (this.keys["s"]&&this.y<435) {
             this.y += this.speed;
-        } if (this.keys["a"]) {
+        } if (this.keys["a"]&&this.x>0+this.radius) {
+            this.walk=-1;
             this.x -= this.speed;
-        } if (this.keys["d"]) {
+        } if (this.keys["d"]&&this.x<640-this.radius) {
+            this.walk=1;
             this.x += this.speed;
         }
     }

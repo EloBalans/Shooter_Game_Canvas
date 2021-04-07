@@ -21,6 +21,8 @@ let mobs = [];
 let buffs = [];
 let bombs = [];
 let particles = [];
+
+let fps, fpsInterval, startTime, now, then, elapsed;
 const background1 = document.getElementById("background1");
 const randomY = (from, to) => Math.floor(Math.random()*(to-from))+from;
 
@@ -132,7 +134,7 @@ function circleRect(cx,cy,radius,rx,ry,rw,rh) {
 
 function spawnMobSkeleton(){
     if(time>500){
-        time=time-3;
+        time=time-1;
     }
    
     
@@ -201,10 +203,16 @@ function spawnHpBuff(){
    
 }
 
+
+
 function animate(){
-    
-    
+
     animationID = requestAnimationFrame(animate);
+
+
+    
+    
+
     c.drawImage(background1,0,0,canvas.width,canvas.height)
     // c.fillStyle = 'white'
     // c.fillRect(0, 0, canvas.width, canvas.height);
@@ -232,6 +240,13 @@ function animate(){
             attacks.splice(index,1)
         }
     })
+    buffs.forEach((buff)=>{
+            
+           
+        buff.update();
+        
+
+}) 
     //calculation on mobs, spawning them
     mobs.forEach((mob,index)=>{
         mob.update();
@@ -375,7 +390,7 @@ function animate(){
         }
 
     })
-   
+
 }
 
 
