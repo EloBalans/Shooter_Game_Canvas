@@ -4,7 +4,6 @@ import { Skeleton } from "./mobs/skeleton.js";
 import { Attack } from "./attack.js";
 import { Mana } from "./buffs/mana.js";
 import { Hp } from "./buffs/hp.js";
-import { Bomb } from "./bomb.js";
 import { Particle } from "./particle.js";
 
 const canvas = document.querySelector('canvas');
@@ -19,7 +18,6 @@ let player = new Player(320,240,10,"blue",2,100,10,3,0,3);
 let attacks = [];
 let mobs = [];
 let buffs = [];
-let bombs = [];
 let particles = [];
 
 let fps, fpsInterval, startTime, now, then, elapsed;
@@ -28,7 +26,6 @@ const randomY = (from, to) => Math.floor(Math.random()*(to-from))+from;
 
 const scoreEL = document.querySelector('#scoreEL');
 const ammoEL = document.querySelector('#ammoEL');
-const bombsEL = document.querySelector('#bombsEL');
 const hpEL = document.querySelector('#hpEL');
 const hptowerEL = document.querySelector('#hptowerEL');
 
@@ -47,7 +44,6 @@ pauseEl
 
 scoreEL.innerHTML = player.points;
 ammoEL.innerHTML = player.ammo;
-bombsEL.innerHTML = player.bomb;
 hpEL.innerHTML = player.hp;
 hptowerEL.innerHTML = player.hptower;
 
@@ -61,7 +57,6 @@ function init(){
     player = new Player(320,240,10,"blue",2,70,10,3,0,3);
     attacks = [];
     mobs = [];
-    bombs = [];
     particles = [];
     buffs = [];
     hptowerEL.innerHTML = player.hptower;
@@ -69,7 +64,7 @@ function init(){
     modalScoreEL.innerHTML = player.points;
     scoreEL.innerHTML = player.points;
     ammoEL.innerHTML = player.ammo;
-    bombsEL.innerHTML = player.bomb;
+  
     
 }
 
@@ -241,10 +236,24 @@ function animate(){
             attacks.splice(index,1)
         }
     })
-    buffs.forEach((buff)=>{
-            
-           
+    buffs.forEach((buff,index)=>{
         buff.update();
+        const dist1 = Math.hypot(buff.x - player.x, buff.y - player.y);
+
+       
+        if(dist1 - buff.radius - player.radius < 1){
+            if(buff.nr===1){
+                player.ammo=player.ammo+20;
+               
+                ammoEL.innerHTML = player.ammo;
+                buffs.splice(index,1) 
+            }else if(buff.nr===2){
+                player.hp++;
+                hpEL.innerHTML = player.hp;
+                buffs.splice(index,1) 
+            }
+            
+        }
         
 
 }) 
@@ -305,26 +314,12 @@ function animate(){
             
            
                 buff.update();
-                const dist1 = Math.hypot(buff.x - player.x, buff.y - player.y);
 
                 if(circleRect(buff.x,buff.y,buff.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
                     buffs.splice(index,1)
                    
                 }
-                if(dist1 - buff.radius - player.radius < 1){
-                    if(buff.nr===1){
-                        player.ammo=player.ammo+20;
-                        player.bomb=player.bomb+4;
-                        ammoEL.innerHTML = player.ammo;
-                        bombsEL.innerHTML = player.bomb;
-                        buffs.splice(index,1) 
-                    }else if(buff.nr===2){
-                        player.hp++;
-                        hpEL.innerHTML = player.hp;
-                        buffs.splice(index,1) 
-                    }
-                    
-                }
+                
 
         }) 
 
@@ -343,31 +338,7 @@ function animate(){
         //     }
         // }) 
 
-         //spawn and delete bombs
-        bombs.forEach((bomb, bombindex)=>{
-            bomb.draw();
-
-            if(circleRect(bomb.x,bomb.y,bomb.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
-
-                for(let i = 0; i <5;i++){
-                    attacks.push(new Attack(
-                        bomb.x,bomb.y,Math.random()*4,bomb.color,{
-                            x: Math.random() - 0.5,
-                            y: Math.random() - 0.5,
-                        },5,
-                    ));
-                   
-                    
-                }
-            
-                mob.hp = 0;
-                if(mob.hp<=0){
-                    player.points=player.points+10;
-                    mobs.splice(index, 1)
-                }
-                bombs.splice(bombindex,1)
-            }
-        }) 
+        
         
         //calculate hp of player
         if(circleRect(player.x,player.y,player.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
@@ -393,9 +364,6 @@ function animate(){
     })
 
 }
-
-
-
 
 
 
@@ -435,13 +403,8 @@ window.addEventListener('keydown', event =>{
     if (event.code === 'Space') {
 
     
-    if(player.bomb>0){
-        player.bomb = player.bomb-1;
-        bombs.push(new Bomb(
-            player.x,player.y,10,"yellow",
-        ));
-    }
-    bombsEL.innerHTML = player.bomb;
+    
+   
 }
 });
 

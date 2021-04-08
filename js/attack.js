@@ -11,51 +11,64 @@ export class Attack {
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');
         this.fireball = document.getElementById("fireball");
-        this.fireballHeight = 32;
-        this.fireballWidth = 32;
+        this.fireballHeight = 36;
+        this.fireballWidth = 72;
         this.fireballFrameX = 0;
-        this.fireballFrameY = 0;
+        this.fireballFrameY = 1;
+        
         
     }
 
     draw(){
-        this.c.shadowColor="black";
-        this.c.shadowOffsetY=this.radius/2;
-        this.c.shadowBlur=5;
+        
         this.c.beginPath();
         this.c.arc(this.x,this.y,this.radius,0,Math.PI*2,false)
-        this.c.fillStyle = this.color;
+        this.c.fillStyle = 'rgba(255, 255, 255, 0.000001)';
         this.c.fill();
-        this.c.shadowColor="black";
-        this.c.shadowOffsetY=0;
-        this.c.shadowBlur=0;
+       
     }
 
     update() {
         this.draw();
         this.drawFireball()
         
-        this.x = this.x +this.velocity.x*this.speed;
-        this.y = this.y +this.velocity.y*this.speed;
+        this.x 
+           = this.x +this.velocity.x*this.speed;
+        this.y  
+          =this.y +this.velocity.y*this.speed;
     }
 
     drawFireball(){
-
-        this.c.save();
         
+        this.c.save()
+        
+        
+        this.c.translate(
+             this.x,this.y
+           
+            )
+        this.c.rotate(this.angle);
         this.c.drawImage(
             this.fireball,
             this.fireballWidth*this.fireballFrameX,
             this.fireballHeight*this.fireballFrameY,
             this.fireballWidth,
             this.fireballHeight,
-            this.x-this.fireballWidth/4,
-            this.y-this.fireballHeight/4,
-            this.fireballWidth/2,
-            this.fireballHeight/2,
+            -this.fireballWidth/2.6,  
+            -this.fireballHeight/2.6,
+            this.fireballWidth/1.3,
+            this.fireballHeight/1.3,
             );
         
-        this.c.restore();
+
+        this.c.restore()
+
+        if(this.fireballFrameX<7){
+            this.fireballFrameX++;
+        }else{
+            this.fireballFrameX=0;
+        }
+            
 
     }
 

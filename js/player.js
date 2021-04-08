@@ -1,11 +1,11 @@
 export class Player{
-    constructor(x, y, radius, color, speed,ammo,bomb,hp,points,hptower) {
+    constructor(x, y, radius,color,speed,ammo,bomb,hp,points,hptower) {
         this.x = x ;
         this.y = y;
         this.radius = radius;
         this.speed = speed;
-        this.color = color;
         this.ammo = ammo;
+        this.color = color;
         this.bomb = bomb;
         this.hp=hp;
         this.hptower = hptower;
@@ -24,17 +24,12 @@ export class Player{
     }   
     
     draw(){
-        this.c.shadowColor="black";
-        this.c.shadowOffsetY=this.radius/2;
-        this.c.shadowBlur=5;
+       
         this.c.beginPath();
         this.c.arc(this.x, this.y, this.radius,0, Math.PI * 2,);
-        this.c.fillStyle = this.color;
+        this.c.fillStyle = 'rgba(255, 255, 255, 0.000001)';
         this.c.fill();
         this.movement();
-        this.c.shadowColor="black";
-        this.c.shadowOffsetY=0;
-        this.c.shadowBlur=0;
         this.drawWalkMage();
         // this.drawIdleMage();
     }
@@ -77,13 +72,16 @@ export class Player{
     }
 
     drawIdleMage(){
+        if(this.walk===-1){
+            this.c.scale(-1,1);
+        }
         
         this.c.drawImage(
             this.mage,
             this.mageWidth*this.mageFrameX,
             this.mageHeight*(this.mageFrameY+0),
             this.mageWidth,this.mageHeight,
-            this.x-this.mageWidth,
+            (this.walk*this.x)-this.mageWidth,
             this.y-this.mageHeight-48,
             this.mageWidth*2,
             this.mageHeight*2
@@ -106,10 +104,7 @@ export class Player{
                     this.mageFrameX =6
                     this.timer= 0
                 }
-                
-            
-              
-        
+             
         
     }
 
@@ -117,8 +112,9 @@ export class Player{
     
     movement(){
         
+        
         if (this.keys["w"]&&this.y>75) {
-            this.y -= this.speed;
+            this.y -= this.speed;   
         } if (this.keys["s"]&&this.y<435) {
             this.y += this.speed;
         } if (this.keys["a"]&&this.x>0+this.radius) {
