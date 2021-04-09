@@ -57,7 +57,7 @@ let animationID;
 
 
 function init(){
-    player = new Player(320,240,10,"blue",2,70,10,3,0,3);
+    player = new Player(320,240,10,"blue",2,100,10,3,0,3);
     attacks = [];
     mobs = [];
     particles = [];
@@ -250,7 +250,7 @@ function animate(){
        
         if(dist1 - buff.radius - player.radius < 1){
             if(buff.nr===1){
-                player.ammo=player.ammo+20;
+                player.ammo=player.ammo+50;
                
                 ammoEL.innerHTML = player.ammo;
                 buffs.splice(index,1) 
