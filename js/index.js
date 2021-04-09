@@ -3,6 +3,7 @@ import { Worm} from "./mobs/worm.js";
 import { Skeleton } from "./mobs/skeleton.js";
 import { Attack } from "./attack.js";
 import { Mana } from "./buffs/mana.js";
+import { LightningBolt } from "./spells/lightningBolt.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
@@ -16,11 +17,16 @@ canvas.height = 480;
 //const screeny = window.screen.availHeight*parseInt(canvas.style.marginTop)/100;
 let player = new Player(320,240,10,"blue",2,100,10,3,0,3);
 let attacks = [];
+let spells = [];
 let mobs = [];
 let buffs = [];
 let particles = [];
+let mousePos = {
+    x:0,
+    y:0,
+}
+let disable = false
 
-let fps, fpsInterval, startTime, now, then, elapsed;
 const background1 = document.getElementById("background1");
 const randomY = (from, to) => Math.floor(Math.random()*(to-from))+from;
 
@@ -39,9 +45,6 @@ const modalScoreEL = document.querySelector('#modalScoreEL');
 const modalScore2EL = document.querySelector('#modalScore2EL');
 const modalHighScoreEL = document.querySelector('#modalHighScoreEL');
 
-
-pauseEl
-
 scoreEL.innerHTML = player.points;
 ammoEL.innerHTML = player.ammo;
 hpEL.innerHTML = player.hp;
@@ -59,6 +62,7 @@ function init(){
     mobs = [];
     particles = [];
     buffs = [];
+    spells = [];
     hptowerEL.innerHTML = player.hptower;
     hpEL.innerHTML = player.hp;
     modalScoreEL.innerHTML = player.points;
@@ -78,10 +82,13 @@ function checkhighScore(){
 
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
+
     return {
       x: evt.clientX - rect.left,
       y: evt.clientY - rect.top
+      
     };
+    
 }
 
 
@@ -129,9 +136,7 @@ function circleRect(cx,cy,radius,rx,ry,rw,rh) {
 // }
 
 function spawnMobSkeleton(){
-    if(time>500){
-        time=time-1;
-    }
+    
    
     
         const x = Math.random()<5;
@@ -236,6 +241,8 @@ function animate(){
             attacks.splice(index,1)
         }
     })
+
+  
     buffs.forEach((buff,index)=>{
         buff.update();
         const dist1 = Math.hypot(buff.x - player.x, buff.y - player.y);
@@ -257,6 +264,13 @@ function animate(){
         
 
 }) 
+
+spells.forEach((spell, index)=>{
+    spell.update();
+   
+    setTimeout(()=>{ spells.splice(index,1)},800)
+
+})
     //calculation on mobs, spawning them
     mobs.forEach((mob,index)=>{
         mob.update();
@@ -272,13 +286,27 @@ function animate(){
             modalEl.style.display = 'flex'
             modalScoreEL.innerHTML = player.points
         }
+
+        spells.forEach((spell)=>{
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
+                mob.hp=mob.hp-40;
+                if(mob.hp<1){
+                    player.points=player.points+10;
+                    
+                    scoreEL.innerHTML = player.points;
+                    mobs.splice(index,1)
+                    
+                
+                }
+            }
+            
+        
+        })
         
         //spawn and delete shots from player
         attacks.forEach((attack, attackindex)=>{
             // if(dist - attack.radius - mob.radius < 1&& mob.radius>0){
                 if(circleRect(attack.x,attack.y,attack.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
-                
-                
 
                 for(let i = 0; i <7;i++){
                     particles.push(new Particle(attack.x,attack.y,2,'orange',{
@@ -370,11 +398,9 @@ function animate(){
 window.addEventListener("keydown", event => player.keys[event.key.toLowerCase()] = true);
 window.addEventListener("keyup", event => player.keys[event.key.toLowerCase()] = false);
 window.addEventListener('click', event =>{
-    var pos = getMousePos(canvas, event);
+    let pos = getMousePos(canvas, event);
 if(pos.x<canvas.width&&pos.x>0&&pos.y<canvas.height&&pos.y>0&&pauseEl.style.display === 'none'&&modalEl.style.display === 'none'){
     ammoEL.innerHTML = player.ammo;
-  
-    
 
     const angle = Math.atan2(
        pos.y-  player.y,
@@ -398,15 +424,30 @@ if(pos.x<canvas.width&&pos.x>0&&pos.y<canvas.height&&pos.y>0&&pauseEl.style.disp
 }
 });
 
+
+document.addEventListener('mousemove', function(e){
+    var rect = canvas.getBoundingClientRect();
+
+    mousePos.x = e.pageX-rect.left
+    mousePos.y = e.pageY-rect.top;
+}, false);
+
+
 window.addEventListener('keydown', event =>{
-
-    if (event.code === 'Space') {
-
     
-    
+    if (event.code === 'Space'&&disable===false&&player.ammo>9) {
    
-}
+        spells.push(new LightningBolt(
+            mousePos.x-15,mousePos.y-15,30,1
+        ));
+        player.ammo=player.ammo-10;
+        ammoEL.innerHTML = player.ammo;
+        disable = true;
+        setTimeout(()=>{disable = false},1000)
+    };
+
 });
+
 
 startgameBtn.addEventListener('click', event =>{
     setTimeout(()=>{
