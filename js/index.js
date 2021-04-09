@@ -137,7 +137,7 @@ function circleRect(cx,cy,radius,rx,ry,rw,rh) {
 
 function spawnMobSkeleton(){
     
-   
+    setInterval(()=>{
     
         const x = Math.random()<5;
         const y = randomY(75,400)
@@ -154,7 +154,7 @@ function spawnMobSkeleton(){
          const nr = 1;
         mobs.push(new Skeleton(x,y,radius,color,velocity,nr))
     
-    setTimeout(()=>{spawnMobSkeleton();},time)
+    },time)
 }
 
 function spawnMobWorm(){
@@ -306,6 +306,8 @@ spells.forEach((spell, index)=>{
         //spawn and delete shots from player
         attacks.forEach((attack, attackindex)=>{
             // if(dist - attack.radius - mob.radius < 1&& mob.radius>0){
+                
+                
                 if(circleRect(attack.x,attack.y,attack.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
 
                 for(let i = 0; i <7;i++){
@@ -321,7 +323,7 @@ spells.forEach((spell, index)=>{
                     player.points=player.points+10;
                     
                     scoreEL.innerHTML = player.points;
-                    mobs.splice(index,1)
+                   mobs.splice(index,1)
                     
                     // (function(index){
                     //     setTimeout(function(){
@@ -435,7 +437,7 @@ document.addEventListener('mousemove', function(e){
 
 window.addEventListener('keydown', event =>{
     
-    if (event.code === 'Space'&&disable===false&&player.ammo>9) {
+    if (event.code === 'Digit2'&&disable===false&&player.ammo>9) {
    
         spells.push(new LightningBolt(
             mousePos.x-15,mousePos.y-15,30,1

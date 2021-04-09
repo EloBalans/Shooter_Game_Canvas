@@ -11,12 +11,11 @@
 </head>
 <body>
     
-        
-    </div>
+    
 
     <div class="fixed inset-0 flex items-center justify-center rounded-lg">
-    <div class="flex " >
-        <div class="flex-initial">
+    <div class="grid grid-rows-3 gap-4" >
+        <div class="row-span-3">
             
             <canvas id="canvas1">
                 <img id="myImage" src="assets/SkeletonWalk.png">
@@ -32,7 +31,7 @@
             integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ==" crossorigin="anonymous"></script>
             <script src="js/index.js" type="module"></script>
         </div>
-    <div class="flex-2 border-8 bg-gray-100 border-gray pl-4 pr-4 pt-4 m-2 select-none rounded-lg">
+    <div class="row-span-2 border-8 bg-gray-100 border-gray pl-4 pr-4 pt-4 m-2 select-none rounded-lg">
 
             <button id="pauseGameBtn" class="bg-gray-200">Pauza</button>
             <button class="bg-gray-200"><a href="index.html">Wybór map</a></button>
@@ -40,31 +39,35 @@
             <div><span>Mana: </span><span id="ammoEL"></span></div>
             <div><span>Życia: </span><span id="hpEL"></span></div>
             <div><span>Ile potworów może przejść: </span><span id="hptowerEL"></span></div>
-            <div class="flex">
-                <div class="flex-initial border-8 bg-gray-100 border-gray pl-4 pr-4 pt-4 pb-4 m-2 select-none rounded-lg">
-               
-                     
-                       <div><span>W S A D - sterowanie </span></div>
-                       <div><span>Lewy przycisk myszy - atak</span></div>
-                       <div><span>spacja - błyskawica 10 many</span></div>
-                      
-                   </div>
-               </div>
+           
         
     </div>
-   
+  
+    <div class="row-span-2 col-span-2">
+        <canvas id="canvas2" style="border:1px solid">
+            <img id="skill1" src="assets/icons/1-Lightning.png">
+            <img id="skill2" src="assets/icons/2-Lightning-bolt.png">
+            <img id="skill3" src="assets/icons/3-Midas-touch.png">
+            <img id="skill4" src="assets/icons/4-Sun-strike.png">
+            <img id="skill5" src="assets/icons/5-Explosion.png">
+            <img id="skill6" src="assets/icons/6-Spikes.png">
+            <img id="skill7" src="assets/icons/7-Fire-wall.png">
+            <img id="skill8" src="assets/icons/8-Shield.png">
+            <img id="skill9" src="assets/icons/9-Black-hole.png">
+            <img id="skill10" src="assets/icons/10-Fire-ball.png">
+            <img id="keyboard" src="assets/keyboard.png">
+            <img id="mouse" src="assets/mouse.png">
+        </canvas>
+        <script src="js/skills.js" type="module"></script>
+      </div>
+</div>
+<div>
     
+
 </div>
 </div>
-<div class="fixed inset-0 flex items-center justify-center rounded-lg" style="display:none;" id="pauseEl">
-    <div class ="bg-red-100 max-w-md w-full p-6 text-center">
-        <h1 class="text-4xl" id="modalScore2EL">0</h1>
-        <p>punkty</p>
-       
-            <button id="unpauseGameBtn" class="bg-red-500 text-white w-full">Wznów</button>
-        </div>
-    </div>
 </div>
+
 
 <div class="fixed inset-0 flex items-center justify-center rounded-lg" id="modalEl">
     <div class ="bg-red-100 max-w-md w-full p-6 text-center">
@@ -78,6 +81,15 @@
     </div>
 </div>
 
-   
+   <div class="fixed inset-0 flex items-center justify-center rounded-lg" style="display:none;" id="pauseEl">
+    <div class ="bg-red-100 max-w-md w-full p-6 text-center">
+        <h1 class="text-4xl" id="modalScore2EL">0</h1>
+        <p>punkty</p>
+       
+            <button id="unpauseGameBtn" class="bg-red-500 text-white w-full">Wznów</button>
+        </div>
+       
+    </div>
+    
 </body>
 </html>
