@@ -15,51 +15,158 @@ var skill10 = document.getElementById("skill10");
 var keyboard = document.getElementById("keyboard")
 var mouse = document.getElementById("mouse")
 
-var skill10width = 16;
-var skill1width = 80;
-var skill2width = 144;
-var skill3width = 208;
-var skill4width = 272;
-var skill5width = 336;
-var skill6width = 400;
-var skill7width = 464;
-var skill8width = 528;
-var skill9width = 592;
+let mousePos = {
+    x:0,
+    y:0,
+}
+var skill10width = 12;
+var skill1width = 78;
+var skill2width = 142;
+var skill3width = 206;
+var skill4width = 270;
+var skill5width = 334;
+var skill6width = 398;
+var skill7width = 462;
+var skill8width = 526;
+var skill9width = 590;
 
 var skillheight = 10
-
+var skillwidth = 40
 
 
 
 animate();
 
 function animate(){
-    c.drawImage(skill10,skill10width,skillheight, skill10.width*1.2, skill10.height * 1.2);
+    c.beginPath();
+    c.rect(0, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill10,skill10width,skillheight, skillwidth, skillwidth);
     c.save();
     c.globalAlpha = 0.1;
-    c.drawImage(skill1,skill1width,skillheight, skill1.width*1.2, skill1.height * 1.2);
+    c.rect(64, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill1,skill1width,skillheight, skillwidth, skillwidth);
     c.restore();
-    c.drawImage(skill2,skill2width,skillheight,skill2.width*1.2, skill2.height * 1.2);
+    c.beginPath();
+    c.rect(128, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill2,skill2width,skillheight,skillwidth, skillwidth);
     c.save();
     c.globalAlpha = 0.1
-    c.drawImage(skill3,skill3width,skillheight,skill3.width*1.2, skill3.height * 1.2);
-    c.drawImage(skill4,skill4width,skillheight,skill4.width*1.2, skill4.height * 1.2);
-    c.drawImage(skill5,skill5width,skillheight,skill5.width*1.2, skill5.height * 1.2);
-    c.drawImage(skill6,skill6width,skillheight,skill6.width*1.2, skill6.height * 1.2);
-    c.drawImage(skill7,skill7width,skillheight,skill7.width*1.2, skill7.height * 1.2);
-    c.drawImage(skill8,skill8width,skillheight,skill8.width*1.2, skill8.height * 1.2);
-    c.drawImage(skill9,skill9width,skillheight,skill9.width*1.2, skill9.height * 1.2);
+    c.beginPath();
+    c.rect(192, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill3,skill3width,skillheight,skillwidth, skillwidth);
+    c.beginPath();
+    c.rect(256, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill4,skill4width,skillheight,skillwidth, skillwidth);
+    c.beginPath();
+    c.rect(320, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill5,skill5width,skillheight,skillwidth, skillwidth);
+    c.beginPath();
+    c.rect(384, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill6,skill6width,skillheight,skillwidth, skillwidth);
+    c.beginPath();
+    c.rect(448, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill7,skill7width,skillheight,skillwidth, skillwidth);
+    c.beginPath();
+    c.rect(512, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill8,skill8width,skillheight,skillwidth, skillwidth);
+    c.beginPath();
+    c.rect(576, 0, 64, 100)
+    c.fillStyle = "white";
+    c.fill();
+    c.drawImage(skill9,skill9width,skillheight,skillwidth, skillwidth);
     c.restore();
     
     c.drawImage(mouse,skill10width,skillheight+skill10.height*1.2+5,mouse.height/15,mouse.width/15)
-    c.drawImage(keyboard, 337.5, 337.5, 112.5, 112.5, skill1width, skillheight+skill1.height*1.2+5, 38.4, 38.4);
-    c.drawImage(keyboard, 450, 337.5, 112.5, 112.5, skill2width, skillheight+skill2.height*1.2+5, 38.4, 38.4);
-    c.drawImage(keyboard, 562.5, 337.5, 112.5, 112.5, skill3width, skillheight+skill3.height*1.2+5, 38.4, 38.4);
-    c.drawImage(keyboard, 675, 337.5, 112.5, 112.5, skill4width, skillheight+skill4.height*1.2+5, 38.4, 38.4);
-    c.drawImage(keyboard, 787.5, 337.5, 112.5, 112.5, skill5width, skillheight+skill5.height*1.2+5, 38.4, 38.4);
-    c.drawImage(keyboard, 337.5, 450, 112.5, 112.5, skill6width, skillheight+skill6.height*1.2+5, 38.4, 38.4);
-    c.drawImage(keyboard, 450, 450, 112.5, 112.5, skill7width, skillheight+skill7.height*1.2+5, 38.4, 38.4);
-    c.drawImage(keyboard, 562.5, 450, 112.5, 112.5, skill8width, skillheight+skill8.height*1.2+5, 38.4, 38.4);
-    c.drawImage(keyboard, 675, 450, 112.5, 112.5, skill9width, skillheight+skill9.height*1.2+5, 38.4, 38.4);
+    c.drawImage(keyboard, 337.5, 337.5, 112.5, 112.5, skill1width, skillheight+ skillwidth+5,  skillwidth,skillwidth);
+    c.drawImage(keyboard, 450, 337.5, 112.5, 112.5, skill2width, skillheight+ skillwidth+5, skillwidth,skillwidth);
+    c.drawImage(keyboard, 562.5, 337.5, 112.5, 112.5, skill3width, skillheight+ skillwidth+5, skillwidth,skillwidth);
+    c.drawImage(keyboard, 675, 337.5, 112.5, 112.5, skill4width, skillheight+ skillwidth+5, skillwidth,skillwidth);
+    c.drawImage(keyboard, 787.5, 337.5, 112.5, 112.5, skill5width, skillheight+ skillwidth+5, skillwidth,skillwidth);
+    c.drawImage(keyboard, 337.5, 450, 112.5, 112.5, skill6width, skillheight+ skillwidth+5, skillwidth,skillwidth);
+    c.drawImage(keyboard, 450, 450, 112.5, 112.5, skill7width, skillheight+ skillwidth+5, skillwidth,skillwidth);
+    c.drawImage(keyboard, 562.5, 450, 112.5, 112.5, skill8width, skillheight+ skillwidth+5,skillwidth,skillwidth);
+    c.drawImage(keyboard, 675, 450, 112.5, 112.5, skill9width, skillheight+ skillwidth+5, skillwidth,skillwidth);
 
+    if(mousePos.x<64&&mousePos.x>=0&&mousePos.y>0&&mousePos.y<100){
+        
+        c.beginPath();
+        c.rect(0, 0, 64, 100)
+        c.fillStyle = "#FF0000";
+        c.fill();
+    }else if(mousePos.x<128&&mousePos.x>=64&&mousePos.y>0&&mousePos.y<100){
+        c.beginPath();
+        c.rect(64, 0, 64, 100)
+        c.fillStyle = "#FF0011";
+        c.fill();
+    }else if(mousePos.x<192&&mousePos.x>=128&&mousePos.y>0&&mousePos.y<100){
+        c.beginPath();
+        c.rect(128, 0, 64, 100)
+        c.fillStyle = "#FF0022";
+        c.fill();
+    }else if(mousePos.x<256&&mousePos.x>=192&&mousePos.y>0&&mousePos.y<100){
+        c.beginPath();
+        c.rect(192, 0, 64, 100)
+        c.fillStyle = "#FF0033";
+        c.fill();
+    }else if(mousePos.x<320&&mousePos.x>=256&&mousePos.y>0&&mousePos.y<100){
+        c.beginPath();
+        c.rect(256, 0, 64, 100)
+        c.fillStyle = "#FF0044";
+        c.fill();
+    }else if(mousePos.x<384&&mousePos.x>=320&&mousePos.y>0&&mousePos.y<100){
+        c.beginPath();
+        c.rect(320, 0, 64, 100)
+        c.fillStyle = "#FF0055";
+        c.fill();
+    }else if(mousePos.x<448&&mousePos.x>=384&&mousePos.y>0&&mousePos.y<100){
+        c.beginPath();
+        c.rect(384, 0, 64, 100)
+        c.fillStyle = "#FF0066";
+        c.fill();
+    }else if(mousePos.x<512&&mousePos.x>=448&&mousePos.y>0&&mousePos.y<100){      
+        c.beginPath();
+        c.rect(448, 0, 64, 100)
+        c.fillStyle = "#FF0077";
+        c.fill();
+    }else if(mousePos.x<576&&mousePos.x>=512&&mousePos.y>0&&mousePos.y<100){      
+        c.beginPath();
+        c.rect(512, 0, 64, 100)
+        c.fillStyle = "#FF0088";
+        c.fill();
+    }else if(mousePos.x<640&&mousePos.x>=576&&mousePos.y>0&&mousePos.y<100){      
+        c.beginPath();
+        c.rect(576, 0, 64, 100)
+        c.fillStyle = "#FF0099";
+        c.fill();
+    }
+    
+    
+
+        requestAnimationFrame(animate);
 }
+
+document.addEventListener('mousemove', function(e){
+    var rect = canvas.getBoundingClientRect();
+
+    mousePos.x = e.pageX-rect.left
+    mousePos.y = e.pageY-rect.top;
+    console.log(mousePos.x,mousePos.y )
+}, false);
