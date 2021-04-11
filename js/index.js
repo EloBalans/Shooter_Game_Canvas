@@ -4,6 +4,7 @@ import { Skeleton } from "./mobs/skeleton.js";
 import { Attack } from "./attack.js";
 import { Mana } from "./buffs/mana.js";
 import { LightningBolt } from "./spells/lightningBolt.js";
+import { Lightning } from "./spells/lightning.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
@@ -18,6 +19,8 @@ canvas.height = 480;
 let player = new Player(320,240,10,"blue",2,100,10,3,0,3);
 let attacks = [];
 let spells = [];
+let lightnings = [];
+let lightningBolts = [];
 let mobs = [];
 let buffs = [];
 let particles = [];
@@ -62,7 +65,6 @@ function init(){
     mobs = [];
     particles = [];
     buffs = [];
-    spells = [];
     hptowerEL.innerHTML = player.hptower;
     hpEL.innerHTML = player.hp;
     modalScoreEL.innerHTML = player.points;
@@ -115,6 +117,8 @@ function circleRect(cx,cy,radius,rx,ry,rw,rh) {
     }
     return false;
   }
+
+  
 
 // function spawnMob(){
 //     setInterval(()=>{
@@ -265,10 +269,16 @@ function animate(){
 
 }) 
 
-spells.forEach((spell, index)=>{
+lightnings.forEach((spell, index)=>{
     spell.update();
    
-    setTimeout(()=>{ spells.splice(index,1)},800)
+    setTimeout(()=>{ lightnings.splice(index,1)},800)
+
+})
+lightningBolts.forEach((spell, index)=>{
+    spell.update();
+   
+    setTimeout(()=>{ lightningBolts.splice(index,1)},800)
 
 })
     //calculation on mobs, spawning them
@@ -287,9 +297,33 @@ spells.forEach((spell, index)=>{
             modalScoreEL.innerHTML = player.points
         }
 
-        spells.forEach((spell)=>{
+        //x = (lightning.x + 10 - lightning.lightningWidth + 100);
+          //y = (lightning.y + 10 - lightning.lightningWidth + 60);
+
+        lightnings.forEach((lightning)=>{
+          
+            
+            if (circleRect(lightning.x+lightning.direction.x*110,lightning.y+lightning.direction.y*110,lightning.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true) {
+
+                     if (circleRect(lightning.x+lightning.direction.x*60,lightning.y+lightning.direction.y*60,lightning.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true) {
+                
+                    mob.hp=mob.hp-10;
+                    if(mob.hp<1){
+                        player.points=player.points+10;
+                        
+                        scoreEL.innerHTML = player.points;
+                        mobs.splice(index,1)
+                    }
+                    }
+             }
+            
+            
+        
+        })
+        lightningBolts.forEach((spell)=>{
+           
             if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
-                mob.hp=mob.hp-40;
+                mob.hp=mob.hp-10;
                 if(mob.hp<1){
                     player.points=player.points+10;
                     
@@ -436,16 +470,37 @@ document.addEventListener('mousemove', function(e){
 
 
 window.addEventListener('keydown', event =>{
-    
-    if (event.code === 'Digit2'&&disable===false&&player.ammo>9) {
-   
-        spells.push(new LightningBolt(
-            mousePos.x-15,mousePos.y-15,30,1
+
+    if (event.code === 'Digit1' &&disable===false&&player.ammo>4
+    ) {
+        const angle = Math.atan2(
+            mousePos.y-  player.y,
+            mousePos.x-  player.x,
+     
+         );
+        const direction = {
+            x: Math.cos(angle),
+            y: Math.sin(angle),
+        }
+
+        lightnings.push(new Lightning(
+            player.x-15,player.y-15,30,2,angle,direction
         ));
-        player.ammo=player.ammo-10;
+        player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
         disable = true;
         setTimeout(()=>{disable = false},1000)
+    };
+    
+    if (event.code === 'Digit2'&&disable===false&&player.ammo>9) {
+   
+        lightningBolts.push(new LightningBolt(
+            mousePos.x-15,mousePos.y-15,30,1
+        ));
+        player.ammo=player.ammo-15;
+        ammoEL.innerHTML = player.ammo;
+        disable = true;
+        setTimeout(()=>{disable = false},3000)
     };
 
 });

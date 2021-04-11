@@ -12,10 +12,10 @@ export class Spell {
        
     }
 
-    draw(){
+    draw(x,y){
       
         this.c.beginPath();
-        this.c.arc(this.x+this.radius/2-1,this.y+this.radius/2,this.radius,0,Math.PI*2)
+        this.c.arc(x+this.radius/2-1,y+this.radius/2,this.radius,0,Math.PI*2)
         this.c.fillStyle = 'rgba(255, 255, 255, 0.1)';
         this.c.fill();
       

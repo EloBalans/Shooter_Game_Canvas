@@ -32,7 +32,8 @@ export class Player{
         this.movement();
         this.drawWalkMage();
         // this.drawIdleMage();
-    }
+        
+    }   
 
     drawWalkMage(){
         this.c.save();
@@ -104,26 +105,41 @@ export class Player{
                     this.mageFrameX =6
                     this.timer= 0
                 }
-             
         
     }
 
-   
     
     movement(){
         
         
         if (this.keys["w"]&&this.y>75) {
             this.y -= this.speed;   
+
         } if (this.keys["s"]&&this.y<435) {
             this.y += this.speed;
+
         } if (this.keys["a"]&&this.x>0+this.radius) {
             this.walk=-1;
             this.x -= this.speed;
+
         } if (this.keys["d"]&&this.x<640-this.radius) {
             this.walk=1;
             this.x += this.speed;
         }
+          
+        
+    }
+
+    hasMoved = coordinates => {
+        if (coordinates) {
+            const [x, y] = coordinates;
+            if (x === mojplayer.x && y === mojplayer.y) {
+                console.log("nie przemiescil sie");
+            } else {
+                console.log("przemiescil sie!!");
+            }
+        }
+        setTimeout(() => hasMoved([mojplayer.x, mojplayer.y]), 200);
     }
     
 }

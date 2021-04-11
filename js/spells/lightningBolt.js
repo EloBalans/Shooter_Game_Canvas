@@ -62,7 +62,7 @@ export class LightningBolt extends Spell{
     }
 
     update() {
-        this.draw();
+        this.draw(this.x,this.y);
         this.drawLightningBolt();
         
     }

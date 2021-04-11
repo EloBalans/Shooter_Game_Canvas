@@ -43,13 +43,13 @@ function animate(){
     c.fillStyle = "white";
     c.fill();
     c.drawImage(skill10,skill10width,skillheight, skillwidth, skillwidth);
-    c.save();
-    c.globalAlpha = 0.1;
+  
+    c.beginPath();
     c.rect(64, 0, 64, 100)
     c.fillStyle = "white";
     c.fill();
     c.drawImage(skill1,skill1width,skillheight, skillwidth, skillwidth);
-    c.restore();
+   
     c.beginPath();
     c.rect(128, 0, 64, 100)
     c.fillStyle = "white";
@@ -109,52 +109,64 @@ function animate(){
         
         c.beginPath();
         c.rect(0, 0, 64, 100)
-        c.fillStyle = "#FF0000";
+        c.fillStyle = "white";
         c.fill();
+        c.font = "10px Comic Sans MS";
+        c.fillStyle = "black";
+        c.fillText("Cooldown: 0s", 10, 45);
+        c.fillText("Mana: 1 ", 10, 60);
     }else if(mousePos.x<128&&mousePos.x>=64&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
         c.rect(64, 0, 64, 100)
-        c.fillStyle = "#FF0011";
+        c.fillStyle = "white";
         c.fill();
+        c.font = "10px Comic Sans MS";
+        c.fillStyle = "black";
+        c.fillText("Cooldown: 1s", 74, 45);
+        c.fillText("Mana: 5 ", 74, 60);
     }else if(mousePos.x<192&&mousePos.x>=128&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
         c.rect(128, 0, 64, 100)
-        c.fillStyle = "#FF0022";
+        c.fillStyle = "white";
         c.fill();
+        c.font = "10px Comic Sans MS";
+        c.fillStyle = "black";
+        c.fillText("Cooldown: 3s", 138, 45);
+        c.fillText("Mana: 15 ", 138, 60);
     }else if(mousePos.x<256&&mousePos.x>=192&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
         c.rect(192, 0, 64, 100)
-        c.fillStyle = "#FF0033";
+        c.fillStyle = "white";
         c.fill();
     }else if(mousePos.x<320&&mousePos.x>=256&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
         c.rect(256, 0, 64, 100)
-        c.fillStyle = "#FF0044";
+        c.fillStyle = "white";
         c.fill();
     }else if(mousePos.x<384&&mousePos.x>=320&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
         c.rect(320, 0, 64, 100)
-        c.fillStyle = "#FF0055";
+        c.fillStyle = "white";
         c.fill();
     }else if(mousePos.x<448&&mousePos.x>=384&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
         c.rect(384, 0, 64, 100)
-        c.fillStyle = "#FF0066";
+        c.fillStyle = "white";
         c.fill();
     }else if(mousePos.x<512&&mousePos.x>=448&&mousePos.y>0&&mousePos.y<100){      
         c.beginPath();
         c.rect(448, 0, 64, 100)
-        c.fillStyle = "#FF0077";
+        c.fillStyle = "white";
         c.fill();
     }else if(mousePos.x<576&&mousePos.x>=512&&mousePos.y>0&&mousePos.y<100){      
         c.beginPath();
         c.rect(512, 0, 64, 100)
-        c.fillStyle = "#FF0088";
+        c.fillStyle = "white";
         c.fill();
     }else if(mousePos.x<640&&mousePos.x>=576&&mousePos.y>0&&mousePos.y<100){      
         c.beginPath();
         c.rect(576, 0, 64, 100)
-        c.fillStyle = "#FF0099";
+        c.fillStyle = "white";
         c.fill();
     }
     
@@ -168,5 +180,4 @@ document.addEventListener('mousemove', function(e){
 
     mousePos.x = e.pageX-rect.left
     mousePos.y = e.pageY-rect.top;
-    console.log(mousePos.x,mousePos.y )
 }, false);
