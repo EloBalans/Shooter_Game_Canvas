@@ -1,6 +1,7 @@
 import { Player } from "./player.js";
 import { Worm} from "./mobs/worm.js";
 import { Skeleton } from "./mobs/skeleton.js";
+import { Demon } from "./mobs/demon.js";
 import { Attack } from "./attack.js";
 import { Mana } from "./buffs/mana.js";
 import { LightningBolt } from "./spells/lightningBolt.js";
@@ -18,7 +19,6 @@ canvas.height = 480;
 //const screeny = window.screen.availHeight*parseInt(canvas.style.marginTop)/100;
 let player = new Player(320,240,10,"blue",2,100,10,3,0,3);
 let attacks = [];
-let spells = [];
 let lightnings = [];
 let lightningBolts = [];
 let mobs = [];
@@ -156,9 +156,31 @@ function spawnMobSkeleton(){
              y: Math.sin(angle),
          }
          const nr = 1;
-        mobs.push(new Skeleton(x,y,radius,color,velocity,nr))
+        mobs.push(new Skeleton(x,y,radius,color,velocity,nr,44,66))
     
-    },time)
+    },1000)
+}
+
+function spawnMobDemon(){
+    
+    setInterval(()=>{
+    
+        const x = Math.random()<5;
+        const y = randomY(75,350)
+        const hp = Math.floor(Math.random()*8+1)*10;
+        const color = 'green'
+        const angle = Math.atan2(
+            0,
+            1,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 2;
+        mobs.push(new Demon(x,y,hp,color,velocity,nr,80,144))
+    
+    },5000)
 }
 
 function spawnMobWorm(){
@@ -179,7 +201,7 @@ function spawnMobWorm(){
              x: Math.cos(angle),
              y: Math.sin(angle),
          }
-         const nr = 2;
+         const nr = 3;
         mobs.push(new Worm(x,y,radius,color,velocity,nr))
     
     setTimeout(()=>{spawnMobWorm();},time)
@@ -284,7 +306,7 @@ lightningBolts.forEach((spell, index)=>{
     //calculation on mobs, spawning them
     mobs.forEach((mob,index)=>{
         mob.update();
-        if(mob.x>=canvas.width+mob.mobWidth){
+        if(mob.x>=canvas.width+mob.hitboxX){
             setTimeout(()=> {
                 mobs.splice(index, 1);
                 player.hptower=player.hptower-1;
@@ -303,9 +325,9 @@ lightningBolts.forEach((spell, index)=>{
         lightnings.forEach((lightning)=>{
           
             
-            if (circleRect(lightning.x+lightning.direction.x*110,lightning.y+lightning.direction.y*110,lightning.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true) {
+            if (circleRect(lightning.x+lightning.direction.x*110,lightning.y+lightning.direction.y*110,lightning.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true) {
 
-                     if (circleRect(lightning.x+lightning.direction.x*60,lightning.y+lightning.direction.y*60,lightning.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true) {
+                     if (circleRect(lightning.x+lightning.direction.x*60,lightning.y+lightning.direction.y*60,lightning.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true) {
                 
                     mob.hp=mob.hp-10;
                     if(mob.hp<1){
@@ -322,7 +344,7 @@ lightningBolts.forEach((spell, index)=>{
         })
         lightningBolts.forEach((spell)=>{
            
-            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
                 mob.hp=mob.hp-10;
                 if(mob.hp<1){
                     player.points=player.points+10;
@@ -342,7 +364,7 @@ lightningBolts.forEach((spell, index)=>{
             // if(dist - attack.radius - mob.radius < 1&& mob.radius>0){
                 
                 
-                if(circleRect(attack.x,attack.y,attack.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
+                if(circleRect(attack.x,attack.y,attack.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
 
                 for(let i = 0; i <7;i++){
                     particles.push(new Particle(attack.x,attack.y,2,'orange',{
@@ -354,7 +376,11 @@ lightningBolts.forEach((spell, index)=>{
 
                 mob.hp=mob.hp-10;
                 if(mob.hp<1){
-                    player.points=player.points+10;
+                    if(mob.nr===1){
+                        player.points=player.points+10;
+                    }if(mob.nr===2){
+                        player.points=player.points+20;
+                    }
                     
                     scoreEL.innerHTML = player.points;
                    mobs.splice(index,1)
@@ -379,7 +405,7 @@ lightningBolts.forEach((spell, index)=>{
            
                 buff.update();
 
-                if(circleRect(buff.x,buff.y,buff.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
+                if(circleRect(buff.x,buff.y,buff.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
                     buffs.splice(index,1)
                    
                 }
@@ -387,25 +413,12 @@ lightningBolts.forEach((spell, index)=>{
 
         }) 
 
-        //spawn and delete hp buff
-        // hps.forEach((hp, hpindex)=>{
-        //     hp.update();
-        //     const dist2 = Math.hypot(hp.x - player.x, hp.y - player.y);
-
-        //     if(circleRect(hp.x,hp.y,hp.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
-        //         hps.splice(hpindex,1)
-        //     }
-        //     if(dist2 - hp.radius - player.radius < 1){
-        //         player.hp++;
-        //         hpEL.innerHTML = player.hp;
-        //         hps.splice(hpindex,1) 
-        //     }
-        // }) 
+        
 
         
         
         //calculate hp of player
-        if(circleRect(player.x,player.y,player.radius,mob.x,mob.y,mob.mobWidth*2,mob.mobHeight*2)===true){
+        if(circleRect(player.x,player.y,player.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
             mob.hp=mob.hp-40;
             if(mob.hp<=0){
                 mobs.splice(index, 1)
@@ -514,6 +527,7 @@ startgameBtn.addEventListener('click', event =>{
         spawnManaBuff();
         spawnHpBuff();
         spawnMobSkeleton();
+        spawnMobDemon()
         // spawnMobWorm();
         modalEl.style.display = 'none'
     },100)
@@ -535,6 +549,7 @@ unpausegameBtn.addEventListener('click', event =>{
     spawnManaBuff();
     spawnHpBuff();
     spawnMobSkeleton();
+    spawnMobDemon()
     // spawnMobWorm();
     
 });

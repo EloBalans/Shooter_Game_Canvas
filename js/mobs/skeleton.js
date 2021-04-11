@@ -2,15 +2,17 @@
 import { Mob } from "./mob.js";
 
 export class Skeleton extends Mob {
-    constructor(x, y, hp, color, speed,nr) {
-        super(x,y,hp,color,speed,nr);
+    constructor(x, y, hp, color, speed,nr,hitboxX,hitboxY) {
+        super(x,y,hp,color,speed,nr,hitboxX,hitboxY);
        
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');
         this.mobSpriteWalk = document.getElementById("myImage");
         this.mobSpriteDead = document.getElementById("myImage2");
-        this.mobHeight = 33;
-        this.mobWidth = 22;
+        this.height = 33;
+        this.width = 22;
+
+
         this.mobWidthDead = 33;
         this.mobFrameX = 0;
         this.mobFrameXDead = 0;
@@ -44,13 +46,13 @@ export class Skeleton extends Mob {
     drawWalk(){
         this.c.drawImage(
             this.mobSpriteWalk,
-            this.mobWidth*this.mobFrameX,
+            this.width*this.mobFrameX,
             0,
-            this.mobWidth,this.mobHeight,
+            this.width,this.height,
             this.x,
             this.y,
-            this.mobWidth*2,
-            this.mobHeight*2
+            this.width*2,
+            this.height*2
             );
             
                 this.mobFrameX += 1;
