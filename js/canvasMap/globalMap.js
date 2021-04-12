@@ -43,6 +43,6 @@ document.addEventListener('mousemove', function(e){
 
 window.addEventListener('click', event =>{
     if(loc===1){
-        window.location = "/game.html";
+        window.location = "game.html";
     }
 });
