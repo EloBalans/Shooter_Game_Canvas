@@ -8,6 +8,7 @@ import { LightningBolt } from "./spells/lightningBolt.js";
 import { Lightning } from "./spells/lightning.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
+import { Map } from "./map.js"
 
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
@@ -28,7 +29,8 @@ let mousePos = {
     x:0,
     y:0,
 }
-let disable = false
+let disable1 = false
+let disable2 = false
 
 const background1 = document.getElementById("background1");
 const randomY = (from, to) => Math.floor(Math.random()*(to-from))+from;
@@ -53,8 +55,10 @@ ammoEL.innerHTML = player.ammo;
 hpEL.innerHTML = player.hp;
 hptowerEL.innerHTML = player.hptower;
 
+
 let highScore = localStorage.getItem('gameHighScore') || 0;
 modalHighScoreEL.textContent =  highScore;
+
 let time = 1000;
 let animationID;
 
@@ -237,7 +241,7 @@ function animate(){
     animationID = requestAnimationFrame(animate);
 
 
-    
+    c.clearRect(0, 0, canvas.width, canvas.height);
     
 
     c.drawImage(background1,0,0,canvas.width,canvas.height)
@@ -484,7 +488,7 @@ document.addEventListener('mousemove', function(e){
 
 window.addEventListener('keydown', event =>{
 
-    if (event.code === 'Digit1' &&disable===false&&player.ammo>4
+    if (event.code === 'Digit1' &&disable1===false&&player.ammo>4
     ) {
         const angle = Math.atan2(
             mousePos.y-  player.y,
@@ -501,19 +505,19 @@ window.addEventListener('keydown', event =>{
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        disable = true;
-        setTimeout(()=>{disable = false},1000)
+        disable1 = true;
+        setTimeout(()=>{disable1 = false},1000)
     };
     
-    if (event.code === 'Digit2'&&disable===false&&player.ammo>9) {
+    if (event.code === 'Digit2'&&disable2===false&&player.ammo>9) {
    
         lightningBolts.push(new LightningBolt(
             mousePos.x-15,mousePos.y-15,30,1
         ));
         player.ammo=player.ammo-15;
         ammoEL.innerHTML = player.ammo;
-        disable = true;
-        setTimeout(()=>{disable = false},3000)
+        disable2 = true;
+        setTimeout(()=>{disable2 = false},3000)
     };
 
 });
