@@ -8,7 +8,6 @@ import { LightningBolt } from "./spells/lightningBolt.js";
 import { Lightning } from "./spells/lightning.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
-import { Map } from "./map.js"
 
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
@@ -32,7 +31,14 @@ let mousePos = {
 let disable1 = false
 let disable2 = false
 
-const background1 = document.getElementById("background1");
+let cookieMap = document.cookie;
+
+const background1 = document.getElementById("background1"); 
+const backgroundMap1 = document.getElementById("backgroundMap1");
+const backgroundMap2 = document.getElementById("backgroundMap2");
+const backgroundMap3 = document.getElementById("backgroundMap3");
+const backgroundMap4 = document.getElementById("backgroundMap4");
+
 const randomY = (from, to) => Math.floor(Math.random()*(to-from))+from;
 
 const scoreEL = document.querySelector('#scoreEL');
@@ -75,6 +81,37 @@ function init(){
     scoreEL.innerHTML = player.points;
     ammoEL.innerHTML = player.ammo;
   
+    
+}
+
+function setGame(){
+    if(cookieMap==='map=1'){
+        c.drawImage(backgroundMap1,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=2'){
+        c.drawImage(backgroundMap4,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=3'){
+        c.drawImage(backgroundMap2,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=4'){
+        c.drawImage(backgroundMap3,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }
+   
+}
+
+function spawnMobsMap1(){
+
+}
+
+function spawnMobsMap2(){
+    
+}
+function spawnMobsMap3(){
+    
+}
+function spawnMobsMap4(){
     
 }
 
@@ -239,12 +276,12 @@ function spawnHpBuff(){
 function animate(){
 
     animationID = requestAnimationFrame(animate);
-
+    console.log(cookieMap)
 
     c.clearRect(0, 0, canvas.width, canvas.height);
-    
+    setGame();
 
-    c.drawImage(background1,0,0,canvas.width,canvas.height)
+   
     // c.fillStyle = 'white'
     // c.fillRect(0, 0, canvas.width, canvas.height);
 
