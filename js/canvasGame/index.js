@@ -276,7 +276,6 @@ function spawnHpBuff(){
 function animate(){
 
     animationID = requestAnimationFrame(animate);
-    console.log(cookieMap)
 
     c.clearRect(0, 0, canvas.width, canvas.height);
     setGame();
