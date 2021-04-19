@@ -2,6 +2,7 @@ import { Player } from "./player.js";
 import { Worm} from "./mobs/worm.js";
 import { Skeleton } from "./mobs/skeleton.js";
 import { Demon } from "./mobs/demon.js";
+import { Blob } from "./mobs/blob.js";
 import { Attack } from "./attack.js";
 import { Mana } from "./buffs/mana.js";
 import { LightningBolt } from "./spells/lightningBolt.js";
@@ -92,55 +93,72 @@ function init(){
     
 }
 
-function setGame(){
+function setGameMap(){
     if(cookieMap==='map=1'){
         c.drawImage(backgroundMap7,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=2'){
         c.drawImage(backgroundMap10,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=3'){
         c.drawImage(backgroundMap11,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=4'){
         c.drawImage(backgroundMap8,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=5'){
         c.drawImage(backgroundMap12,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=6'){
         c.drawImage(backgroundMap1,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=7'){
         c.drawImage(backgroundMap4,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=8'){
         c.drawImage(backgroundMap5,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=9'){
         c.drawImage(backgroundMap2,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=10'){
         c.drawImage(backgroundMap6,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=11'){
         c.drawImage(backgroundMap3,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }if(cookieMap==='map=12'){
         c.drawImage(backgroundMap9,0,0,canvas.width,canvas.height)
-        spawnMobsMap1();
     }
     
     
    
 }
 
-function spawnMobsMap1(){
+function setSpawnMap(){
+    if(cookieMap==='map=1'){
+        spawnMobsMap1();
+    }if(cookieMap==='map=2'){
+        spawnMobsMap1();
+    }if(cookieMap==='map=3'){
+        spawnMobsMap1();
+    }if(cookieMap==='map=4'){
+        spawnMobsMap1();
+    }if(cookieMap==='map=5'){
+        spawnMobsMap1();
+    }if(cookieMap==='map=6'){
+        spawnMobsMap2();
+    }if(cookieMap==='map=7'){
+        spawnMobsMap1();
+    }if(cookieMap==='map=8'){
+        spawnMobsMap1();
+    }if(cookieMap==='map=9'){
+        spawnMobsMap2();
+    }if(cookieMap==='map=10'){
+        spawnMobsMap1();
+    }if(cookieMap==='map=11'){
+        spawnMobsMap2();
+    }if(cookieMap==='map=12'){
+        spawnMobsMap1();
+    }
+}
 
+function spawnMobsMap1(){
+    spawnMobSkeleton();
+    spawnMobDemon()
 }
 
 function spawnMobsMap2(){
-    
+    spawnMobBlob();
 }
 function spawnMobsMap3(){
     
@@ -236,6 +254,8 @@ function spawnMobSkeleton(){
     },1000)
 }
 
+
+
 function spawnMobDemon(){
     
     setInterval(()=>{
@@ -282,6 +302,29 @@ function spawnMobWorm(){
     setTimeout(()=>{spawnMobWorm();},time)
 }
 
+function spawnMobBlob(){
+    
+    setInterval(()=>{
+    
+        const x = Math.random()<5;
+        const y = randomY(75,400)
+        const radius = Math.floor(Math.random()*3+1)*10;
+        const color = 'green'
+        const angle = Math.atan2(
+            0,
+            1*Math.floor(Math.random() * 2)  ,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 4;
+         const randomBlob = Math.floor(Math.random() * 3)  
+        mobs.push(new Blob(x,y,radius,color,velocity,nr,40,30,randomBlob))
+    
+    },400)
+}
+
 
 function spawnManaBuff(){
     setInterval(()=>{
@@ -310,9 +353,8 @@ function spawnHpBuff(){
 function animate(){
 
     animationID = requestAnimationFrame(animate);
-
     c.clearRect(0, 0, canvas.width, canvas.height);
-    setGame();
+    setGameMap();
 
    
     // c.fillStyle = 'white'
@@ -454,6 +496,8 @@ lightningBolts.forEach((spell, index)=>{
                         player.points=player.points+10;
                     }if(mob.nr===2){
                         player.points=player.points+20;
+                    }if(mob.nr===4){
+                        player.points=player.points+5;
                     }
                     
                     scoreEL.innerHTML = player.points;
@@ -598,11 +642,10 @@ startgameBtn.addEventListener('click', event =>{
         checkhighScore();
         init();
         animate();
+        setSpawnMap()
         spawnManaBuff();
         spawnHpBuff();
-        spawnMobSkeleton();
-        spawnMobDemon();
-        // spawnMobWorm();
+       
         modalEl.style.display = 'none'
     },100)
     
@@ -620,10 +663,9 @@ unpausegameBtn.addEventListener('click', event =>{
   
     pauseEl.style.display = 'none'
     animate();
+    setSpawnMap()
     spawnManaBuff();
     spawnHpBuff();
-    spawnMobSkeleton();
-    spawnMobDemon()
-    // spawnMobWorm();
+   
     
 });

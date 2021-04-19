@@ -42,6 +42,20 @@ export class Mob {
             this.c.fillStyle = "red";
             this.c.fill();
         }
+        else if(this.nr===4){
+            //blob
+            this.lengthOfEmptyHpBar = 34
+            this.c.beginPath();
+            this.c.rect(this.x+14,this.y-10,this.lengthOfEmptyHpBar,7)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath(); 
+            this.c.rect(this.x+1+14,this.y+1-10,this.hp,5)
+            this.c.fillStyle = "red";
+            this.c.fill();
+        }
+        
         
 
        
