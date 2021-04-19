@@ -32,10 +32,10 @@ export class Lightning extends Spell{
             this.lightningHeight*this.lightningFrameY,
             this.lightningWidth,
             this.lightningHeight,
-            -this.lightningWidth+100,
-            -this.lightningHeight+10,
-            this.lightningWidth*1.5,
-            this.lightningHeight*1.5,
+            -this.lightningWidth+70,
+            -this.lightningHeight+30,
+            this.lightningWidth,
+            this.lightningHeight,
             );
             this.c.restore()
              this.timer++;

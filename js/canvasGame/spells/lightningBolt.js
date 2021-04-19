@@ -26,10 +26,10 @@ export class LightningBolt extends Spell{
             this.lightningBoltHeight*this.lightningBoltFrameY,
             this.lightningBoltWidth,
             this.lightningBoltHeight,
-            this.x-this.lightningBoltWidth/2,
-            this.y-this.lightningBoltHeight-10,
-            this.lightningBoltWidth*1.5,
-            this.lightningBoltHeight*1.5,
+            this.x-this.lightningBoltWidth/4,
+            this.y-this.lightningBoltHeight+20,
+            this.lightningBoltWidth,
+            this.lightningBoltHeight,
             );
            
             this.timer++;
@@ -65,6 +65,5 @@ export class LightningBolt extends Spell{
 
     update() {
         this.drawLightningBolt();
-        
     }
 }

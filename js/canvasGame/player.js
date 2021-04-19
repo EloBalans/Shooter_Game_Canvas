@@ -26,8 +26,8 @@ export class Player{
     draw(){
        
         this.c.beginPath();
-        this.c.arc(this.x, this.y, this.radius,0, Math.PI * 2,);
-        this.c.fillStyle = 'rgba(255, 255, 255, 0.000001)';
+        this.c.arc(this.x, this.y-this.radius, this.radius,0, Math.PI * 2,);
+        this.c.fillStyle = 'rgba(255, 255, 255, 0.00001)';
         this.c.fill();
         this.movement();
         this.drawWalkMage();
@@ -130,17 +130,7 @@ export class Player{
         
     }
 
-    hasMoved = coordinates => {
-        if (coordinates) {
-            const [x, y] = coordinates;
-            if (x === mojplayer.x && y === mojplayer.y) {
-                console.log("nie przemiescil sie");
-            } else {
-                console.log("przemiescil sie!!");
-            }
-        }
-        setTimeout(() => hasMoved([mojplayer.x, mojplayer.y]), 200);
-    }
+
     
 }
 

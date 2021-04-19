@@ -601,7 +601,7 @@ startgameBtn.addEventListener('click', event =>{
         spawnManaBuff();
         spawnHpBuff();
         spawnMobSkeleton();
-        spawnMobDemon()
+        spawnMobDemon();
         // spawnMobWorm();
         modalEl.style.display = 'none'
     },100)
