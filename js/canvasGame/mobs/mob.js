@@ -17,20 +17,32 @@ export class Mob {
 
 
     hpDraw(){
-        if(this.hitboxX===44){
+        if(this.nr===1){
+            //skeleton
             this.lengthOfEmptyHpBar = 44
-        }else if(this.hitboxX===80){
+            this.c.beginPath();
+            this.c.rect(this.x-10,this.y-20,this.lengthOfEmptyHpBar,7)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath();
+            this.c.rect(this.x+1-10,this.y+1-20,this.hp,5)
+            this.c.fillStyle = "red";
+            this.c.fill();
+        }else if(this.nr===2){
+            //demon
             this.lengthOfEmptyHpBar = 84
+            this.c.beginPath();
+            this.c.rect(this.x,this.y,this.lengthOfEmptyHpBar,12)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath();
+            this.c.rect(this.x+1,this.y+1,this.hp,10)
+            this.c.fillStyle = "red";
+            this.c.fill();
         }
-        this.c.beginPath();
-        this.c.rect(this.x,this.y,this.lengthOfEmptyHpBar,12)
-        this.c.fillStyle = "black";
-        this.c.fill();
-
-        this.c.beginPath();
-        this.c.rect(this.x+1,this.y+1,this.hp,10)
-        this.c.fillStyle = "red";
-        this.c.fill();
+        
 
        
 

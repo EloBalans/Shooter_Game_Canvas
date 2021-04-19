@@ -54,10 +54,10 @@ export class Attack {
             this.fireballHeight*this.fireballFrameY,
             this.fireballWidth,
             this.fireballHeight,
-            -this.fireballWidth/2.6,  
-            -this.fireballHeight/2.6,
-            this.fireballWidth/1.3,
-            this.fireballHeight/1.3,
+            -this.fireballWidth/4,  
+            -this.fireballHeight/4,
+            this.fireballWidth/2,
+            this.fireballHeight/2,
             );
         
 

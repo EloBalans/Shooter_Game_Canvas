@@ -51,8 +51,8 @@ export class Skeleton extends Mob {
             this.width,this.height,
             this.x,
             this.y,
-            this.width*2,
-            this.height*2
+            this.width,
+            this.height
             );
             
                 this.mobFrameX += 1;
@@ -71,8 +71,8 @@ export class Skeleton extends Mob {
             this.mobHeight,
             this.x,
             this.y,
-            this.mobWidthDead*2,
-            this.mobHeight*2
+            this.mobWidthDead,
+            this.mobHeight
             );
             
             if(this.mobFrameXDead<14){

@@ -33,11 +33,19 @@ let disable2 = false
 
 let cookieMap = document.cookie;
 
-const background1 = document.getElementById("background1"); 
+ 
 const backgroundMap1 = document.getElementById("backgroundMap1");
 const backgroundMap2 = document.getElementById("backgroundMap2");
 const backgroundMap3 = document.getElementById("backgroundMap3");
 const backgroundMap4 = document.getElementById("backgroundMap4");
+const backgroundMap5 = document.getElementById("backgroundMap5");
+const backgroundMap6 = document.getElementById("backgroundMap6");
+const backgroundMap7 = document.getElementById("backgroundMap7");
+const backgroundMap8 = document.getElementById("backgroundMap8");
+const backgroundMap9 = document.getElementById("backgroundMap9");
+const backgroundMap10 = document.getElementById("backgroundMap10");
+const backgroundMap11 = document.getElementById("backgroundMap11");
+const backgroundMap12 = document.getElementById("backgroundMap12");
 
 const randomY = (from, to) => Math.floor(Math.random()*(to-from))+from;
 
@@ -86,18 +94,44 @@ function init(){
 
 function setGame(){
     if(cookieMap==='map=1'){
-        c.drawImage(backgroundMap1,0,0,canvas.width,canvas.height)
+        c.drawImage(backgroundMap7,0,0,canvas.width,canvas.height)
         spawnMobsMap1();
     }if(cookieMap==='map=2'){
-        c.drawImage(backgroundMap4,0,0,canvas.width,canvas.height)
+        c.drawImage(backgroundMap10,0,0,canvas.width,canvas.height)
         spawnMobsMap1();
     }if(cookieMap==='map=3'){
-        c.drawImage(backgroundMap2,0,0,canvas.width,canvas.height)
+        c.drawImage(backgroundMap11,0,0,canvas.width,canvas.height)
         spawnMobsMap1();
     }if(cookieMap==='map=4'){
+        c.drawImage(backgroundMap8,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=5'){
+        c.drawImage(backgroundMap12,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=6'){
+        c.drawImage(backgroundMap1,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=7'){
+        c.drawImage(backgroundMap4,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=8'){
+        c.drawImage(backgroundMap5,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=9'){
+        c.drawImage(backgroundMap2,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=10'){
+        c.drawImage(backgroundMap6,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
+    }if(cookieMap==='map=11'){
         c.drawImage(backgroundMap3,0,0,canvas.width,canvas.height)
         spawnMobsMap1();
+    }if(cookieMap==='map=12'){
+        c.drawImage(backgroundMap9,0,0,canvas.width,canvas.height)
+        spawnMobsMap1();
     }
+    
+    
    
 }
 
@@ -197,7 +231,7 @@ function spawnMobSkeleton(){
              y: Math.sin(angle),
          }
          const nr = 1;
-        mobs.push(new Skeleton(x,y,radius,color,velocity,nr,44,66))
+        mobs.push(new Skeleton(x,y,radius,color,velocity,nr,22,33))
     
     },1000)
 }

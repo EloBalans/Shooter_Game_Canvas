@@ -24,8 +24,8 @@ export class Mana extends Buff{
             this.potionHeight,
             this.x-this.potionWidth/2,
             this.y-this.potionHeight/2,
-            this.potionWidth*1.5,
-            this.potionHeight*1.5,
+            this.potionWidth,
+            this.potionHeight,
             );
     }
 

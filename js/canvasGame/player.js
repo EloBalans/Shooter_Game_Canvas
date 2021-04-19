@@ -46,10 +46,10 @@ export class Player{
             this.mageWidth*this.mageFrameX,
             this.mageHeight*(this.mageFrameY+2),
             this.mageWidth,this.mageHeight,
-            (this.walk*this.x)-this.mageWidth,
-            this.y-this.mageHeight-48,
-            this.mageWidth*2,
-            this.mageHeight*2
+            (this.walk*this.x)-this.mageWidth/2,
+            this.y-this.mageHeight,
+            this.mageWidth,
+            this.mageHeight
             );
 
             this.timer++;
