@@ -2,8 +2,8 @@
 import { Mob } from "./mob.js";
 
 export class Worm extends Mob {
-    constructor(x, y, hp, color, speed,nr) {
-        super(x,y,hp,color,speed,nr);
+    constructor(x, y, hp, speed,nr) {
+        super(x,y,hp,speed,nr);
        
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');

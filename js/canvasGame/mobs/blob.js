@@ -2,8 +2,8 @@
 import { Mob } from "./mob.js";
 
 export class Blob extends Mob {
-    constructor(x, y, hp, color, speed,nr,hitboxX,hitboxY,random) {
-        super(x,y,hp,color,speed,nr,hitboxX,hitboxY,random);
+    constructor(x, y, hp,speed,nr,hitboxX,hitboxY,random) {
+        super(x,y,hp,speed,nr,hitboxX,hitboxY,random);
        
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');

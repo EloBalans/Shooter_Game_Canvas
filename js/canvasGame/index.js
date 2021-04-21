@@ -3,6 +3,7 @@ import { Worm} from "./mobs/worm.js";
 import { Skeleton } from "./mobs/skeleton.js";
 import { Demon } from "./mobs/demon.js";
 import { Blob } from "./mobs/blob.js";
+import { Ghost } from "./mobs/ghost.js";
 import { Attack } from "./attack.js";
 import { Mana } from "./buffs/mana.js";
 import { LightningBolt } from "./spells/lightningBolt.js";
@@ -154,7 +155,8 @@ function setSpawnMap(){
 
 function spawnMobsMap1(){
     spawnMobSkeleton();
-    spawnMobDemon()
+    spawnMobDemon();
+    spawnMobGhost();
 }
 
 function spawnMobsMap2(){
@@ -249,7 +251,7 @@ function spawnMobSkeleton(){
              y: Math.sin(angle),
          }
          const nr = 1;
-        mobs.push(new Skeleton(x,y,radius,color,velocity,nr,22,33))
+        mobs.push(new Skeleton(x,y,radius,velocity,nr,22,33))
     
     },1000)
 }
@@ -263,7 +265,6 @@ function spawnMobDemon(){
         const x = Math.random()<5;
         const y = randomY(75,350)
         const hp = Math.floor(Math.random()*8+1)*10;
-        const color = 'green'
         const angle = Math.atan2(
             0,
             1,
@@ -273,7 +274,7 @@ function spawnMobDemon(){
              y: Math.sin(angle),
          }
          const nr = 2;
-        mobs.push(new Demon(x,y,hp,color,velocity,nr,80,144))
+        mobs.push(new Demon(x,y,hp,velocity,nr,80,144))
     
     },5000)
 }
@@ -287,7 +288,6 @@ function spawnMobWorm(){
         const x = Math.random()<5;
         const y = randomY(75,400)
         const radius = Math.floor(Math.random()*4+1)*10;
-        const color = 'green'
         const angle = Math.atan2(
             0,
             1,
@@ -297,7 +297,7 @@ function spawnMobWorm(){
              y: Math.sin(angle),
          }
          const nr = 3;
-        mobs.push(new Worm(x,y,radius,color,velocity,nr))
+        mobs.push(new Worm(x,y,radius,velocity,nr))
     
     setTimeout(()=>{spawnMobWorm();},time)
 }
@@ -309,7 +309,6 @@ function spawnMobBlob(){
         const x = Math.random()<5;
         const y = randomY(75,400)
         const radius = Math.floor(Math.random()*3+1)*10;
-        const color = 'green'
         const angle = Math.atan2(
             0,
             1*Math.floor(Math.random() * 2)  ,
@@ -320,9 +319,30 @@ function spawnMobBlob(){
          }
          const nr = 4;
          const randomBlob = Math.floor(Math.random() * 3)  
-        mobs.push(new Blob(x,y,radius,color,velocity,nr,40,30,randomBlob))
+        mobs.push(new Blob(x,y,radius,velocity,nr,40,30,randomBlob))
     
     },400)
+}
+
+function spawnMobGhost(){
+    
+    setInterval(()=>{
+    
+        const x = Math.random()<5;
+        const y = randomY(75,400)
+        const radius = Math.floor(Math.random()*5+1)*10;
+        const angle = Math.atan2(
+            0,
+            1*Math.floor(Math.random() * 2)  ,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 5;
+        mobs.push(new Ghost(x,y,radius,velocity,nr,30,45))
+    
+    },3000)
 }
 
 
@@ -497,6 +517,8 @@ lightningBolts.forEach((spell, index)=>{
                     }if(mob.nr===2){
                         player.points=player.points+20;
                     }if(mob.nr===4){
+                        player.points=player.points+5;
+                    }if(mob.nr===5){
                         player.points=player.points+5;
                     }
                     

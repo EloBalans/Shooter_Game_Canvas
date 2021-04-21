@@ -54,16 +54,23 @@
             integrity="sha512-cdV6j5t5o24hkSciVrb8Ki6FveC2SgwGfLE31+ZQRHAeSRxYhAQskLkq3dLm8ZcWe1N3vBOEYmmbhzf7NTtFFQ==" crossorigin="anonymous"></script>
             <script src="js/canvasGame/index.js" type="module"></script>
         </div>
-    <div class="row-span-2 border-8 bg-gray-100 border-gray pl-4 pr-4 pt-4 m-2 select-none rounded-lg">
+    <div class="row-span-4 pl-4 pr-4">
+        <div style="position: absolute;">
+        <canvas id="canvas3" style="border:1px solid #000000;">
 
+        </canvas>
+        <script src="js/canvasRightUI/rigthUI.js" type="module"></script>
+        </div>
+        <div style="position: relative;" class="ml-4 mt-4">
             <button id="pauseGameBtn" class="bg-gray-200">Pauza</button>
             <button class="bg-gray-200"><a href="index.html">Wybór lokacji</a></button>
             <div><span>Punkty: </span><span id="scoreEL"></span></div>
             <div><span>Mana: </span><span id="ammoEL"></span></div>
             <div><span>Życia: </span><span id="hpEL"></span></div>
             <div><span>Ile potworów może przejść: </span><span id="hptowerEL"></span></div>
-           
+        </div> 
         
+
     </div>
   
     <div class="row-span-2 col-span-2">
@@ -81,6 +88,7 @@
             <img id="skill10" src="assets/icons/10-Fire-ball.png">
             <img id="keyboard" src="assets/keyboard.png">
             <img id="mouse" src="assets/mouse.png">
+
         </canvas>
         <script src="js/canvasSkills/skills.js" type="module"></script>
         

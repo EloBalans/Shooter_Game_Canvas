@@ -42,6 +42,9 @@ function animate(){
     c.rect(0, 0, 64, 100)
     c.fillStyle = "white";
     c.fill();
+
+    
+
     c.drawImage(skill10,skill10width,skillheight, skillwidth, skillwidth);
   
     c.beginPath();
