@@ -20,7 +20,7 @@ export class Location {
         this.c.beginPath();
         this.c.arc(this.x, this.y, this.radius,0, Math.PI * 2,);
         this.circle.arc(this.x, this.y, this.radius,0, Math.PI * 2,);
-        this.c.fillStyle = 'rgba(255, 255, 255,0.7)';
+        this.c.fillStyle = 'rgba(255, 255, 255,0.3)';
         this.c.lineWidth = 2;
         this.c.strokeStyle = "black";
         this.c.stroke();
