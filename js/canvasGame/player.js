@@ -1,11 +1,10 @@
 export class Player{
-    constructor(x, y, radius,color,speed,ammo,bomb,hp,points,hptower) {
+    constructor(x, y, radius,speed,ammo,bomb,hp,points,hptower) {
         this.x = x ;
         this.y = y;
         this.radius = radius;
         this.speed = speed;
         this.ammo = ammo;
-        this.color = color;
         this.bomb = bomb;
         this.hp=hp;
         this.hptower = hptower;

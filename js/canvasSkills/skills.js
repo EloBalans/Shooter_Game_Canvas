@@ -14,6 +14,7 @@ var skill9 = document.getElementById("skill9");
 var skill10 = document.getElementById("skill10");
 var keyboard = document.getElementById("keyboard")
 var mouse = document.getElementById("mouse")
+var spellbg = document.getElementById("spellBg")
 
 let mousePos = {
     x:0,
@@ -38,25 +39,20 @@ var skillwidth = 40
 animate();
 
 function animate(){
+    // c.drawImage(spellbg,0,300,2048,500,0,0,640,100);
+
     c.beginPath();
-    c.rect(0, 0, 64, 100)
+    c.rect(0, 0, 640, 100)
     c.fillStyle = "white";
     c.fill();
-
+    
     
 
     c.drawImage(skill10,skill10width,skillheight, skillwidth, skillwidth);
   
-    c.beginPath();
-    c.rect(64, 0, 64, 100)
-    c.fillStyle = "white";
-    c.fill();
+    
     c.drawImage(skill1,skill1width,skillheight, skillwidth, skillwidth);
-   
-    c.beginPath();
-    c.rect(128, 0, 64, 100)
-    c.fillStyle = "white";
-    c.fill();
+  
     c.drawImage(skill2,skill2width,skillheight,skillwidth, skillwidth);
     c.save();
     c.globalAlpha = 0.1
@@ -116,7 +112,7 @@ function animate(){
         c.fill();
         c.font = "10px Comic Sans MS";
         c.fillStyle = "black";
-        c.fillText("Cooldown: 0s", 10, 45);
+        c.fillText("CD: 0s", 10, 45);
         c.fillText("Mana: 1 ", 10, 60);
     }else if(mousePos.x<128&&mousePos.x>=64&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
@@ -125,7 +121,7 @@ function animate(){
         c.fill();
         c.font = "10px Comic Sans MS";
         c.fillStyle = "black";
-        c.fillText("Cooldown: 1s", 74, 45);
+        c.fillText("CD: 1s", 74, 45);
         c.fillText("Mana: 5 ", 74, 60);
     }else if(mousePos.x<192&&mousePos.x>=128&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
@@ -134,7 +130,7 @@ function animate(){
         c.fill();
         c.font = "10px Comic Sans MS";
         c.fillStyle = "black";
-        c.fillText("Cooldown: 3s", 138, 45);
+        c.fillText("CD: 3s", 138, 45);
         c.fillText("Mana: 15 ", 138, 60);
     }else if(mousePos.x<256&&mousePos.x>=192&&mousePos.y>0&&mousePos.y<100){
         c.beginPath();
@@ -173,10 +169,12 @@ function animate(){
         c.fill();
     }
     
-    
+
 
         requestAnimationFrame(animate);
 }
+
+
 
 document.addEventListener('mousemove', function(e){
     var rect = canvas.getBoundingClientRect();

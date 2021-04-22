@@ -80,7 +80,7 @@ let animationID;
 
 
 function init(){
-    player = new Player(320,240,10,"blue",2,100,10,3,0,3);
+    player = new Player(320,240,10,2,100,10,3,0,3);
     attacks = [];
     mobs = [];
     particles = [];
@@ -562,10 +562,7 @@ lightningBolts.forEach((spell, index)=>{
             mob.hp=mob.hp-40;
             if(mob.hp<=0){
                 mobs.splice(index, 1)
-                player.color = 'red'
-                setTimeout(()=>{
-                    player.color = 'blue'
-                },1000)
+              
             }
             player.hp = player.hp-1;
             hpEL.innerHTML = player.hp;
