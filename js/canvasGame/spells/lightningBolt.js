@@ -48,8 +48,6 @@ export class LightningBolt extends Spell{
                 }else if(this.timer===30){
                     this.lightningBoltFrameX =6
                 }else if(this.timer===35){
-                    
-                    this.draw(this.x,this.y);
                     this.lightningBoltFrameX =7
                 }else if(this.timer===40){
                     this.lightningBoltFrameX =8
@@ -59,9 +57,14 @@ export class LightningBolt extends Spell{
                     this.lightningBoltFrameX =10
                 }
             
-           
+                
             
     }
+    
+    drawHitbox(){
+        this.draw(this.x,this.y);
+    }
+        s
 
     update() {
         this.drawLightningBolt();

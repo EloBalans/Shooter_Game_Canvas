@@ -2,6 +2,7 @@ import { Player } from "./player.js";
 import { Worm} from "./mobs/worm.js";
 import { Skeleton } from "./mobs/skeleton.js";
 import { Demon } from "./mobs/demon.js";
+import { Hydra } from "./mobs/hydra.js";
 import { Blob } from "./mobs/blob.js";
 import { Ghost } from "./mobs/ghost.js";
 import { Attack } from "./attack.js";
@@ -26,6 +27,7 @@ let lightningBolts = [];
 let mobs = [];
 let buffs = [];
 let particles = [];
+let monsterShoots = [];
 let mousePos = {
     x:0,
     y:0,
@@ -85,6 +87,7 @@ function init(){
     mobs = [];
     particles = [];
     buffs = [];
+    monsterShoots = [];
     hptowerEL.innerHTML = player.hptower;
     hpEL.innerHTML = player.hp;
     modalScoreEL.innerHTML = player.points;
@@ -149,7 +152,7 @@ function setSpawnMap(){
     }if(cookieMap==='map=11'){
         spawnMobsMap2();
     }if(cookieMap==='map=12'){
-        spawnMobsMap1();
+        spawnMobsMap3();
     }
 }
 
@@ -163,7 +166,8 @@ function spawnMobsMap2(){
     spawnMobBlob();
 }
 function spawnMobsMap3(){
-    
+    spawnMobHydra()
+    SpawnShoots()
 }
 function spawnMobsMap4(){
     
@@ -345,6 +349,27 @@ function spawnMobGhost(){
     },3000)
 }
 
+function spawnMobHydra(){
+    
+    setTimeout(()=>{
+    
+        const x = -200;
+        const y = 165;
+        const hp = 2400;
+        const angle = Math.atan2(
+            0,
+            1,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 6;
+        mobs.push(new Hydra(x,y,hp,velocity,nr,200,150))
+    
+    },1000)
+}
+
 
 function spawnManaBuff(){
     setInterval(()=>{
@@ -368,6 +393,33 @@ function spawnHpBuff(){
    
 }
 
+function SpawnShoots(){
+    setInterval(()=>{
+        mobs.forEach((mob)=>{
+            for(let i = 0; i<7;i++){
+            const a = Math.atan2(
+                player.y-mob.y,
+                player.x-mob.x,
+         
+            );
+             
+            const v = {
+                x: Math.cos(Math.random()*3.6),
+                y: Math.sin(Math.random()*3.6),
+            }
+            
+                monsterShoots.push(new Attack(
+                    mob.x+150,mob.y+(i*15),5,"blue",v,5,a,
+                ));
+            }    
+           
+                  
+             
+             
+             })
+           
+    },1000)
+}
 
 
 function animate(){
@@ -375,7 +427,6 @@ function animate(){
     animationID = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
     setGameMap();
-
    
     // c.fillStyle = 'white'
     // c.fillRect(0, 0, canvas.width, canvas.height);
@@ -402,6 +453,36 @@ function animate(){
 
             attacks.splice(index,1)
         }
+    })
+
+    monsterShoots.forEach((attackMonster, index)=>{
+        attackMonster.update();
+
+        if(attackMonster.x+attackMonster.radius<0||
+            attackMonster.x-attackMonster.radius>canvas.width||
+            attackMonster.y-attackMonster.radius<0||
+            attackMonster.y-attackMonster.radius>canvas.height){
+
+            monsterShoots.splice(index,1)
+        }
+
+        const dist = Math.hypot(attackMonster.x - player.x, attackMonster.y - player.y);
+
+       
+        if(dist - attackMonster.radius - player.radius < 1){
+           
+                player.hp--;
+                
+                hpEL.innerHTML = player.hp;
+                if(player.hp===0){
+                    cancelAnimationFrame(animationID);
+                    modalScoreEL.innerHTML = player.points
+                    modalEl.style.display = 'flex'
+    
+                }
+                monsterShoots.splice(index,1) 
+            }
+            
     })
 
   
@@ -442,6 +523,8 @@ lightningBolts.forEach((spell, index)=>{
     //calculation on mobs, spawning them
     mobs.forEach((mob,index)=>{
         mob.update();
+        
+
         if(mob.x>=canvas.width+mob.hitboxX){
             setTimeout(()=> {
                 mobs.splice(index, 1);
@@ -454,25 +537,25 @@ lightningBolts.forEach((spell, index)=>{
             modalEl.style.display = 'flex'
             modalScoreEL.innerHTML = player.points
         }
-
-        //x = (lightning.x + 10 - lightning.lightningWidth + 100);
-          //y = (lightning.y + 10 - lightning.lightningWidth + 60);
+        
+      
 
         lightnings.forEach((lightning)=>{
           
             
             if (circleRect(lightning.x+lightning.direction.x*110,lightning.y+lightning.direction.y*110,lightning.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true) {
-
-                     if (circleRect(lightning.x+lightning.direction.x*60,lightning.y+lightning.direction.y*60,lightning.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true) {
                 
-                    mob.hp=mob.hp-10;
+                if(lightning.timer===35){
+                    mob.hp=mob.hp-40;
+                } 
+                    
                     if(mob.hp<1){
                         player.points=player.points+10;
                         
                         scoreEL.innerHTML = player.points;
                         mobs.splice(index,1)
                     }
-                    }
+                    
              }
             
             
@@ -481,7 +564,9 @@ lightningBolts.forEach((spell, index)=>{
         lightningBolts.forEach((spell)=>{
            
             if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
-                mob.hp=mob.hp-10;
+                if(spell.timer===35){
+                    mob.hp=mob.hp-40;
+                } 
                 if(mob.hp<1){
                     player.points=player.points+10;
                     
@@ -552,20 +637,17 @@ lightningBolts.forEach((spell, index)=>{
                 
 
         }) 
-
-        
-
-        
         
         //calculate hp of player
-        if(circleRect(player.x,player.y,player.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
-            mob.hp=mob.hp-40;
-            if(mob.hp<=0){
-                mobs.splice(index, 1)
-              
-            }
+
+        if(circleRect(player.x,player.y,player.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true&&player.immune===false){
+           
             player.hp = player.hp-1;
             hpEL.innerHTML = player.hp;
+            player.immune = true
+            setTimeout(()=>{
+                player.immune = false;
+            },700)
             if(player.hp===0){
                 cancelAnimationFrame(animationID);
                 modalScoreEL.innerHTML = player.points
@@ -605,6 +687,7 @@ if(pos.x<canvas.width&&pos.x>0&&pos.y<canvas.height&&pos.y>0&&pauseEl.style.disp
         attacks.push(new Attack(
             player.x,player.y,5,"blue",velocity,5,angle,
         ));
+        
     }
     ammoEL.innerHTML = player.ammo;
 }

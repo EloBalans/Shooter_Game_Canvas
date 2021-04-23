@@ -67,6 +67,19 @@ export class Mob {
             this.c.fillStyle = "red";
             this.c.fill();
         }
+        else if(this.nr===6){
+            //hydra
+            this.lengthOfEmptyHpBar = 300
+            this.c.beginPath();
+            this.c.rect(170,30,this.lengthOfEmptyHpBar,12)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath(); 
+            this.c.rect(170+1,31,this.hp/8,10)
+            this.c.fillStyle = "red";
+            this.c.fill();
+        }
         
         
 

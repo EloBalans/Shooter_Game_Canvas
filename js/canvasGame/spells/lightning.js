@@ -51,10 +51,6 @@ export class Lightning extends Spell{
                     this.lightningFrameX=4
                 }else if(this.timer===25){
                     this.lightningFrameX=5
-                    if(this.timer===25){
-                        drawHitbox();
-                        console.log(this.timer)
-                    }
                 }else if(this.timer===30){
                     this.lightningFrameX =6
                 }else if(this.timer===35){

@@ -20,6 +20,7 @@ export class Player{
         this.mageFrameY = 0;
         this.timer = 0
         this.walk = -1; // if walk === -1 left direction 
+        this.immune = false;
     }   
     
     draw(){
