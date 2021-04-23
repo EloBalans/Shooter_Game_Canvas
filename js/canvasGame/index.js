@@ -72,10 +72,20 @@ scoreEL.innerHTML = player.points;
 ammoEL.innerHTML = player.ammo;
 hpEL.innerHTML = player.hp;
 hptowerEL.innerHTML = player.hptower;
+let highScoreMap = [];
 
-
-let highScore = localStorage.getItem('gameHighScore') || 0;
-modalHighScoreEL.textContent =  highScore;
+highScoreMap[0] = localStorage.getItem('gameHighScoreMap1') || localStorage.setItem('gameHighScoreMap1',0);
+highScoreMap[1] = localStorage.getItem('gameHighScoreMap2') || localStorage.setItem('gameHighScoreMap2',0);
+highScoreMap[2] = localStorage.getItem('gameHighScoreMap3') || localStorage.setItem('gameHighScoreMap3',0);
+highScoreMap[3] = localStorage.getItem('gameHighScoreMap4') || localStorage.setItem('gameHighScoreMap4',0);;
+highScoreMap[4] = localStorage.getItem('gameHighScoreMap5') || localStorage.setItem('gameHighScoreMap5',0);;
+highScoreMap[5] = localStorage.getItem('gameHighScoreMap6') || localStorage.setItem('gameHighScoreMap6',0);;
+highScoreMap[6] = localStorage.getItem('gameHighScoreMap7') || localStorage.setItem('gameHighScoreMap7',0);;
+highScoreMap[7] = localStorage.getItem('gameHighScoreMap8') || localStorage.setItem('gameHighScoreMap8',0);;
+highScoreMap[8] = localStorage.getItem('gameHighScoreMap9') || localStorage.setItem('gameHighScoreMap9',0);;
+highScoreMap[9] = localStorage.getItem('gameHighScoreMap10') || localStorage.setItem('gameHighScoreMap10',0);
+highScoreMap[10] = localStorage.getItem('gameHighScoreMap11') || localStorage.setItem('gameHighScoreMap11',0);
+highScoreMap[11] = localStorage.getItem('gameHighScoreMap12') || localStorage.setItem('gameHighScoreMap12',0);
 
 let time = 1000;
 let animationID;
@@ -93,7 +103,6 @@ function init(){
     modalScoreEL.innerHTML = player.points;
     scoreEL.innerHTML = player.points;
     ammoEL.innerHTML = player.ammo;
-  
     
 }
 
@@ -131,28 +140,40 @@ function setGameMap(){
 function setSpawnMap(){
     if(cookieMap==='map=1'){
         spawnMobsMap1();
+        checkhighScore('gameHighScoreMap1')
     }if(cookieMap==='map=2'){
         spawnMobsMap1();
+        checkhighScore('gameHighScoreMap2')
     }if(cookieMap==='map=3'){
         spawnMobsMap1();
+        checkhighScore('gameHighScoreMap3')
     }if(cookieMap==='map=4'){
         spawnMobsMap1();
+        checkhighScore('gameHighScoreMap4')
     }if(cookieMap==='map=5'){
         spawnMobsMap1();
+        checkhighScore('gameHighScoreMap5')
     }if(cookieMap==='map=6'){
         spawnMobsMap2();
+        checkhighScore('gameHighScoreMap6')
     }if(cookieMap==='map=7'){
         spawnMobsMap1();
+        checkhighScore('gameHighScoreMap7')
     }if(cookieMap==='map=8'){
         spawnMobsMap1();
+        checkhighScore('gameHighScoreMap8')
     }if(cookieMap==='map=9'){
         spawnMobsMap2();
+        checkhighScore('gameHighScoreMap9')
     }if(cookieMap==='map=10'){
         spawnMobsMap1();
+        checkhighScore('gameHighScoreMap10')
     }if(cookieMap==='map=11'){
         spawnMobsMap2();
+        checkhighScore('gameHighScoreMap11')
     }if(cookieMap==='map=12'){
         spawnMobsMap3();
+        checkhighScore('gameHighScoreMap12')
     }
 }
 
@@ -173,11 +194,12 @@ function spawnMobsMap4(){
     
 }
 
-function checkhighScore(){
-    if(player.points> localStorage.getItem('gameHighScore')){
-        localStorage.setItem('gameHighScore', player.points)
-        highScore = player.points;
-        modalHighScoreEL.textContent =  highScore;
+function checkhighScore(highScoree){
+
+    
+    if(player.points> parseInt(localStorage.getItem(highScoree)) ){
+        localStorage.setItem(highScoree, player.points)
+        modalHighScoreEL.textContent = localStorage.getItem(highScoree);
     }
 }
 
@@ -543,11 +565,11 @@ lightningBolts.forEach((spell, index)=>{
         lightnings.forEach((lightning)=>{
           
             
-            if (circleRect(lightning.x+lightning.direction.x*110,lightning.y+lightning.direction.y*110,lightning.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true) {
+            if (circleRect(lightning.x+lightning.direction.x*60,lightning.y+lightning.direction.y*60,lightning.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true&&lightning.timer===15) {
                 
-                if(lightning.timer===35){
+               
                     mob.hp=mob.hp-40;
-                } 
+                
                     
                     if(mob.hp<1){
                         player.points=player.points+10;
@@ -563,10 +585,10 @@ lightningBolts.forEach((spell, index)=>{
         })
         lightningBolts.forEach((spell)=>{
            
-            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
-                if(spell.timer===35){
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true&&spell.timer===15){
+               
                     mob.hp=mob.hp-40;
-                } 
+                
                 if(mob.hp<1){
                     player.points=player.points+10;
                     
@@ -717,7 +739,7 @@ window.addEventListener('keydown', event =>{
         }
 
         lightnings.push(new Lightning(
-            player.x-15,player.y-15,30,2,angle,direction
+            player.x-15,player.y-15,20,2,angle,direction
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
@@ -741,10 +763,9 @@ window.addEventListener('keydown', event =>{
 
 startgameBtn.addEventListener('click', event =>{
     setTimeout(()=>{
-        checkhighScore();
+        setSpawnMap()
         init();
         animate();
-        setSpawnMap()
         spawnManaBuff();
         spawnHpBuff();
        

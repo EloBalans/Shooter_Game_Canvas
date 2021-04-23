@@ -12,7 +12,7 @@ export class Lightning extends Spell{
         this.lightningWidth = 72;
         this.lightningFrameX = 0;
         this.lightningFrameY = 0;
-        this.timer = 25
+        this.timer = 0;
         this.angle = angle-0.06;
         this.direction = direction;
     }
@@ -55,7 +55,6 @@ export class Lightning extends Spell{
                     this.lightningFrameX =6
                 }else if(this.timer===35){
                     this.lightningFrameX =7
-
                 }else if(this.timer===40){
                     this.lightningBoltFrameX =8
                 }else if(this.timer===45){
@@ -68,13 +67,13 @@ export class Lightning extends Spell{
             
     }
     drawHitbox(){
-        this.draw(this.x+this.direction.x*110,this.y+this.direction.y*110);
         this.draw(this.x+this.direction.x*60,this.y+this.direction.y*60);
+       
     }
 
     update() {
         
-       
+        this.drawHitbox()
         this.drawLightning();
         
     }
