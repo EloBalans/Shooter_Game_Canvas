@@ -66,7 +66,7 @@ export class SkillIcon {
         this.c.clip();
         this.c.closePath();
         this.c.restore();
-        if(this.nr != 1&&this.nr != 2&&this.nr != 3&&this.nr != 4){
+        if(this.nr != 1&&this.nr != 2&&this.nr != 3&&this.nr != 4&&this.nr != 5&&this.nr != 6&&this.nr != 7){
             this.c.drawImage(
                 this.button,
                 1250,
