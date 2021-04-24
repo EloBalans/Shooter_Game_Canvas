@@ -50,7 +50,7 @@ export class Skeleton extends Mob {
             );
             
             this.frameCount++;
-            if(this.frameCount===4*(this.hp/40)){
+            if(this.frameCount===4){
                 this.frameCount=0;
                 this.frameX++;
             }

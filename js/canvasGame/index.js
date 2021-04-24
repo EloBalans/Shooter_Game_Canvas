@@ -10,6 +10,10 @@ import { Mana } from "./buffs/mana.js";
 import { LightningBolt } from "./spells/lightningBolt.js";
 import { Lightning } from "./spells/lightning.js";
 import { MidasTouch } from "./spells/midasTouch.js";
+import { SunStrike } from "./spells/sunStrike.js";
+import { Explosion } from "./spells/explosion.js";
+import { Spike } from "./spells/spike.js";
+
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
@@ -26,6 +30,9 @@ let attacks = [];
 let lightnings = [];
 let lightningBolts = [];
 let midasTouchs = [];
+let sunStrikes = [];
+let explosions = [];
+let spikes = [];
 let mobs = [];
 let buffs = [];
 let particles = [];
@@ -36,7 +43,13 @@ let mousePos = {
 }
 let disable1 = false
 let disable2 = false
-let disable3 = false
+let disable3 = false  
+let disable4 = false
+let disable5 = false
+let disable6 = false  
+let disable7 = false
+let disable8 = false
+let disable9 = false    
 
 let cookieMap = document.cookie;
 
@@ -99,6 +112,12 @@ function init(){
     attacks = [];
     mobs = [];
     particles = [];
+    lightnings = [];
+    lightningBolts = [];
+    midasTouchs = [];
+    sunStrikes = [];
+    explosions = [];
+    spikes = [];
     buffs = [];
     monsterShoots = [];
     hptowerEL.innerHTML = player.hptower;
@@ -609,6 +628,69 @@ function animate(){
             
         
         })
+
+        sunStrikes.forEach((spell)=>{
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true
+             &&spell.timer===25
+            ){
+                
+                mob.hp=mob.hp-40;
+                
+                
+                if(mob.hp<1){
+                    player.points=player.points+10;
+                    
+                    scoreEL.innerHTML = player.points;
+                    mobs.splice(index,1)
+                    
+                
+                }
+            }
+            
+        
+        })
+
+        explosions.forEach((spell)=>{
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true
+             &&spell.timer===25
+            ){
+                
+                mob.hp=mob.hp-40;
+                
+                
+                if(mob.hp<1){
+                    player.points=player.points+10;
+                    
+                    scoreEL.innerHTML = player.points;
+                    mobs.splice(index,1)
+                    
+                
+                }
+            }
+            
+        
+        })
+
+        spikes.forEach((spell)=>{
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true
+             &&spell.timer===25
+            ){
+                
+                mob.hp=mob.hp-10;
+                
+                
+                if(mob.hp<1){
+                    player.points=player.points+10;
+                    
+                    scoreEL.innerHTML = player.points;
+                    mobs.splice(index,1)
+                    
+                
+                }
+            }
+            
+        
+        })
         
         //spawn and delete shots from player
         attacks.forEach((attack, attackindex)=>{
@@ -714,6 +796,24 @@ function animate(){
         setTimeout(()=>{ midasTouchs.splice(index,1)},3000)
     
     })
+    sunStrikes.forEach((spell, index)=>{
+        spell.update();
+       
+        setTimeout(()=>{ sunStrikes.splice(index,1)},800)
+    
+    })
+    explosions.forEach((spell, index)=>{
+        spell.update();
+       
+        setTimeout(()=>{ explosions.splice(index,1)},800)
+    
+    })
+    spikes.forEach((spell, index)=>{
+        spell.update();
+       
+        setTimeout(()=>{ explosions.splice(index,1)},1000)
+    
+    })
 
 }
 
@@ -724,7 +824,7 @@ window.addEventListener("keyup", event => player.keys[event.key.toLowerCase()] =
 window.addEventListener('click', event =>{
     let pos = getMousePos(canvas, event);
 if(pos.x<canvas.width&&pos.x>0&&pos.y<canvas.height&&pos.y>0&&pauseEl.style.display === 'none'&&modalEl.style.display === 'none'){
-    ammoEL.innerHTML = player.ammo;
+    
 
     const angle = Math.atan2(
        pos.y-  player.y,
@@ -737,15 +837,12 @@ if(pos.x<canvas.width&&pos.x>0&&pos.y<canvas.height&&pos.y>0&&pauseEl.style.disp
         y: Math.sin(angle),
     }
     
-    if(player.ammo>0){
-        player.ammo =player.ammo-1;
         
         attacks.push(new Attack(
             player.x,player.y,5,"blue",velocity,5,angle,
         ));
         
-    }
-    ammoEL.innerHTML = player.ammo;
+    
 }
 });
 
@@ -784,9 +881,9 @@ window.addEventListener('keydown', event =>{
     if (event.code === 'Digit2'&&disable2===false&&player.ammo>9) {
    
         lightningBolts.push(new LightningBolt(
-            mousePos.x-15,mousePos.y-15,30,2
+            mousePos.x-15,mousePos.y-15,30,3
         ));
-        player.ammo=player.ammo-9;
+        player.ammo=player.ammo-10;
         ammoEL.innerHTML = player.ammo;
         disable2 = true;
         setTimeout(()=>{disable2 = false},3000)
@@ -795,12 +892,61 @@ window.addEventListener('keydown', event =>{
     if (event.code === 'Digit3'&&disable3===false&&player.ammo>4) {
    
         midasTouchs.push(new MidasTouch(
-            mousePos.x-15,mousePos.y-15,20,3
+            mousePos.x-15,mousePos.y-15,20,4
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
         disable3 = true;
         setTimeout(()=>{disable3 = false},3000)
+    };
+
+    if (event.code === 'Digit4'&&disable4===false&&player.ammo>4) {
+   
+        sunStrikes.push(new SunStrike(
+            mousePos.x-15,mousePos.y-15,20,5
+        ));
+        player.ammo=player.ammo-5;
+        ammoEL.innerHTML = player.ammo;
+        disable4 = true;
+        setTimeout(()=>{disable4 = false},3000)
+    };
+
+    if (event.code === 'Digit5'&&disable5===false&&player.ammo>4) {
+   
+        explosions.push(new Explosion(
+            mousePos.x-15,mousePos.y-15,20,6
+        ));
+        player.ammo=player.ammo-5;
+        ammoEL.innerHTML = player.ammo;
+        disable5 = true;
+        setTimeout(()=>{disable5 = false},1000)
+    };
+
+    if (event.code === 'Digit6'&&disable6===false&&player.ammo>4) {
+        const playerPos = {x:player.x,y:player.y}
+        const angle = Math.atan2(
+            mousePos.y-  player.y,
+            mousePos.x-  player.x,
+     
+         );
+        const direction = {
+            x: Math.cos(angle),
+            y: Math.sin(angle),
+        }
+        let i =0;
+       setInterval(()=>{
+           i++
+        spikes.push(new Spike(
+            playerPos.x+direction.x*(i*20)-25,playerPos.y+direction.y*(i*30)-24,30,7,angle,direction
+        ));
+       },300)
+            
+        
+      
+        player.ammo=player.ammo-10;
+        ammoEL.innerHTML = player.ammo;
+        disable6 = true;
+        setTimeout(()=>{disable6 = false},1000)
     };
 
 });
