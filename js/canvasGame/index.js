@@ -9,6 +9,7 @@ import { Attack } from "./attack.js";
 import { Mana } from "./buffs/mana.js";
 import { LightningBolt } from "./spells/lightningBolt.js";
 import { Lightning } from "./spells/lightning.js";
+import { MidasTouch } from "./spells/midasTouch.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
@@ -24,6 +25,7 @@ let player = new Player(320,240,10,"blue",2,100,10,3,0,3);
 let attacks = [];
 let lightnings = [];
 let lightningBolts = [];
+let midasTouchs = [];
 let mobs = [];
 let buffs = [];
 let particles = [];
@@ -34,6 +36,7 @@ let mousePos = {
 }
 let disable1 = false
 let disable2 = false
+let disable3 = false
 
 let cookieMap = document.cookie;
 
@@ -582,6 +585,30 @@ function animate(){
             
         
         })
+
+        midasTouchs.forEach((spell)=>{
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true
+            // &&spell.timer===25
+            ){
+                
+                    mob.x = mob.x -(mob.speed.x/mob.hp*20);
+                    mob.y = mob.y -(mob.speed.y/mob.hp*20);
+                    mob.frameCount--;
+                
+                
+                
+                if(mob.hp<1){
+                    player.points=player.points+10;
+                    
+                    scoreEL.innerHTML = player.points;
+                    mobs.splice(index,1)
+                    
+                
+                }
+            }
+            
+        
+        })
         
         //spawn and delete shots from player
         attacks.forEach((attack, attackindex)=>{
@@ -681,6 +708,12 @@ function animate(){
         setTimeout(()=>{ lightningBolts.splice(index,1)},800)
     
     })
+    midasTouchs.forEach((spell, index)=>{
+        spell.update();
+       
+        setTimeout(()=>{ midasTouchs.splice(index,1)},3000)
+    
+    })
 
 }
 
@@ -751,12 +784,23 @@ window.addEventListener('keydown', event =>{
     if (event.code === 'Digit2'&&disable2===false&&player.ammo>9) {
    
         lightningBolts.push(new LightningBolt(
-            mousePos.x-15,mousePos.y-15,30,1
+            mousePos.x-15,mousePos.y-15,30,2
         ));
-        player.ammo=player.ammo-15;
+        player.ammo=player.ammo-9;
         ammoEL.innerHTML = player.ammo;
         disable2 = true;
         setTimeout(()=>{disable2 = false},3000)
+    };
+
+    if (event.code === 'Digit3'&&disable3===false&&player.ammo>4) {
+   
+        midasTouchs.push(new MidasTouch(
+            mousePos.x-15,mousePos.y-15,20,3
+        ));
+        player.ammo=player.ammo-5;
+        ammoEL.innerHTML = player.ammo;
+        disable3 = true;
+        setTimeout(()=>{disable3 = false},3000)
     };
 
 });

@@ -7,30 +7,14 @@ export class Skeleton extends Mob {
        
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');
-        this.mobSpriteWalk = document.getElementById("myImage");
-        this.mobSpriteDead = document.getElementById("myImage2");
+        this.skeleton = document.getElementById("myImage");
         this.height = 33;
         this.width = 22;
+        this.frameX = 0;
+        this.frameCount = 0;
 
-
-        this.mobWidthDead = 33;
-        this.mobFrameX = 0;
-        this.mobFrameXDead = 0;
-        
     }
     
-    
-    draw(){
-        
-        if(this.hp>0){
-            this.drawWalk();
-        }else{
-            this.hp=0;
-            this.drawDeath();
-        }
-       
-        
-    }
 
 
     update(){
@@ -43,10 +27,20 @@ export class Skeleton extends Mob {
         }
     }
 
+    draw(){
+        
+        if(this.hp>0){
+            this.drawWalk();
+        }
+       
+        
+    }
+
+
     drawWalk(){
         this.c.drawImage(
-            this.mobSpriteWalk,
-            this.width*this.mobFrameX,
+            this.skeleton,
+            this.width*this.frameX,
             0,
             this.width,this.height,
             this.x,
@@ -55,29 +49,15 @@ export class Skeleton extends Mob {
             this.height
             );
             
-                this.mobFrameX += 1;
-        
-            if( this.mobFrameX===13){
-                this.mobFrameX =0;
+            this.frameCount++;
+            if(this.frameCount===4*(this.hp/40)){
+                this.frameCount=0;
+                this.frameX++;
+            }
+            if(this.frameX===13){
+                this.frameX=0;
             }
     }
 
-    drawDeath(){
-        this.c.drawImage(
-            this.mobSpriteDead,
-            this.mobWidthDead*this.mobFrameXDead,
-            0,
-            this.mobWidthDead,
-            this.mobHeight,
-            this.x,
-            this.y,
-            this.mobWidthDead,
-            this.mobHeight
-            );
-            
-            if(this.mobFrameXDead<14){
-
-                this.mobFrameXDead += 1;
-            }
-    }    
+   
 }
