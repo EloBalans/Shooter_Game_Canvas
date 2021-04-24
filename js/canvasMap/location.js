@@ -12,6 +12,7 @@ export class Location {
         this.circle = new Path2D;
         this.name = name;
         this.splitedName = name.split(' ')
+        this.beforeLoc = 0;
     }
 
     draw(){
@@ -29,9 +30,13 @@ export class Location {
         if(this.radius===40){
             this.drawImageInCircle()
             this.drawLocationName()
+            if(this.beforeLoc<700){
+                this.drawLocked()
+            }
         }
         
     }
+
     drawLocationName(){
         this.c.drawImage(
             this.button,
@@ -79,6 +84,20 @@ export class Location {
         this.c.clip();
         this.c.closePath();
         this.c.restore();
+    }
+
+    drawLocked(){
+        this.c.drawImage(
+            this.button,
+            1250,
+            500,
+            240,
+            240,
+            this.x-30,
+            this.y-30,
+            64,
+            64,
+            );
     }
   
     isInPath(x,y){
