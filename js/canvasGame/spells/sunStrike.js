@@ -13,6 +13,7 @@ export class SunStrike extends Spell{
         this.frameX = 0;
         this.frameY = 0;
         this.timer = 0
+        this.locked = true;
     }
 
     

@@ -1,40 +1,38 @@
 import { Spell } from "./spell.js";
 
-export class Spike extends Spell{
+export class FireWall extends Spell{
 
-    constructor(x, y, radius,nr,direction) {
+    constructor(x, y, radius,nr) {
 
         super(x,y,radius,nr)
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');
-        this.spike = document.getElementById("spikes");
+        this.fireWall = document.getElementById("fireWall");
         this.height = 72;
         this.width = 72;
         this.frameX = 0;
         this.frameY = 0;
         this.timer = 0
-        this.direction = direction;
         this.locked = true;
     }
 
     
 
-    drawSpike(){
+    drawSunStrike(){
        
         
         this.c.drawImage(
-            this.spike,
+            this.fireWall,
             this.width*this.frameX,
             this.height*this.frameY,
             this.width,
             this.height,
-            this.x-this.width/2+12,
+            this.x-this.width/2+16,
             this.y-this.height/2,
             this.width,
             this.height,
             );
            
-            this.timer++;
                 if(this.timer===0){
                     this.frameX =0;
                 }else if(this.timer===5){
@@ -55,9 +53,10 @@ export class Spike extends Spell{
                     this.frameX =8
                 }else if(this.timer===45){
                     this.frameX =9
-                }else if(this.timer===50){
-                    this.frameX =10
+                    this.timer =0
                 }
+                    
+                    this.timer++;
                
             
                 
@@ -70,7 +69,7 @@ export class Spike extends Spell{
         
 
     update() {
-        this.drawSpike();
+        this.drawSunStrike();
         this.drawHitbox()
     }
 }

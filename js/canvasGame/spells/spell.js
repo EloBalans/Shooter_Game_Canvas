@@ -1,9 +1,8 @@
 export class Spell {
-    constructor(x, y, radius,nr) {
+    constructor(x, y, radius,nr,) {
 
         this.x = x;
         this.y = y;
-        
         this.nr = nr
         this.radius = radius;
         this.canvas = document.querySelector('canvas');

@@ -13,6 +13,7 @@ import { MidasTouch } from "./spells/midasTouch.js";
 import { SunStrike } from "./spells/sunStrike.js";
 import { Explosion } from "./spells/explosion.js";
 import { Spike } from "./spells/spike.js";
+import { FireWall } from "./spells/fireWall.js";
 
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
@@ -33,6 +34,7 @@ let midasTouchs = [];
 let sunStrikes = [];
 let explosions = [];
 let spikes = [];
+let fireWalls = [];
 let mobs = [];
 let buffs = [];
 let particles = [];
@@ -118,6 +120,8 @@ function init(){
     sunStrikes = [];
     explosions = [];
     spikes = [];
+    fireWalls = [];
+
     buffs = [];
     monsterShoots = [];
     hptowerEL.innerHTML = player.hptower;
@@ -466,7 +470,6 @@ function SpawnShoots(){
 
 
 function animate(){
-
     animationID = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
     setGameMap();
@@ -676,6 +679,7 @@ function animate(){
              &&spell.timer===25
             ){
                 
+                
                 mob.hp=mob.hp-10;
                 
                 
@@ -687,9 +691,23 @@ function animate(){
                     
                 
                 }
+                
             }
             
         
+        })
+        fireWalls.forEach((spell)=>{
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true
+             &&spell.frameX===2||circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true
+             &&spell.frameX===7
+            ){
+                mob.hp=mob.hp-5;
+                if(mob.hp<1){
+                    player.points=player.points+10;
+                    scoreEL.innerHTML = player.points;
+                    mobs.splice(index,1)
+                }
+            }
         })
         
         //spawn and delete shots from player
@@ -810,8 +828,17 @@ function animate(){
     })
     spikes.forEach((spell, index)=>{
         spell.update();
-       
-        setTimeout(()=>{ explosions.splice(index,1)},1000)
+        
+        if(spell.timer ===70){
+            spikes.splice(index,1)
+        }
+      
+    
+    })
+    fireWalls.forEach((spell, index)=>{
+        spell.update();
+        
+        setTimeout(()=>{ fireWalls.splice(index,1)},5000)
     
     })
 
@@ -924,22 +951,31 @@ window.addEventListener('keydown', event =>{
 
     if (event.code === 'Digit6'&&disable6===false&&player.ammo>4) {
         const playerPos = {x:player.x,y:player.y}
-        const angle = Math.atan2(
+        const anglee = Math.atan2(
             mousePos.y-  player.y,
             mousePos.x-  player.x,
      
          );
-        const direction = {
-            x: Math.cos(angle),
-            y: Math.sin(angle),
+        const direct = {
+            x: Math.cos(anglee),
+            y: Math.sin(anglee),
         }
+
         let i =0;
-       setInterval(()=>{
+       var intv = setInterval(()=>{
            i++
+        let spikeX = playerPos.x+direct.x*(i*20)
+        let spikeY = playerPos.y+direct.y*(i*30)
         spikes.push(new Spike(
-            playerPos.x+direction.x*(i*20)-25,playerPos.y+direction.y*(i*30)-24,30,7,angle,direction
+            spikeX,spikeY,30,7,anglee,direct
         ));
-       },300)
+        if(spikeX+30<0||
+            spikeX-30>canvas.width||
+            spikeY-30<0||
+            spikeY-30>canvas.height){
+            clearInterval(intv);
+        }
+       },500)
             
         
       
@@ -947,6 +983,17 @@ window.addEventListener('keydown', event =>{
         ammoEL.innerHTML = player.ammo;
         disable6 = true;
         setTimeout(()=>{disable6 = false},1000)
+    };
+
+    if (event.code === 'Digit7'&&disable7===false&&player.ammo>4) {
+   
+        fireWalls.push(new FireWall(
+            mousePos.x-15,mousePos.y-15,20,6
+        ));
+        player.ammo=player.ammo-5;
+        ammoEL.innerHTML = player.ammo;
+        disable7 = true;
+        setTimeout(()=>{disable7 = false},3000)
     };
 
 });

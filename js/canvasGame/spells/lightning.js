@@ -15,6 +15,7 @@ export class Lightning extends Spell{
         this.timer = 0;
         this.angle = angle-0.06;
         this.direction = direction;
+        this.locked = true
     }
 
     
