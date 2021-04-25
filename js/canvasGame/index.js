@@ -14,6 +14,8 @@ import { SunStrike } from "./spells/sunStrike.js";
 import { Explosion } from "./spells/explosion.js";
 import { Spike } from "./spells/spike.js";
 import { FireWall } from "./spells/fireWall.js";
+import { Shield } from "./spells/shield.js";
+import { BlackHole } from "./spells/blackHole.js";
 
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
@@ -35,6 +37,8 @@ let sunStrikes = [];
 let explosions = [];
 let spikes = [];
 let fireWalls = [];
+let shields = [];
+let blackHoles = [];
 let mobs = [];
 let buffs = [];
 let particles = [];
@@ -121,6 +125,8 @@ function init(){
     explosions = [];
     spikes = [];
     fireWalls = [];
+    shields = [];
+    blackHoles = [];
 
     buffs = [];
     monsterShoots = [];
@@ -612,9 +618,9 @@ function animate(){
             if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true
             // &&spell.timer===25
             ){
-                
-                    mob.x = mob.x -(mob.speed.x/mob.hp*20);
-                    mob.y = mob.y -(mob.speed.y/mob.hp*20);
+
+                    mob.x = mob.x -(mob.speed.x);
+                    mob.y = mob.y -(mob.speed.y);
                     mob.frameCount--;
                 
                 
@@ -708,6 +714,40 @@ function animate(){
                     mobs.splice(index,1)
                 }
             }
+        })
+
+        shields.forEach((spell)=>{
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
+                player.immune = true
+            }else{
+                player.immune = false
+            }
+        })
+        blackHoles.forEach((spell)=>{
+            if(circleRect(spell.x,spell.y,spell.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true){
+                mob.x = mob.x -(mob.speed.x);
+                mob.y = mob.y -(mob.speed.y);
+                mob.hp = mob.hp-0.2;
+                const angleBlackHole = Math.atan2(
+                    mob.y-  spell.y,
+                    mob.x-  spell.x,
+             
+                 );
+                const directBlackHole = {
+                    x: Math.cos(angleBlackHole),
+                    y: Math.sin(angleBlackHole),
+                }
+
+                mob.x = mob.x -directBlackHole.x*5
+                mob.y = mob.y -directBlackHole.y*5
+
+
+            }if(mob.hp<1){
+                player.points=player.points+10;
+                scoreEL.innerHTML = player.points;
+                mobs.splice(index,1)
+            }
+            
         })
         
         //spawn and delete shots from player
@@ -811,7 +851,7 @@ function animate(){
     midasTouchs.forEach((spell, index)=>{
         spell.update();
        
-        setTimeout(()=>{ midasTouchs.splice(index,1)},3000)
+        setTimeout(()=>{ midasTouchs.splice(index,1)},5000)
     
     })
     sunStrikes.forEach((spell, index)=>{
@@ -829,6 +869,7 @@ function animate(){
     spikes.forEach((spell, index)=>{
         spell.update();
         
+
         if(spell.timer ===70){
             spikes.splice(index,1)
         }
@@ -841,7 +882,20 @@ function animate(){
         setTimeout(()=>{ fireWalls.splice(index,1)},5000)
     
     })
-
+    shields.forEach((spell, index)=>{
+        spell.update();
+        spell.x = player.x-15
+        spell.y = player.y-25
+        
+        setTimeout(()=>{ shields.splice(index,1)},5000)
+    
+    })
+    blackHoles.forEach((spell, index)=>{
+        spell.update();
+        
+        setTimeout(()=>{ blackHoles.splice(index,1)},5000)
+    
+    })
 }
 
 
@@ -919,7 +973,7 @@ window.addEventListener('keydown', event =>{
     if (event.code === 'Digit3'&&disable3===false&&player.ammo>4) {
    
         midasTouchs.push(new MidasTouch(
-            mousePos.x-15,mousePos.y-15,20,4
+            mousePos.x-15,mousePos.y-15,30,4
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
@@ -930,7 +984,7 @@ window.addEventListener('keydown', event =>{
     if (event.code === 'Digit4'&&disable4===false&&player.ammo>4) {
    
         sunStrikes.push(new SunStrike(
-            mousePos.x-15,mousePos.y-15,20,5
+            mousePos.x-15,mousePos.y-15,35,5
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
@@ -941,7 +995,7 @@ window.addEventListener('keydown', event =>{
     if (event.code === 'Digit5'&&disable5===false&&player.ammo>4) {
    
         explosions.push(new Explosion(
-            mousePos.x-15,mousePos.y-15,20,6
+            mousePos.x-15,mousePos.y-15,30,6
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
@@ -964,8 +1018,8 @@ window.addEventListener('keydown', event =>{
         let i =0;
        var intv = setInterval(()=>{
            i++
-        let spikeX = playerPos.x+direct.x*(i*20)
-        let spikeY = playerPos.y+direct.y*(i*30)
+        let spikeX = playerPos.x+direct.x*(i*20)-10
+        let spikeY = playerPos.y+direct.y*(i*30)-16
         spikes.push(new Spike(
             spikeX,spikeY,30,7,anglee,direct
         ));
@@ -975,7 +1029,7 @@ window.addEventListener('keydown', event =>{
             spikeY-30>canvas.height){
             clearInterval(intv);
         }
-       },500)
+       },300)
             
         
       
@@ -988,13 +1042,36 @@ window.addEventListener('keydown', event =>{
     if (event.code === 'Digit7'&&disable7===false&&player.ammo>4) {
    
         fireWalls.push(new FireWall(
-            mousePos.x-15,mousePos.y-15,20,6
+            mousePos.x-15,mousePos.y-15,30,6
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
         disable7 = true;
         setTimeout(()=>{disable7 = false},3000)
     };
+
+    if (event.code === 'Digit8'&&disable8===false&&player.ammo>4) {
+   
+        shields.push(new Shield(
+            player.x-15,player.y-25,30,6
+        ));
+        player.ammo=player.ammo-5;
+        ammoEL.innerHTML = player.ammo;
+        disable8 = true;
+        setTimeout(()=>{disable8 = false},3000)
+    };
+
+    if (event.code === 'Digit9'&&disable9===false&&player.ammo>19) {
+   
+        blackHoles.push(new BlackHole(
+            mousePos.x-30,mousePos.y-30,60,6
+        ));
+        player.ammo=player.ammo-20;
+        ammoEL.innerHTML = player.ammo;
+        disable9 = true;
+        setTimeout(()=>{disable9 = false},3000)
+    };
+
 
 });
 

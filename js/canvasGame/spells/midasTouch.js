@@ -27,8 +27,8 @@ export class MidasTouch extends Spell{
             this.height*this.frameY,
             this.width,
             this.height,
-            this.x-this.width/2+16,
-            this.y-this.height/2,
+            this.x-this.width/2+14  ,
+            this.y-this.height/2+3  ,
             this.width,
             this.height,
             );
@@ -46,10 +46,10 @@ export class MidasTouch extends Spell{
                     this.frameX=4
                 }else if(this.timer===25){
                     this.frameX=5
-                }else if(this.timer===150){
+                }else if(this.timer===30){
                     this.frameX =6
                 }
-                else if(this.timer>150){
+                else if(this.timer>300){
                     this.frameX =7
                 }
             
@@ -64,6 +64,6 @@ export class MidasTouch extends Spell{
 
     update() {
         this.drawMidasTouch();
-        this.drawHitbox()
+        // this.drawHitbox()
     }
 }

@@ -1,13 +1,13 @@
 import { Spell } from "./spell.js";
 
-export class Explosion extends Spell{
+export class Shield extends Spell{
 
     constructor(x, y, radius,nr) {
 
         super(x,y,radius,nr)
         this.canvas = document.querySelector('canvas');
         this.c = this.canvas.getContext('2d');
-        this.explosion = document.getElementById("explosion");
+        this.shield = document.getElementById("shield");
         this.height = 72;
         this.width = 72;
         this.frameX = 0;
@@ -17,11 +17,11 @@ export class Explosion extends Spell{
 
     
 
-    drawExplosion(){
+    drawShield(){
        
         
         this.c.drawImage(
-            this.explosion,
+            this.shield,
             this.width*this.frameX,
             this.height*this.frameY,
             this.width,
@@ -49,12 +49,7 @@ export class Explosion extends Spell{
                     this.frameX =6
                 }else if(this.timer===35){
                     this.frameX =7
-                }else if(this.timer===40){
-                    this.frameX =8
-                }else if(this.timer===45){
-                    this.frameX =9
-                }else if(this.timer===50){
-                    this.frameX =10
+                    this.timer = -1;
                 }
                
             
@@ -63,12 +58,13 @@ export class Explosion extends Spell{
     }
     
     drawHitbox(){
+       
         this.draw(this.x,this.y);
     }
         
 
     update() {
-        this.drawExplosion();
+        this.drawShield();
         // this.drawHitbox()
     }
 }

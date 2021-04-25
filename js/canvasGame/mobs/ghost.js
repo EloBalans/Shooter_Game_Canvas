@@ -21,8 +21,8 @@ export class Ghost extends Mob {
         this.draw();
         this.hpDraw();
         if(this.hp>0){
-            this.x = this.x +(this.speed.x/this.hp*20);
-            this.y = this.y +(this.speed.y/this.hp*20);
+            this.x = this.x +(this.speed.x);
+            this.y = this.y +(this.speed.y);
         }
         
     }

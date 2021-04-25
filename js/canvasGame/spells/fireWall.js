@@ -70,6 +70,6 @@ export class FireWall extends Spell{
 
     update() {
         this.drawSunStrike();
-        this.drawHitbox()
+        // this.drawHitbox()
     }
 }

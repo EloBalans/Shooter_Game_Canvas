@@ -27,10 +27,10 @@ export class SunStrike extends Spell{
             this.height*this.frameY,
             this.width,
             this.height,
-            this.x-this.width/2+16,
-            this.y-this.height/2,
-            this.width,
-            this.height,
+            this.x-this.width/2-2,
+            this.y-this.height/2-35,
+            this.width*1.5,
+            this.height*1.5,
             );
            
             this.timer++;
@@ -70,5 +70,6 @@ export class SunStrike extends Spell{
 
     update() {
         this.drawSunStrike();
+        // this.drawHitbox()
     }
 }

@@ -74,7 +74,7 @@ export class Lightning extends Spell{
 
     update() {
         
-        this.drawHitbox()
+        // this.drawHitbox()
         this.drawLightning();
         
     }

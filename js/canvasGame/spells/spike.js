@@ -28,8 +28,8 @@ export class Spike extends Spell{
             this.height*this.frameY,
             this.width,
             this.height,
-            this.x-this.width/2+12,
-            this.y-this.height/2,
+            this.x-this.width/2+15,
+            this.y-this.height/2-10,
             this.width,
             this.height,
             );
@@ -71,6 +71,6 @@ export class Spike extends Spell{
 
     update() {
         this.drawSpike();
-        this.drawHitbox()
+        // this.drawHitbox()
     }
 }

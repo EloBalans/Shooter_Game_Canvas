@@ -22,8 +22,8 @@ export class Skeleton extends Mob {
         this.hpDraw();
   
         if(this.hp>0){
-            this.x = this.x +(this.speed.x/this.hp*20);
-            this.y = this.y +(this.speed.y/this.hp*20);
+            this.x = this.x +(this.speed.x);
+            this.y = this.y +(this.speed.y);
         }
     }
 
@@ -50,7 +50,7 @@ export class Skeleton extends Mob {
             );
             
             this.frameCount++;
-            if(this.frameCount===4){
+            if(this.frameCount===3){
                 this.frameCount=0;
                 this.frameX++;
             }
