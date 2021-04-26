@@ -11,7 +11,8 @@ export class SkillIcon {
         this.width = width
         this.heigth = heigth
         this.skill = skill  
-
+        this.locked = true;
+        this.cooldown = false;
         this.keyboardPosX = keyboardPosX
         this.keyboardPosY = keyboardPosY
         
@@ -26,6 +27,10 @@ export class SkillIcon {
         }else{
             this.drawKey()
         }
+        if(this.locked ===true){
+            this.drawLocked()
+        }
+        
         
       
     }
@@ -60,28 +65,42 @@ export class SkillIcon {
             this.width+15,
             this.heigth+15,
             );
+        
 
         this.c.beginPath();
         this.c.arc(0, 0, 21,0, Math.PI * 2,);
         this.c.clip();
         this.c.closePath();
         this.c.restore();
-        // if(this.nr != 1&&this.nr != 2&&this.nr != 3&&this.nr != 4&&this.nr != 5&&this.nr != 6&&this.nr != 7){
-        //     this.c.drawImage(
-        //         this.button,
-        //         1250,
-        //         500,
-        //         240,
-        //         240,
-        //         this.x+21,
-        //         this.y+18,
-        //         24,
-        //         24,
-        //         );
-        // }
+
+        if(this.cooldown===true){
+            this.c.save();
+            this.c.beginPath();
+            this.c.arc(this.x+32, this.y+30, 21 ,0, Math.PI );
+            this.c.fillStyle = 'rgba(0, 0, 255,0.8)';
+            this.c.fill();
+            this.c.closePath();
+            this.c.restore();
+        }
+        
         
     }
+    
+    drawLocked(){
+        this.c.drawImage(
+            this.button,
+            1250,
+            500,
+            240,
+            240,
+            this.x+21,
+            this.y+18,
+            24,
+            24,
+            );
+    }
 
+    
     drawMouse(){
         this.c.drawImage(
             this.mouse,
@@ -104,13 +123,12 @@ export class SkillIcon {
             this.width,
             this.heigth
         )
-       
     }
-    
+
     update(){
         this.draw();
+        
     }
     
 
 }
-

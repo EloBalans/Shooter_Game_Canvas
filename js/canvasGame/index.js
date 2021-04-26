@@ -20,6 +20,8 @@ import { BlackHole } from "./spells/blackHole.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
+import { cooldownIcon, disableSkillIcon } from "../canvasSkills/skills.js";
+
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
 
@@ -47,15 +49,9 @@ let mousePos = {
     x:0,
     y:0,
 }
-let disable1 = false
-let disable2 = false
-let disable3 = false  
-let disable4 = false
-let disable5 = false
-let disable6 = false  
-let disable7 = false
-let disable8 = false
-let disable9 = false    
+let cooldown= [false,false,false,false,false,false,false,false,false]
+let disableSkill = [false,true,true,true,true,true,true,true,true]
+
 
 let cookieMap = document.cookie;
 
@@ -139,6 +135,8 @@ function init(){
 }
 
 function setGameMap(){
+    
+    
     if(cookieMap==='map=1'){
         c.drawImage(backgroundMap7,0,0,canvas.width,canvas.height)
     }if(cookieMap==='map=2'){
@@ -171,7 +169,7 @@ function setGameMap(){
 
 function setSpawnMap(){
     if(cookieMap==='map=1'){
-        spawnMobsMap1();
+        // spawnMobsMap1();
         checkhighScore('gameHighScoreMap1')
     }if(cookieMap==='map=2'){
         spawnMobsMap1();
@@ -190,7 +188,6 @@ function setSpawnMap(){
         checkhighScore('gameHighScoreMap6')
     }if(cookieMap==='map=7'){
         spawnMobsMap1();
-        checkhighScore('gameHighScoreMap7')
     }if(cookieMap==='map=8'){
         spawnMobsMap1();
         checkhighScore('gameHighScoreMap8')
@@ -224,6 +221,14 @@ function spawnMobsMap3(){
 }
 function spawnMobsMap4(){
     
+}
+
+function skillsSet(){
+    for(let i = 0; i < 9;i++){
+        if(highScoreMap[i]>700){
+            disableSkill[i+1]=false;
+        }
+    }
 }
 
 function checkhighScore(highScoree){
@@ -478,6 +483,8 @@ function SpawnShoots(){
 function animate(){
     animationID = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
+    cooldownIcon(cooldown[0],cooldown[1],cooldown[2],cooldown[3],cooldown[4],cooldown[5],cooldown[6],cooldown[7],cooldown[8]);
+    disableSkillIcon(disableSkill[0],disableSkill[1],disableSkill[2],disableSkill[3],disableSkill[4],disableSkill[5],disableSkill[6],disableSkill[7],disableSkill[8]);
     setGameMap();
    
     // c.fillStyle = 'white'
@@ -938,8 +945,9 @@ document.addEventListener('mousemove', function(e){
 
 window.addEventListener('keydown', event =>{
 
-    if (event.code === 'Digit1' &&disable1===false&&player.ammo>4
+    if (event.code === 'Digit1' &&cooldown[0]===false&&player.ammo>4&&disableSkill[0]===false
     ) {
+        cooldown[0] = true;
         const angle = Math.atan2(
             mousePos.y-  player.y,
             mousePos.x-  player.x,
@@ -955,55 +963,52 @@ window.addEventListener('keydown', event =>{
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        disable1 = true;
-        setTimeout(()=>{disable1 = false},1000)
+        
+        setTimeout(()=>{cooldown[0] = false},1000)
     };
     
-    if (event.code === 'Digit2'&&disable2===false&&player.ammo>9) {
-   
+    if (event.code === 'Digit2'&&cooldown[1]===false&&player.ammo>9&&disableSkill[1]===false) {
+        cooldown[1]= true;
         lightningBolts.push(new LightningBolt(
             mousePos.x-15,mousePos.y-15,30,3
         ));
         player.ammo=player.ammo-10;
         ammoEL.innerHTML = player.ammo;
-        disable2 = true;
-        setTimeout(()=>{disable2 = false},3000)
+        setTimeout(()=>{cooldown[1] = false},3000)
     };
 
-    if (event.code === 'Digit3'&&disable3===false&&player.ammo>4) {
-   
+    if (event.code === 'Digit3'&&cooldown[2]===false&&player.ammo>4&&disableSkill[2]===false) {
+        cooldown[2] = true;
         midasTouchs.push(new MidasTouch(
             mousePos.x-15,mousePos.y-15,30,4
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        disable3 = true;
-        setTimeout(()=>{disable3 = false},3000)
+        setTimeout(()=>{cooldown[2] = false},3000)
     };
 
-    if (event.code === 'Digit4'&&disable4===false&&player.ammo>4) {
-   
+    if (event.code === 'Digit4'&&cooldown[3]===false&&player.ammo>4&&disableSkill[3]===false) {
+        cooldown[3] = true;
         sunStrikes.push(new SunStrike(
             mousePos.x-15,mousePos.y-15,35,5
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        disable4 = true;
-        setTimeout(()=>{disable4 = false},3000)
+        setTimeout(()=>{cooldown[3] = false},3000)
     };
 
-    if (event.code === 'Digit5'&&disable5===false&&player.ammo>4) {
-   
+    if (event.code === 'Digit5'&&cooldown[4]===false&&player.ammo>4&&disableSkill[4]===false) {
+        cooldown[4] = true;
         explosions.push(new Explosion(
             mousePos.x-15,mousePos.y-15,30,6
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        disable5 = true;
-        setTimeout(()=>{disable5 = false},1000)
+        setTimeout(()=>{cooldown[4] = false},1000)
     };
 
-    if (event.code === 'Digit6'&&disable6===false&&player.ammo>4) {
+    if (event.code === 'Digit6'&&cooldown[5]===false&&player.ammo>4&&disableSkill[5]===false) {
+        cooldown[5] = true;
         const playerPos = {x:player.x,y:player.y}
         const anglee = Math.atan2(
             mousePos.y-  player.y,
@@ -1035,41 +1040,40 @@ window.addEventListener('keydown', event =>{
       
         player.ammo=player.ammo-10;
         ammoEL.innerHTML = player.ammo;
-        disable6 = true;
-        setTimeout(()=>{disable6 = false},1000)
+        
+        setTimeout(()=>{cooldown[5] = false},1000)
     };
 
-    if (event.code === 'Digit7'&&disable7===false&&player.ammo>4) {
-   
+    if (event.code === 'Digit7'&&cooldown[6]===false&&player.ammo>4&&disableSkill[6]===false) {
+        cooldown[6] = true;
         fireWalls.push(new FireWall(
             mousePos.x-15,mousePos.y-15,30,6
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        disable7 = true;
-        setTimeout(()=>{disable7 = false},3000)
+        setTimeout(()=>{ cooldown[6] = false},3000)
     };
 
-    if (event.code === 'Digit8'&&disable8===false&&player.ammo>4) {
-   
+    if (event.code === 'Digit8'&&cooldown[7]===false&&player.ammo>4&&disableSkill[7]===false) {
+        cooldown[7] = true;
         shields.push(new Shield(
             player.x-15,player.y-25,30,6
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        disable8 = true;
-        setTimeout(()=>{disable8 = false},3000)
+
+        setTimeout(()=>{cooldown[7] = false},3000)
     };
 
-    if (event.code === 'Digit9'&&disable9===false&&player.ammo>19) {
-   
+    if (event.code === 'Digit9'&&cooldown[8]===false&&player.ammo>19&&disableSkill[8]===false) {
+        cooldown[8] = true;
         blackHoles.push(new BlackHole(
             mousePos.x-30,mousePos.y-30,60,6
         ));
         player.ammo=player.ammo-20;
         ammoEL.innerHTML = player.ammo;
-        disable9 = true;
-        setTimeout(()=>{disable9 = false},3000)
+       
+        setTimeout(()=>{cooldown[8] = false},3000)
     };
 
 
@@ -1079,6 +1083,7 @@ window.addEventListener('keydown', event =>{
 startgameBtn.addEventListener('click', event =>{
     setTimeout(()=>{
         setSpawnMap()
+        skillsSet();
         init();
         animate();
         spawnManaBuff();
@@ -1100,8 +1105,9 @@ pausegameBtn.addEventListener('click', event =>{
 unpausegameBtn.addEventListener('click', event =>{
   
     pauseEl.style.display = 'none'
-    animate();
     setSpawnMap()
+    animate();
+    skillsSet();
     spawnManaBuff();
     spawnHpBuff();
    
