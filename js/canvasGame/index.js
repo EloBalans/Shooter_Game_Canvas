@@ -170,7 +170,7 @@ function setGameMap(){
 
 function setSpawnMap(){
     if(cookieMap==='map=1'){
-        // spawnMobsMap1();
+        spawnMobsMap1();
         checkhighScore('gameHighScoreMap1')
     }if(cookieMap==='map=2'){
         spawnMobsMap1();
