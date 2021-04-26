@@ -20,7 +20,7 @@ import { BlackHole } from "./spells/blackHole.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
-import { cooldownIcon, disableSkillIcon } from "../canvasSkills/skills.js";
+import { cooldownIcon,cooldownTime, disableSkillIcon} from "../canvasSkills/skills.js";
 
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
@@ -50,6 +50,7 @@ let mousePos = {
     y:0,
 }
 let cooldown= [false,false,false,false,false,false,false,false,false]
+let cooldownSec = [1,3,3,3,1,3,3,3,3]
 let disableSkill = [false,true,true,true,true,true,true,true,true]
 
 
@@ -484,6 +485,7 @@ function animate(){
     animationID = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
     cooldownIcon(cooldown[0],cooldown[1],cooldown[2],cooldown[3],cooldown[4],cooldown[5],cooldown[6],cooldown[7],cooldown[8]);
+    cooldownTime(cooldownSec[0],cooldownSec[1],cooldownSec[2],cooldownSec[3],cooldownSec[4],cooldownSec[5],cooldownSec[6],cooldownSec[7],cooldownSec[8]);
     disableSkillIcon(disableSkill[0],disableSkill[1],disableSkill[2],disableSkill[3],disableSkill[4],disableSkill[5],disableSkill[6],disableSkill[7],disableSkill[8]);
     setGameMap();
    
@@ -964,7 +966,7 @@ window.addEventListener('keydown', event =>{
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
         
-        setTimeout(()=>{cooldown[0] = false},1000)
+        setTimeout(()=>{cooldown[0] = false},cooldownSec[0]*1000)
     };
     
     if (event.code === 'Digit2'&&cooldown[1]===false&&player.ammo>9&&disableSkill[1]===false) {
@@ -974,7 +976,7 @@ window.addEventListener('keydown', event =>{
         ));
         player.ammo=player.ammo-10;
         ammoEL.innerHTML = player.ammo;
-        setTimeout(()=>{cooldown[1] = false},3000)
+        setTimeout(()=>{cooldown[1] = false},cooldownSec[1]*1000)
     };
 
     if (event.code === 'Digit3'&&cooldown[2]===false&&player.ammo>4&&disableSkill[2]===false) {
@@ -984,7 +986,7 @@ window.addEventListener('keydown', event =>{
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        setTimeout(()=>{cooldown[2] = false},3000)
+        setTimeout(()=>{cooldown[2] = false},cooldownSec[2]*1000)
     };
 
     if (event.code === 'Digit4'&&cooldown[3]===false&&player.ammo>4&&disableSkill[3]===false) {
@@ -994,7 +996,7 @@ window.addEventListener('keydown', event =>{
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        setTimeout(()=>{cooldown[3] = false},3000)
+        setTimeout(()=>{cooldown[3] = false},cooldownSec[3]*1000)
     };
 
     if (event.code === 'Digit5'&&cooldown[4]===false&&player.ammo>4&&disableSkill[4]===false) {
@@ -1004,7 +1006,7 @@ window.addEventListener('keydown', event =>{
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        setTimeout(()=>{cooldown[4] = false},1000)
+        setTimeout(()=>{cooldown[4] = false},cooldownSec[4]*1000)
     };
 
     if (event.code === 'Digit6'&&cooldown[5]===false&&player.ammo>4&&disableSkill[5]===false) {
@@ -1041,7 +1043,7 @@ window.addEventListener('keydown', event =>{
         player.ammo=player.ammo-10;
         ammoEL.innerHTML = player.ammo;
         
-        setTimeout(()=>{cooldown[5] = false},1000)
+        setTimeout(()=>{cooldown[5] = false},cooldownSec[5]*1000)
     };
 
     if (event.code === 'Digit7'&&cooldown[6]===false&&player.ammo>4&&disableSkill[6]===false) {
@@ -1051,7 +1053,7 @@ window.addEventListener('keydown', event =>{
         ));
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
-        setTimeout(()=>{ cooldown[6] = false},3000)
+        setTimeout(()=>{ cooldown[6] = false},cooldownSec[6]*1000)
     };
 
     if (event.code === 'Digit8'&&cooldown[7]===false&&player.ammo>4&&disableSkill[7]===false) {
@@ -1062,7 +1064,7 @@ window.addEventListener('keydown', event =>{
         player.ammo=player.ammo-5;
         ammoEL.innerHTML = player.ammo;
 
-        setTimeout(()=>{cooldown[7] = false},3000)
+        setTimeout(()=>{cooldown[7] = false},cooldownSec[7]*1000)
     };
 
     if (event.code === 'Digit9'&&cooldown[8]===false&&player.ammo>19&&disableSkill[8]===false) {
@@ -1073,7 +1075,7 @@ window.addEventListener('keydown', event =>{
         player.ammo=player.ammo-20;
         ammoEL.innerHTML = player.ammo;
        
-        setTimeout(()=>{cooldown[8] = false},3000)
+        setTimeout(()=>{cooldown[8] = false},cooldownSec[8]*1000)
     };
 
 

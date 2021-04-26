@@ -45,6 +45,15 @@ export function cooldownIcon(...cooldown) {
     }
 }
 
+export function cooldownTime(...cooldownTime) {
+   
+    for(let i = 0; i<cooldownTime.length;i++){
+        skills[i+1].cooldownTime = cooldownTime[i]
+
+        
+    }
+}
+
 export function disableSkillIcon(...disable) {
     skills[0].locked = false;
     for(let i = 1; i<disable.length;i++){

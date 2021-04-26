@@ -13,6 +13,7 @@ export class SkillIcon {
         this.skill = skill  
         this.locked = true;
         this.cooldown = false;
+        this.cooldownTime = 1;
         this.keyboardPosX = keyboardPosX
         this.keyboardPosY = keyboardPosY
         
@@ -76,15 +77,22 @@ export class SkillIcon {
         if(this.cooldown===true){
             this.c.save();
             this.c.beginPath();
-            this.c.arc(this.x+32, this.y+30, 21 ,0, Math.PI );
+            this.c.arc(this.x+32, this.y+30, 21 ,0, Math.PI *2);
             this.c.fillStyle = 'rgba(0, 0, 255,0.8)';
             this.c.fill();
             this.c.closePath();
             this.c.restore();
+
+            this.c.textAlign = "center";
+            this.c.fillStyle = "white"
+            this.c.font = "30px";
+            this.c.fillText(this.cooldownTime,this.x+32,this.y+32);
         }
         
         
     }
+
+
     
     drawLocked(){
         this.c.drawImage(
