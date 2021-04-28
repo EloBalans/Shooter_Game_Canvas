@@ -5,7 +5,7 @@ export class MidasTouch extends Spell{
     constructor(x, y, radius,nr) {
 
         super(x,y,radius,nr)
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         this.midasTouch = document.getElementById("midasTouch");
         this.height = 72;

@@ -5,7 +5,7 @@ export class Spike extends Spell{
     constructor(x, y, radius,nr,direction) {
 
         super(x,y,radius,nr)
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         this.spike = document.getElementById("spikes");
         this.height = 72;

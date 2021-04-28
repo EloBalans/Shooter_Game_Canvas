@@ -5,7 +5,7 @@ export class Spell {
         this.y = y;
         this.nr = nr
         this.radius = radius;
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
 
        

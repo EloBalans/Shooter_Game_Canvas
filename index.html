@@ -16,11 +16,18 @@
     <div  class="fixed inset-0 flex items-center justify-center rounded-lg">
         <div class="grid grid-rows-3 gap-4" >
       
-        <div  class="border-8 row-span-3 bg-gray-100 border-gray pl-4 pr-4 pt-4 pb-4 m-2 rounded-lg text-4xl text-center " >
-            Dungeons
+        <div  class="row-span-3" >
+            <canvas id="canvasName">
+                <img id="dragonBG" src="assets/dragonBG.jpg">
+                
+        
+            </canvas>
+            <script src="js/canvasName/canvasName.js" type="module"></script>
         </div>
-   
+
+        <div  class="row-span-3" >
             <canvas id="canvasMap" class = "">
+                
                 <img id="map" src="assets/globalMap.jpg">
                 <img id="button" src="assets/Button.png">
                 <img id="backgroundMap1" src="assets/backgroundsMaps/atlantisBG1.png">
@@ -37,7 +44,7 @@
                 <img id="backgroundMap12" src="assets/backgroundsMaps/woodlandBG3.png">
             </canvas>
             <script src="js/canvasMap/globalMap.js" type="module"></script>
-       
+            </div>
     </div>
    </div>
 </body>

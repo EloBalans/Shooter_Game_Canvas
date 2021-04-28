@@ -8,7 +8,7 @@ export class Attack {
         this.color = color;
         this.speed = speed;
         this.angle = angle;
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         this.fireball = document.getElementById("fireball");
         this.fireballHeight = 36;

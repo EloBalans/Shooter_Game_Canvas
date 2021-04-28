@@ -7,7 +7,7 @@ export class Mob {
         this.nr=nr;
         this.hitboxX= hitboxX
         this.hitboxY = hitboxY
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         this.lengthOfEmptyHpBar = 0
         

@@ -5,7 +5,7 @@ export class Ghost extends Mob {
     constructor(x, y, hp, speed,nr,hitboxX,hitboxY) {
         super(x,y,hp,speed,nr,hitboxX,hitboxY);
        
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
 
         this.ghost = document.getElementById("ghost");

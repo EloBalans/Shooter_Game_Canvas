@@ -7,7 +7,7 @@ export class Particle {
         this.color = color;
         this.alpha = 1;
         this.slow = 0.99;
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         
     

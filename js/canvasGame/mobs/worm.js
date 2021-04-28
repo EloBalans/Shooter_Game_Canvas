@@ -5,7 +5,7 @@ export class Worm extends Mob {
     constructor(x, y, hp, speed,nr) {
         super(x,y,hp,speed,nr);
        
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         this.worm = document.getElementById("worm");
         this.mobHeight = 90;

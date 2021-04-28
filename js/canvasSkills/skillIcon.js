@@ -87,7 +87,8 @@ export class SkillIcon {
             this.c.fillStyle = "white"
             this.c.font = "30px";
             this.c.fillText(this.cooldownTime,this.x+32,this.y+32);
-        }
+            
+            }
         
         
     }

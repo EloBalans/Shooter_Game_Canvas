@@ -5,7 +5,7 @@ export class Blob extends Mob {
     constructor(x, y, hp,speed,nr,hitboxX,hitboxY,random) {
         super(x,y,hp,speed,nr,hitboxX,hitboxY,random);
        
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         this.blob1 = document.getElementById("blob1");
         this.blob2 = document.getElementById("blob2");

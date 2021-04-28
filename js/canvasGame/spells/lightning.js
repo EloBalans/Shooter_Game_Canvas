@@ -5,7 +5,7 @@ export class Lightning extends Spell{
     constructor(x, y, radius,nr,angle,direction) {
 
         super(x,y,radius,nr)
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         this.lightning = document.getElementById("lightning");
         this.lightningHeight = 72;

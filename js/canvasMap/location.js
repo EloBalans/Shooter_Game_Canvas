@@ -4,7 +4,7 @@ export class Location {
         this.y = y;
         this.nr = nr
         this.radius = radius;
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvasMap');
         this.c = this.canvas.getContext('2d');
         this.button = document.getElementById("button");
         this.locationMap = locationMap;

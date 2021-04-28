@@ -22,7 +22,7 @@ import { Particle } from "./particle.js";
 
 import { cooldownIcon,cooldownTime, disableSkillIcon} from "../canvasSkills/skills.js";
 
-const canvas = document.querySelector('canvas');
+const canvas = document.getElementById('canvas1');
 const c = canvas.getContext('2d');
 
 canvas.width = 640;

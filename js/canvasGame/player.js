@@ -10,7 +10,7 @@ export class Player{
         this.hptower = hptower;
         this.points = points;
         this.keys = {};
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
 
         this.mage = document.getElementById("mage");

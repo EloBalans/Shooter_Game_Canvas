@@ -5,7 +5,7 @@ export class FireWall extends Spell{
     constructor(x, y, radius,nr) {
 
         super(x,y,radius,nr)
-        this.canvas = document.querySelector('canvas');
+        this.canvas = document.getElementById('canvas1');
         this.c = this.canvas.getContext('2d');
         this.fireWall = document.getElementById("fireWall");
         this.height = 72;
