@@ -20,7 +20,8 @@ import { BlackHole } from "./spells/blackHole.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
-import { cooldownIcon,cooldownTime, disableSkillIcon} from "../canvasSkills/skills.js";
+import { cooldownIcon,cooldownTime, disableSkillIcon } from "../canvasSkills/skills.js";
+import { rightUIParams } from "../canvasRightUI/rigthUI.js";
 
 const canvas = document.getElementById('canvas1');
 const c = canvas.getContext('2d');
@@ -87,10 +88,6 @@ const modalScoreEL = document.querySelector('#modalScoreEL');
 const modalScore2EL = document.querySelector('#modalScore2EL');
 const modalHighScoreEL = document.querySelector('#modalHighScoreEL');
 
-scoreEL.innerHTML = player.points;
-ammoEL.innerHTML = player.ammo;
-hpEL.innerHTML = player.hp;
-hptowerEL.innerHTML = player.hptower;
 let highScoreMap = [];
 
 highScoreMap[0] = localStorage.getItem('gameHighScoreMap1') || localStorage.setItem('gameHighScoreMap1',0);
@@ -127,11 +124,6 @@ function init(){
 
     buffs = [];
     monsterShoots = [];
-    hptowerEL.innerHTML = player.hptower;
-    hpEL.innerHTML = player.hp;
-    modalScoreEL.innerHTML = player.points;
-    scoreEL.innerHTML = player.points;
-    ammoEL.innerHTML = player.ammo;
     
 }
 
@@ -248,54 +240,25 @@ function getMousePos(canvas, evt) {
       y: evt.clientY - rect.top
       
     };
-    
 }
-
 
 function circleRect(cx,cy,radius,rx,ry,rw,rh) {
 
-    // temporary variables to set edges for testing
     let testX = cx;
     let testY = cy;
-  
-    // which edge is closest?
-    if (cx < rx)         testX = rx;      // test left edge
-    else if (cx > rx+rw) testX = rx+rw;   // right edge
-    if (cy < ry)         testY = ry;      // top edge
-    else if (cy > ry+rh) testY = ry+rh;   // bottom edge
-  
-    // get distance from closest edges
+
+    if (cx < rx)         testX = rx;
+    else if (cx > rx+rw) testX = rx+rw;
+    if (cy < ry)         testY = ry;     
+    else if (cy > ry+rh) testY = ry+rh;
     let distX = cx-testX;
     let distY = cy-testY;
     let  distance = Math.sqrt( (distX*distX) + (distY*distY) );
-  
-    // if the distance is less than the radius, collision!
     if (distance <= radius) {
       return true;
     }
     return false;
   }
-
-  
-
-// function spawnMob(){
-//     setInterval(()=>{
-//         const x = Math.random()<5;
-//         const y = randomY(75,400)
-//         const radius = Math.floor(Math.random()*4+1)*10;
-//         const color = 'green'
-//         const angle = Math.atan2(
-//             0,
-//             1,
-//          );
-//          const velocity = {
-//              x: Math.cos(angle),
-//              y: Math.sin(angle),
-//          }
-//         mobs.push(new Mob(x,y,radius,color,velocity))
-//     },time)
-   
-// }
 
 function spawnMobSkeleton(){
     
@@ -486,6 +449,7 @@ function animate(){
     c.clearRect(0, 0, canvas.width, canvas.height);
     cooldownIcon(cooldown[0],cooldown[1],cooldown[2],cooldown[3],cooldown[4],cooldown[5],cooldown[6],cooldown[7],cooldown[8]);
     cooldownTime(cooldownSec[0],cooldownSec[1],cooldownSec[2],cooldownSec[3],cooldownSec[4],cooldownSec[5],cooldownSec[6],cooldownSec[7],cooldownSec[8]);
+    rightUIParams(player.points,player.ammo,player.hp,player.hptower);
     disableSkillIcon(disableSkill[0],disableSkill[1],disableSkill[2],disableSkill[3],disableSkill[4],disableSkill[5],disableSkill[6],disableSkill[7],disableSkill[8]);
     setGameMap();
    
@@ -527,7 +491,6 @@ function animate(){
            
                 player.hp--;
                 
-                hpEL.innerHTML = player.hp;
                 if(player.hp===0){
                     cancelAnimationFrame(animationID);
                     modalScoreEL.innerHTML = player.points
@@ -549,11 +512,9 @@ function animate(){
             if(buff.nr===1){
                 player.ammo=player.ammo+50;
                
-                ammoEL.innerHTML = player.ammo;
                 buffs.splice(index,1) 
             }else if(buff.nr===2){
                 player.hp++;
-                hpEL.innerHTML = player.hp;
                 buffs.splice(index,1) 
             }
             
@@ -572,13 +533,11 @@ function animate(){
             setTimeout(()=> {
                 mobs.splice(index, 1);
                 player.hptower=player.hptower-1;
-                hptowerEL.innerHTML = player.hptower;
             },0)
         }
         if(player.hptower<=0){
             cancelAnimationFrame(animationID);
             modalEl.style.display = 'flex'
-            modalScoreEL.innerHTML = player.points
         }
         
       
@@ -595,7 +554,6 @@ function animate(){
                     if(mob.hp<1){
                         player.points=player.points+10;
                         
-                        scoreEL.innerHTML = player.points;
                         mobs.splice(index,1)
                     }
                     
@@ -613,7 +571,6 @@ function animate(){
                 if(mob.hp<1){
                     player.points=player.points+10;
                     
-                    scoreEL.innerHTML = player.points;
                     mobs.splice(index,1)
                     
                 
@@ -637,7 +594,6 @@ function animate(){
                 if(mob.hp<1){
                     player.points=player.points+10;
                     
-                    scoreEL.innerHTML = player.points;
                     mobs.splice(index,1)
                     
                 
@@ -658,7 +614,6 @@ function animate(){
                 if(mob.hp<1){
                     player.points=player.points+10;
                     
-                    scoreEL.innerHTML = player.points;
                     mobs.splice(index,1)
                     
                 
@@ -679,7 +634,6 @@ function animate(){
                 if(mob.hp<1){
                     player.points=player.points+10;
                     
-                    scoreEL.innerHTML = player.points;
                     mobs.splice(index,1)
                     
                 
@@ -701,7 +655,6 @@ function animate(){
                 if(mob.hp<1){
                     player.points=player.points+10;
                     
-                    scoreEL.innerHTML = player.points;
                     mobs.splice(index,1)
                     
                 
@@ -719,7 +672,6 @@ function animate(){
                 mob.hp=mob.hp-5;
                 if(mob.hp<1){
                     player.points=player.points+10;
-                    scoreEL.innerHTML = player.points;
                     mobs.splice(index,1)
                 }
             }
@@ -753,7 +705,6 @@ function animate(){
 
             }if(mob.hp<1){
                 player.points=player.points+10;
-                scoreEL.innerHTML = player.points;
                 mobs.splice(index,1)
             }
             
@@ -786,7 +737,6 @@ function animate(){
                         player.points=player.points+5;
                     }
                     
-                    scoreEL.innerHTML = player.points;
                    mobs.splice(index,1)
                     
                     // (function(index){
@@ -822,7 +772,6 @@ function animate(){
         if(circleRect(player.x,player.y,player.radius,mob.x,mob.y,mob.hitboxX,mob.hitboxY)===true&&player.immune===false){
            
             player.hp = player.hp-1;
-            hpEL.innerHTML = player.hp;
             player.immune = true
             setTimeout(()=>{
                 player.immune = false;
@@ -964,7 +913,6 @@ window.addEventListener('keydown', event =>{
             player.x-15,player.y-15,20,2,angle,direction
         ));
         player.ammo=player.ammo-5;
-        ammoEL.innerHTML = player.ammo;
         
         setTimeout(()=>{cooldown[0] = false},cooldownSec[0]*1000)
     };
@@ -975,7 +923,6 @@ window.addEventListener('keydown', event =>{
             mousePos.x-15,mousePos.y-15,30,3
         ));
         player.ammo=player.ammo-10;
-        ammoEL.innerHTML = player.ammo;
         setTimeout(()=>{cooldown[1] = false},cooldownSec[1]*1000)
     };
 
@@ -985,7 +932,6 @@ window.addEventListener('keydown', event =>{
             mousePos.x-15,mousePos.y-15,30,4
         ));
         player.ammo=player.ammo-5;
-        ammoEL.innerHTML = player.ammo;
         setTimeout(()=>{cooldown[2] = false},cooldownSec[2]*1000)
     };
 
@@ -995,7 +941,6 @@ window.addEventListener('keydown', event =>{
             mousePos.x-15,mousePos.y-15,35,5
         ));
         player.ammo=player.ammo-5;
-        ammoEL.innerHTML = player.ammo;
         setTimeout(()=>{cooldown[3] = false},cooldownSec[3]*1000)
     };
 
@@ -1005,7 +950,6 @@ window.addEventListener('keydown', event =>{
             mousePos.x-15,mousePos.y-15,30,6
         ));
         player.ammo=player.ammo-5;
-        ammoEL.innerHTML = player.ammo;
         setTimeout(()=>{cooldown[4] = false},cooldownSec[4]*1000)
     };
 
@@ -1041,7 +985,6 @@ window.addEventListener('keydown', event =>{
         
       
         player.ammo=player.ammo-10;
-        ammoEL.innerHTML = player.ammo;
         
         setTimeout(()=>{cooldown[5] = false},cooldownSec[5]*1000)
     };
@@ -1052,7 +995,6 @@ window.addEventListener('keydown', event =>{
             mousePos.x-15,mousePos.y-15,30,6
         ));
         player.ammo=player.ammo-5;
-        ammoEL.innerHTML = player.ammo;
         setTimeout(()=>{ cooldown[6] = false},cooldownSec[6]*1000)
     };
 
@@ -1073,7 +1015,6 @@ window.addEventListener('keydown', event =>{
             mousePos.x-30,mousePos.y-30,60,6
         ));
         player.ammo=player.ammo-20;
-        ammoEL.innerHTML = player.ammo;
        
         setTimeout(()=>{cooldown[8] = false},cooldownSec[8]*1000)
     };
