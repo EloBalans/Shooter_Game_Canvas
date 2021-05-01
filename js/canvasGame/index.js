@@ -22,6 +22,8 @@ import { Particle } from "./particle.js";
 
 import { cooldownIcon,cooldownTime, disableSkillIcon } from "../canvasSkills/skills.js";
 import { rightUIParams } from "../canvasRightUI/rigthUI.js";
+import { drawPause } from "./pause.js";
+import { drawStartGame,paramsStart} from "./startGame.js";
 
 const canvas = document.getElementById('canvas1');
 const c = canvas.getContext('2d');
@@ -107,7 +109,7 @@ let time = 1000;
 let animationID;
 
 
-function init(){
+export function init(){
     player = new Player(320,240,10,2,100,10,3,0,3);
     attacks = [];
     mobs = [];
@@ -160,7 +162,10 @@ function setGameMap(){
    
 }
 
-function setSpawnMap(){
+export function setSpawnMap(){
+    spawnManaBuff();
+    spawnHpBuff();
+    skillsSet()
     if(cookieMap==='map=1'){
         spawnMobsMap1();
         checkhighScore('gameHighScoreMap1')
@@ -225,11 +230,11 @@ function skillsSet(){
 }
 
 function checkhighScore(highScoree){
-    modalHighScoreEL.textContent = localStorage.getItem(highScoree);
-    if(player.points> localStorage.getItem(highScoree) ){
-        localStorage.setItem(highScoree, player.points)
-        modalHighScoreEL.textContent = localStorage.getItem(highScoree);
-    }
+    // modalHighScoreEL.textContent = localStorage.getItem(highScoree);
+    // if(player.points> localStorage.getItem(highScoree) ){
+    //     localStorage.setItem(highScoree, player.points)
+    //     modalHighScoreEL.textContent = localStorage.getItem(highScoree);
+    // }
 }
 
 function getMousePos(canvas, evt) {
@@ -442,9 +447,9 @@ function SpawnShoots(){
            
     },1000)
 }
+drawStartGame(true);
 
-
-function animate(){
+export function animate(){
     animationID = requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
     cooldownIcon(cooldown[0],cooldown[1],cooldown[2],cooldown[3],cooldown[4],cooldown[5],cooldown[6],cooldown[7],cooldown[8]);
@@ -457,6 +462,7 @@ function animate(){
     // c.fillRect(0, 0, canvas.width, canvas.height);
 
     player.draw();//spawn one player
+ 
     
 
    
@@ -492,9 +498,8 @@ function animate(){
                 player.hp--;
                 
                 if(player.hp===0){
-                    cancelAnimationFrame(animationID);
-                    modalScoreEL.innerHTML = player.points
-                    modalEl.style.display = 'flex'
+                   
+                    // modalEl.style.display = 'flex'
     
                 }
                 monsterShoots.splice(index,1) 
@@ -536,8 +541,9 @@ function animate(){
             },0)
         }
         if(player.hptower<=0){
-            cancelAnimationFrame(animationID);
-            modalEl.style.display = 'flex'
+            setTimeout(()=>{ paramsStart(true); },100)
+            drawStartGame(animationID);
+            // modalEl.style.display = 'flex'
         }
         
       
@@ -777,9 +783,10 @@ function animate(){
                 player.immune = false;
             },700)
             if(player.hp===0){
-                cancelAnimationFrame(animationID);
-                modalScoreEL.innerHTML = player.points
-                modalEl.style.display = 'flex'
+            setTimeout(()=>{ paramsStart(true); },100)
+            drawStartGame(animationID);
+               
+                // modalEl.style.display = 'flex'
 
             }
             
@@ -854,6 +861,8 @@ function animate(){
         setTimeout(()=>{ blackHoles.splice(index,1)},5000)
     
     })
+    drawPause(animationID);
+    drawStartGame(animationID);
 }
 
 
@@ -862,7 +871,9 @@ window.addEventListener("keydown", event => player.keys[event.key.toLowerCase()]
 window.addEventListener("keyup", event => player.keys[event.key.toLowerCase()] = false);
 window.addEventListener('click', event =>{
     let pos = getMousePos(canvas, event);
-if(pos.x<canvas.width&&pos.x>0&&pos.y<canvas.height&&pos.y>0&&pauseEl.style.display === 'none'&&modalEl.style.display === 'none'){
+if(pos.x<canvas.width&&pos.x>0&&pos.y<canvas.height&&pos.y>0
+    // &&pauseEl.style.display === 'none'&&modalEl.style.display === 'none'
+    ){
     
 
     const angle = Math.atan2(
@@ -892,6 +903,7 @@ document.addEventListener('mousemove', function(e){
     mousePos.x = e.pageX-rect.left
     mousePos.y = e.pageY-rect.top;
 }, false);
+
 
 
 window.addEventListener('keydown', event =>{
@@ -1004,8 +1016,7 @@ window.addEventListener('keydown', event =>{
             player.x-15,player.y-25,30,6
         ));
         player.ammo=player.ammo-5;
-        ammoEL.innerHTML = player.ammo;
-
+       
         setTimeout(()=>{cooldown[7] = false},cooldownSec[7]*1000)
     };
 
@@ -1023,36 +1034,29 @@ window.addEventListener('keydown', event =>{
 });
 
 
-startgameBtn.addEventListener('click', event =>{
-    setTimeout(()=>{
-        setSpawnMap()
-        skillsSet();
-        init();
-        animate();
-        spawnManaBuff();
-        spawnHpBuff();
-       
-        modalEl.style.display = 'none'
-    },100)
+// startgameBtn.addEventListener('click', event =>{
+//     setTimeout(()=>{
+//         setSpawnMap()
+//         init();
+//         animate();
+//         modalEl.style.display = 'none'
+//     },100)
     
-});
+// });
 
-pausegameBtn.addEventListener('click', event =>{
+// pausegameBtn.addEventListener('click', event =>{
     
-    modalScore2EL.innerHTML = player.points
-    pauseEl.style.display = 'flex'
-    cancelAnimationFrame(animationID);
+//     modalScore2EL.innerHTML = player.points
+//     pauseEl.style.display = 'flex'
+//     cancelAnimationFrame(animationID);
     
-});
+// });
 
-unpausegameBtn.addEventListener('click', event =>{
+// unpausegameBtn.addEventListener('click', event =>{
   
-    pauseEl.style.display = 'none'
-    setSpawnMap()
-    animate();
-    skillsSet();
-    spawnManaBuff();
-    spawnHpBuff();
+//     pauseEl.style.display = 'none'
+//     setSpawnMap()
+//     animate();
    
     
-});
+// });
