@@ -13,18 +13,6 @@ let mousePos = {
     y:0,
 }
 
-locations[0] = new Location(45,425,30,1,"Grobowiec Nieumarłych", document.getElementById("backgroundMap7"))
-locations[1] = new Location(180 ,400,30,2,"Rozdroża",document.getElementById("backgroundMap10"))
-locations[2] = new Location(300,440,30,3,"Pola Rosherwooda",document.getElementById("backgroundMap11"))
-locations[3] = new Location(525,440,30,4,"Grobowiec Lorda Dominika",document.getElementById("backgroundMap8"))
-locations[4] = new Location(500,310,30,5,"Zapomniany las",document.getElementById("backgroundMap12"))
-locations[5] = new Location(400,300,30,6,"Podwodne rozpadliny",document.getElementById("backgroundMap1"))
-locations[6] = new Location(250,200,30,7,"Zniszczone pustkowia",document.getElementById("backgroundMap4"))
-locations[7] = new Location(80,150,30,8,"Czarne skalisko",document.getElementById("backgroundMap5"))
-locations[8] = new Location(200,100,30,9,"Wodny gąszcz",document.getElementById("backgroundMap2"))
-locations[9] = new Location(440,70,30,10,"Wymarły las",document.getElementById("backgroundMap6"))
-locations[10] = new Location(590,120,30,11,"Atlantyda",document.getElementById("backgroundMap3"))
-locations[11] = new Location(595,235,30,12,"Zamek upadłego rodu",document.getElementById("backgroundMap9"))
 
 highScoreMap[0] = localStorage.getItem('gameHighScoreMap1') || localStorage.setItem('gameHighScoreMap1',0);
 highScoreMap[1] = localStorage.getItem('gameHighScoreMap2') || localStorage.setItem('gameHighScoreMap2',0);
@@ -38,6 +26,19 @@ highScoreMap[8] = localStorage.getItem('gameHighScoreMap9') || localStorage.setI
 highScoreMap[9] = localStorage.getItem('gameHighScoreMap10') || localStorage.setItem('gameHighScoreMap10',0);
 highScoreMap[10] = localStorage.getItem('gameHighScoreMap11') || localStorage.setItem('gameHighScoreMap11',0);
 highScoreMap[11] = localStorage.getItem('gameHighScoreMap12') || localStorage.setItem('gameHighScoreMap12',0);
+
+locations[0] = new Location(45,425,30,1,"Grobowiec Nieumarłych", document.getElementById("backgroundMap7"),highScoreMap[0])
+locations[1] = new Location(180 ,400,30,2,"Rozdroża",document.getElementById("backgroundMap10"),highScoreMap[1])
+locations[2] = new Location(300,425,30,3,"Pola Rosherwooda",document.getElementById("backgroundMap11"),highScoreMap[2])
+locations[3] = new Location(525,440,30,4,"Grobowiec Lorda Dominika",document.getElementById("backgroundMap8"),highScoreMap[3])
+locations[4] = new Location(500,310,30,5,"Zapomniany las",document.getElementById("backgroundMap12"),highScoreMap[4])
+locations[5] = new Location(400,300,30,6,"Podwodne rozpadliny",document.getElementById("backgroundMap1"),highScoreMap[5])
+locations[6] = new Location(250,200,30,7,"Zniszczone pustkowia",document.getElementById("backgroundMap4"),highScoreMap[6])
+locations[7] = new Location(80,150,30,8,"Czarne skalisko",document.getElementById("backgroundMap5"),highScoreMap[7])
+locations[8] = new Location(200,100,30,9,"Wodny gąszcz",document.getElementById("backgroundMap2"),highScoreMap[8])
+locations[9] = new Location(440,70,30,10,"Wymarły las",document.getElementById("backgroundMap6"),highScoreMap[9])
+locations[10] = new Location(590,120,30,11,"Atlantyda",document.getElementById("backgroundMap3"),highScoreMap[10])
+locations[11] = new Location(595,235,30,12,"Zamek upadłego rodu",document.getElementById("backgroundMap9"),highScoreMap[11])
 
 animate();
 

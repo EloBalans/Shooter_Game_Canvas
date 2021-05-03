@@ -1,5 +1,5 @@
 export class Location {
-    constructor(x, y, radius,nr,name,locationMap) {
+    constructor(x, y, radius,nr,name,locationMap,highscore) {
         this.x = x;
         this.y = y;
         this.nr = nr
@@ -13,6 +13,7 @@ export class Location {
         this.name = name;
         this.splitedName = name.split(' ')
         this.beforeLoc = 0;
+        this.highscore = highscore
     }
 
     draw(){
@@ -32,6 +33,8 @@ export class Location {
             this.drawLocationName()
             if(this.beforeLoc<700){
                 this.drawLocked()
+            }else{
+                this.drawHighscore()
             }
         }
         
@@ -108,7 +111,25 @@ export class Location {
     update(){
        this.draw();
     }
-
+    drawHighscore(){
+        this.c.drawImage(
+            this.button,
+            290,
+            290,
+            410,
+            160,
+            this.x-this.radius+4,
+            this.y+20,
+            70,
+            25,
+            );
+           
+        this.c.textAlign = "center";
+        this.c.fillStyle = "white"
+        this.c.fillText("Rekord: "+this.highscore, this.x,this.y+35 );
+        
+            
+    }
 
 }
 

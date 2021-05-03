@@ -29,7 +29,6 @@ export class Ghost2 extends Mob {
     }
 
     draw(){
-        this.hitbox();
         this.c.save();
         this.c.drawImage(
             this.ghost2,
