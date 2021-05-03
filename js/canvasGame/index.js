@@ -5,6 +5,12 @@ import { Demon } from "./mobs/demon.js";
 import { Hydra } from "./mobs/hydra.js";
 import { Blob } from "./mobs/blob.js";
 import { Ghost } from "./mobs/ghost.js";
+import { Ghost2 } from "./mobs/ghost2.js";
+import { OldGuardian } from "./mobs/oldGuardian.js";
+import { Seeker } from "./mobs/seeker.js";
+import { Sprout } from "./mobs/sprout.js";
+import { OldGolem } from "./mobs/oldGolem.js";
+
 import { Attack } from "./attack.js";
 import { Mana } from "./buffs/mana.js";
 import { LightningBolt } from "./spells/lightningBolt.js";
@@ -24,6 +30,8 @@ import { cooldownIcon,cooldownTime, disableSkillIcon } from "../canvasSkills/ski
 import { rightUIParams } from "../canvasRightUI/rigthUI.js";
 import { drawPause } from "./pause.js";
 import { drawStartGame,paramsStart} from "./startGame.js";
+
+
 
 const canvas = document.getElementById('canvas1');
 const c = canvas.getContext('2d');
@@ -167,58 +175,100 @@ export function setSpawnMap(){
     spawnHpBuff();
     skillsSet()
     if(cookieMap==='map=1'){
-        spawnMobsMap1();
+        spawnMobsTomb()
         checkhighScore('gameHighScoreMap1')
     }if(cookieMap==='map=2'){
-        spawnMobsMap1();
+        spawnMobsForest3()
         checkhighScore('gameHighScoreMap2')
     }if(cookieMap==='map=3'){
-        spawnMobsMap1();
+        spawnMobsForest();
         checkhighScore('gameHighScoreMap3')
     }if(cookieMap==='map=4'){
-        spawnMobsMap1();
+        spawnMobsTomb2()
         checkhighScore('gameHighScoreMap4')
     }if(cookieMap==='map=5'){
-        spawnMobsMap1();
+        spawnMobsForest2();
         checkhighScore('gameHighScoreMap5')
     }if(cookieMap==='map=6'){
-        spawnMobsMap2();
+        spawnMobsWater();
         checkhighScore('gameHighScoreMap6')
     }if(cookieMap==='map=7'){
-        spawnMobsMap1();
+        spawnMobsAsh();
     }if(cookieMap==='map=8'){
-        spawnMobsMap1();
+        spawnMobsash2;
         checkhighScore('gameHighScoreMap8')
     }if(cookieMap==='map=9'){
-        spawnMobsMap2();
+        spawnMobsWater();
         checkhighScore('gameHighScoreMap9')
     }if(cookieMap==='map=10'){
-        spawnMobsMap1();
+        spawnMobsash3()
         checkhighScore('gameHighScoreMap10')
     }if(cookieMap==='map=11'){
-        spawnMobsMap2();
+        spawnMobsWater() 
+        spawnMobsWater()
         checkhighScore('gameHighScoreMap11')
     }if(cookieMap==='map=12'){
-        spawnMobsMap3();
+        spawnMobsBos()
         checkhighScore('gameHighScoreMap12')
     }
 }
 
-function spawnMobsMap1(){
+function spawnMobsTomb(){
     spawnMobSkeleton();
     spawnMobDemon();
     spawnMobGhost();
 }
 
-function spawnMobsMap2(){
+function spawnMobsTomb2(){
+    spawnMobSkeleton();
+    spawnMobGhost();
+    spawnMobGhost2();
+    spawnMobOldGolem()
+}
+function spawnMobsForest(){
+    spawnMobWorm()
+    spawnMobSprout()
+    spawnMobSeeker()
+}
+
+function spawnMobsForest2(){
+    spawnMobWorm()
+    spawnMobSprout()
+    spawnMobSkeleton();
+}
+
+function spawnMobsForest3(){
+    spawnMobSprout()
+    spawnMobSkeleton();
+    spawnMobOldGuardian()
+}
+
+
+function spawnMobsWater(){
     spawnMobBlob();
 }
-function spawnMobsMap3(){
+
+function spawnMobsAsh(){
+    spawnMobSkeleton();
+    spawnMobGhost2();
+    spawnMobOldGuardian()
+    spawnMobOldGolem()
+}
+function spawnMobsash2(){
+    spawnMobSprout()
+    spawnMobSeeker()
+    spawnMobOldGolem()
+}
+function spawnMobsash3(){
+    spawnMobSprout()
+    spawnMobSkeleton();
+    spawnMobOldGolem()
+    spawnMobSeeker()
+}
+
+function spawnMobsBos(){
     spawnMobHydra()
     SpawnShoots()
-}
-function spawnMobsMap4(){
-    
 }
 
 function skillsSet(){
@@ -230,11 +280,13 @@ function skillsSet(){
 }
 
 function checkhighScore(highScoree){
-    // modalHighScoreEL.textContent = localStorage.getItem(highScoree);
-    // if(player.points> localStorage.getItem(highScoree) ){
-    //     localStorage.setItem(highScoree, player.points)
-    //     modalHighScoreEL.textContent = localStorage.getItem(highScoree);
-    // }
+    let highscore = localStorage.getItem(highScoree);
+    if(player.points> localStorage.getItem(highScoree) ){
+        localStorage.setItem(highScoree, player.points)
+        highscore = localStorage.getItem(highScoree);
+    }
+    console.log(highscore)
+    paramsStart(true,player.points,highscore)
 }
 
 function getMousePos(canvas, evt) {
@@ -269,7 +321,7 @@ function spawnMobSkeleton(){
     
     setInterval(()=>{
     
-        const x = Math.random()<5;
+        const x = -30;
         const y = randomY(75,400)
         const radius = Math.floor(Math.random()*4+1)*10;
         const color = 'green'
@@ -293,7 +345,7 @@ function spawnMobDemon(){
     
     setInterval(()=>{
     
-        const x = Math.random()<5;
+        const x = -30;
         const y = randomY(75,350)
         const hp = Math.floor(Math.random()*8+1)*10;
         const angle = Math.atan2(
@@ -311,14 +363,11 @@ function spawnMobDemon(){
 }
 
 function spawnMobWorm(){
-    if(time>500){
-        time=time-5;
-    }
-   
+    setInterval(()=>{
     
-        const x = Math.random()<5;
+        const x = -50;
         const y = randomY(75,400)
-        const radius = Math.floor(Math.random()*4+1)*10;
+        const hp = Math.floor(Math.random()*4+1)*10;
         const angle = Math.atan2(
             0,
             1,
@@ -328,16 +377,15 @@ function spawnMobWorm(){
              y: Math.sin(angle),
          }
          const nr = 3;
-        mobs.push(new Worm(x,y,radius,velocity,nr))
-    
-    setTimeout(()=>{spawnMobWorm();},time)
+        mobs.push(new Worm(x,y,hp,velocity,nr,50,35))
+    },1000)
 }
 
 function spawnMobBlob(){
     
     setInterval(()=>{
     
-        const x = Math.random()<5;
+        const x = -30;
         const y = randomY(75,400)
         const radius = Math.floor(Math.random()*3+1)*10;
         const angle = Math.atan2(
@@ -359,7 +407,7 @@ function spawnMobGhost(){
     
     setInterval(()=>{
     
-        const x = Math.random()<5;
+        const x = -40;
         const y = randomY(75,400)
         const radius = Math.floor(Math.random()*5+1)*10;
         const angle = Math.atan2(
@@ -397,6 +445,110 @@ function spawnMobHydra(){
     },1000)
 }
 
+function spawnMobGhost2(){
+    
+    setInterval(()=>{
+    
+        const x = -40;
+        const y = randomY(75,400)
+        const hp = Math.floor(Math.random()*5+1)*10;
+        const angle = Math.atan2(
+            0,
+            1*Math.floor(Math.random() * 2)  ,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 7;
+        mobs.push(new Ghost2(x,y,hp,velocity,nr,30,45))
+    
+    },1000)
+}
+
+function spawnMobOldGuardian(){
+    
+    setInterval(()=>{
+    
+        const x = -40;
+        const y = randomY(75,400)
+        const hp = 60;
+        const angle = Math.atan2(
+            0,
+            1*Math.floor(Math.random() * 2)  ,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 8;
+        mobs.push(new OldGuardian(x,y,hp,velocity,nr,55,50))
+    
+    },5000)
+}
+
+function spawnMobSprout(){
+    
+    setInterval(()=>{
+    
+        const x = -40;
+        const y = randomY(75,400)
+        const hp = Math.floor(Math.random()*3+1)*10;
+        const angle = Math.atan2(
+            0,
+            1*Math.floor(Math.random() * 2)  ,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 9;
+        mobs.push(new Sprout(x,y,hp,velocity,nr,50,50))
+    
+    },800)
+}
+
+function spawnMobSeeker(){
+    
+    setInterval(()=>{
+    
+        const x = -40;
+        const y = randomY(75,400)
+        const hp =60;
+        const angle = Math.atan2(
+            0,
+            1*Math.floor(Math.random() * 2)  ,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 10;
+        mobs.push(new Seeker(x,y,hp,velocity,nr,50,80))
+    
+    },7000)
+}
+
+function spawnMobOldGolem(){
+    
+    setInterval(()=>{
+    
+        const x = -40;
+        const y = randomY(75,400)
+        const hp = 80;
+        const angle = Math.atan2(
+            0,
+            1*Math.floor(Math.random() * 2)  ,
+         );
+         const velocity = {
+             x: Math.cos(angle),
+             y: Math.sin(angle),
+         }
+         const nr = 11;
+        mobs.push(new OldGolem(x,y,hp,velocity,nr,60,85))
+    
+    },8000)
+}
 
 function spawnManaBuff(){
     setInterval(()=>{
@@ -541,7 +693,7 @@ export function animate(){
             },0)
         }
         if(player.hptower<=0){
-            setTimeout(()=>{ paramsStart(true); },100)
+            setTimeout(()=>{ paramsStart(true,player.points); },100)
             drawStartGame(animationID);
             // modalEl.style.display = 'flex'
         }
@@ -783,7 +935,7 @@ export function animate(){
                 player.immune = false;
             },700)
             if(player.hp===0){
-            setTimeout(()=>{ paramsStart(true); },100)
+            setTimeout(()=>{ paramsStart(true,player.points); },100)
             drawStartGame(animationID);
                
                 // modalEl.style.display = 'flex'
@@ -1033,6 +1185,9 @@ window.addEventListener('keydown', event =>{
 
 });
 
+window.blur(()=>{
+    drawPause(animationID);
+})
 
 // startgameBtn.addEventListener('click', event =>{
 //     setTimeout(()=>{

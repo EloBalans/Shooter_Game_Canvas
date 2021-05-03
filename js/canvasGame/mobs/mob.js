@@ -16,6 +16,7 @@ export class Mob {
 
 
     hpDraw(){
+        // this.hitbox();
         if(this.nr===1){
             //skeleton
             this.lengthOfEmptyHpBar = 42
@@ -38,6 +39,19 @@ export class Mob {
     
             this.c.beginPath();
             this.c.rect(this.x+1,this.y+1,this.hp,10)
+            this.c.fillStyle = "red";
+            this.c.fill();
+        }
+        else if(this.nr===3){
+            //worm
+            this.lengthOfEmptyHpBar = 42
+            this.c.beginPath();
+            this.c.rect(this.x+14-10,this.y-10,this.lengthOfEmptyHpBar,7)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath(); 
+            this.c.rect(this.x+1+14-10,this.y-10,this.hp,5)
             this.c.fillStyle = "red";
             this.c.fill();
         }
@@ -79,12 +93,78 @@ export class Mob {
             this.c.rect(170+1,31,this.hp/8,10)
             this.c.fillStyle = "red";
             this.c.fill();
+        } else if(this.nr===7){
+            //ghost2
+            this.lengthOfEmptyHpBar = 52
+            this.c.beginPath();
+            this.c.rect(this.x+14-30,this.y-10,this.lengthOfEmptyHpBar,7)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath(); 
+            this.c.rect(this.x+1+14-30,this.y-10,this.hp,5)
+            this.c.fillStyle = "red";
+            this.c.fill();
+        } else if(this.nr===8){
+            //guardian
+            this.lengthOfEmptyHpBar = 62
+            this.c.beginPath();
+            this.c.rect(this.x+14-20,this.y-10,this.lengthOfEmptyHpBar,7)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath(); 
+            this.c.rect(this.x+1+14-20,this.y-10,this.hp,5)
+            this.c.fillStyle = "red";
+            this.c.fill();
+        }else if(this.nr===9){
+            //sprout
+            this.lengthOfEmptyHpBar = 32
+            this.c.beginPath();
+            this.c.rect(this.x+14-5,this.y-10,this.lengthOfEmptyHpBar,7)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath(); 
+            this.c.rect(this.x+1+14-5,this.y-10,this.hp,5)
+            this.c.fillStyle = "red";
+            this.c.fill();
+        }
+        else if(this.nr===10){
+            //seeker
+            this.lengthOfEmptyHpBar = 62
+            this.c.beginPath();
+            this.c.rect(this.x+14-20,this.y-10,this.lengthOfEmptyHpBar,7)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath(); 
+            this.c.rect(this.x+1+14-20,this.y-10,this.hp,5)
+            this.c.fillStyle = "red";
+            this.c.fill();
+        } else if(this.nr===11){
+            //old golem
+            this.lengthOfEmptyHpBar = 82
+            this.c.beginPath();
+            this.c.rect(this.x+14-25,this.y-10,this.lengthOfEmptyHpBar,7)
+            this.c.fillStyle = "black";
+            this.c.fill();
+    
+            this.c.beginPath(); 
+            this.c.rect(this.x+1+14-25,this.y-10,this.hp,5)
+            this.c.fillStyle = "red";
+            this.c.fill();
         }
         
         
 
        
 
+    }
+    hitbox(){
+        this.c.beginPath();
+        this.c.rect(this.x,this.y,this.hitboxX,this.hitboxY)
+        this.c.stroke();
     }
 
 

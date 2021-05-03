@@ -12,9 +12,12 @@ let startOn = true
 let colorButton  = '#Be4b25';
 let points = 0;
 let id
+let highscore
 
-export function paramsStart(pause){
+export function paramsStart(pause,point,highScore){
     startOn = pause;
+    points = point
+    highscore = highScore
 }
 
 export function drawStartGame(animationID){
@@ -23,10 +26,10 @@ export function drawStartGame(animationID){
         cancelAnimationFrame(animationID);
         c.drawImage(
             bg,
-            300,
-            1400,
-            canvas.width,
-            canvas.height,
+            700,
+            0,
+            canvas.width*2,
+            canvas.height*2,
             canvas.width/2-150,
             canvas.height/2-100,
             300, 
@@ -38,7 +41,7 @@ export function drawStartGame(animationID){
         c.textAlign = "center";
         c.fillStyle = "white"    
         c.fillText("Punkty: "+points, canvas.width/2,  canvas.height/2-30) 
-        c.fillText("Rekord: "+points, canvas.width/2,  canvas.height/2+10) 
+        c.fillText("Rekord: "+highscore, canvas.width/2,  canvas.height/2+10) 
         if(pasuePos()){
             colorButton = '#004b25'
         }else{
