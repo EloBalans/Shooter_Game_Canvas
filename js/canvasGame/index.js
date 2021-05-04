@@ -178,6 +178,7 @@ export function score(){
     }if(cookieMap==='map=6'){
         checkhighScore('gameHighScoreMap6')
     }if(cookieMap==='map=7'){
+        checkhighScore('gameHighScoreMap7')
     }if(cookieMap==='map=8'){
         checkhighScore('gameHighScoreMap8')
     }if(cookieMap==='map=9'){
