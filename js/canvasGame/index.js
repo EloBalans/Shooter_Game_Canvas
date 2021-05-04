@@ -208,7 +208,7 @@ function spawnMobs(){
     }if(cookieMap==='map=7'){
         spawnMobsAsh();
     }if(cookieMap==='map=8'){
-        spawnMobsash2;
+        spawnMobsash2();
     }if(cookieMap==='map=9'){
         spawnMobsWater();
     }if(cookieMap==='map=10'){
