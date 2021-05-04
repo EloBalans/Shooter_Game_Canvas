@@ -701,7 +701,7 @@ export function animate(){
             },0)
         }
         if(player.hptower<=0){
-            setTimeout(()=>{ paramsStart(true,player.points); },100)
+            paramsStart(true,player.points,score())
             drawStartGame(animationID);
             // modalEl.style.display = 'flex'
         }
@@ -943,7 +943,7 @@ export function animate(){
                 player.immune = false;
             },700)
             if(player.hp===0){
-            setTimeout(()=>{ paramsStart(true,player.points); },100)
+                paramsStart(true,player.points,score())
             drawStartGame(animationID);
                
                 // modalEl.style.display = 'flex'
