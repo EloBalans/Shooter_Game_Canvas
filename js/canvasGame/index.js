@@ -26,6 +26,8 @@ import { BlackHole } from "./spells/blackHole.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
+import { StartGame } from "./startGameTest.js"
+
 import { cooldownIcon,cooldownTime, disableSkillIcon } from "../canvasSkills/skills.js";
 import { rightUIParams } from "../canvasRightUI/rigthUI.js";
 import { drawPause } from "./pause.js";
@@ -83,21 +85,6 @@ const backgroundMap12 = document.getElementById("backgroundMap12");
 
 const randomY = (from, to) => Math.floor(Math.random()*(to-from))+from;
 
-const scoreEL = document.querySelector('#scoreEL');
-const ammoEL = document.querySelector('#ammoEL');
-const hpEL = document.querySelector('#hpEL');
-const hptowerEL = document.querySelector('#hptowerEL');
-
-
-const startgameBtn = document.querySelector('#startGameBtn');
-const pausegameBtn = document.querySelector('#pauseGameBtn');
-const unpausegameBtn = document.querySelector('#unpauseGameBtn');
-const modalEl = document.querySelector('#modalEl');
-const pauseEl = document.querySelector('#pauseEl');
-const modalScoreEL = document.querySelector('#modalScoreEL');
-const modalScore2EL = document.querySelector('#modalScore2EL');
-const modalHighScoreEL = document.querySelector('#modalHighScoreEL');
-
 let highScoreMap = [];
 
 highScoreMap[0] = localStorage.getItem('gameHighScoreMap1') || localStorage.setItem('gameHighScoreMap1',0);
@@ -113,7 +100,6 @@ highScoreMap[9] = localStorage.getItem('gameHighScoreMap10') || localStorage.set
 highScoreMap[10] = localStorage.getItem('gameHighScoreMap11') || localStorage.setItem('gameHighScoreMap11',0);
 highScoreMap[11] = localStorage.getItem('gameHighScoreMap12') || localStorage.setItem('gameHighScoreMap12',0);
 
-let time = 1000;
 let animationID;
 
 
@@ -170,46 +156,67 @@ function setGameMap(){
    
 }
 
-export function setSpawnMap(){
+function setSpawnMap(){
     spawnManaBuff();
     spawnHpBuff();
     skillsSet()
+    score();
+    spawnMobs();
+}
+
+export function score(){
     if(cookieMap==='map=1'){
-        spawnMobsTomb()
         checkhighScore('gameHighScoreMap1')
     }if(cookieMap==='map=2'){
-        spawnMobsForest3()
         checkhighScore('gameHighScoreMap2')
     }if(cookieMap==='map=3'){
-        spawnMobsForest();
         checkhighScore('gameHighScoreMap3')
     }if(cookieMap==='map=4'){
-        spawnMobsTomb2()
         checkhighScore('gameHighScoreMap4')
     }if(cookieMap==='map=5'){
-        spawnMobsForest2();
         checkhighScore('gameHighScoreMap5')
     }if(cookieMap==='map=6'){
-        spawnMobsWater();
         checkhighScore('gameHighScoreMap6')
+    }if(cookieMap==='map=7'){
+    }if(cookieMap==='map=8'){
+        checkhighScore('gameHighScoreMap8')
+    }if(cookieMap==='map=9'){
+        checkhighScore('gameHighScoreMap9')
+    }if(cookieMap==='map=10'){
+        checkhighScore('gameHighScoreMap10')
+    }if(cookieMap==='map=11'){
+        checkhighScore('gameHighScoreMap11')
+    }if(cookieMap==='map=12'){
+        checkhighScore('gameHighScoreMap12')
+    }
+}
+
+function spawnMobs(){
+    if(cookieMap==='map=1'){
+        spawnMobsTomb()
+    }if(cookieMap==='map=2'){
+        spawnMobsForest3()
+    }if(cookieMap==='map=3'){
+        spawnMobsForest();
+    }if(cookieMap==='map=4'){
+        spawnMobsTomb2()
+    }if(cookieMap==='map=5'){
+        spawnMobsForest2();
+    }if(cookieMap==='map=6'){
+        spawnMobsWater();
     }if(cookieMap==='map=7'){
         spawnMobsAsh();
     }if(cookieMap==='map=8'){
         spawnMobsash2;
-        checkhighScore('gameHighScoreMap8')
     }if(cookieMap==='map=9'){
         spawnMobsWater();
-        checkhighScore('gameHighScoreMap9')
     }if(cookieMap==='map=10'){
         spawnMobsash3()
-        checkhighScore('gameHighScoreMap10')
     }if(cookieMap==='map=11'){
         spawnMobsWater() 
         spawnMobsWater()
-        checkhighScore('gameHighScoreMap11')
     }if(cookieMap==='map=12'){
         spawnMobsBos()
-        checkhighScore('gameHighScoreMap12')
     }
 }
 
@@ -285,7 +292,6 @@ function checkhighScore(highScoree){
         localStorage.setItem(highScoree, player.points)
         highscore = localStorage.getItem(highScoree);
     }
-    console.log(highscore)
     paramsStart(true,player.points,highscore)
 }
 
@@ -599,7 +605,8 @@ function SpawnShoots(){
            
     },1000)
 }
-drawStartGame(true);
+setSpawnMap();
+animate()
 
 export function animate(){
     animationID = requestAnimationFrame(animate);
@@ -1015,6 +1022,7 @@ export function animate(){
     })
     drawPause(animationID);
     drawStartGame(animationID);
+    
 }
 
 
@@ -1185,33 +1193,3 @@ window.addEventListener('keydown', event =>{
 
 });
 
-window.blur(()=>{
-    drawPause(animationID);
-})
-
-// startgameBtn.addEventListener('click', event =>{
-//     setTimeout(()=>{
-//         setSpawnMap()
-//         init();
-//         animate();
-//         modalEl.style.display = 'none'
-//     },100)
-    
-// });
-
-// pausegameBtn.addEventListener('click', event =>{
-    
-//     modalScore2EL.innerHTML = player.points
-//     pauseEl.style.display = 'flex'
-//     cancelAnimationFrame(animationID);
-    
-// });
-
-// unpausegameBtn.addEventListener('click', event =>{
-  
-//     pauseEl.style.display = 'none'
-//     setSpawnMap()
-//     animate();
-   
-    
-// });

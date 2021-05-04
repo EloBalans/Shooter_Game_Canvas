@@ -1,4 +1,4 @@
-import { setSpawnMap,animate } from "./index.js"; 
+import { animate } from "./index.js"; 
 
 
 const canvas = document.getElementById('canvas1');

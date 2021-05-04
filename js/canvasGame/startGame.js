@@ -1,4 +1,4 @@
-import { setSpawnMap,animate,init } from "./index.js"; 
+import { score,animate,init } from "./index.js"; 
 
 
 const canvas = document.getElementById('canvas1');
@@ -23,6 +23,7 @@ export function paramsStart(pause,point,highScore){
 export function drawStartGame(animationID){
     id = animationID
     if(startOn){
+        score();
         cancelAnimationFrame(animationID);
         c.drawImage(
             bg,
@@ -61,7 +62,7 @@ function onClick(){
     if(pasuePos()&&startOn){
         init();
         startOn = false;
-        if(id===true){  setSpawnMap();}
+        
         animate();
     }
     
