@@ -53,5 +53,7 @@ export class Hydra extends Mob {
             this.c.restore();
     }
 
-    
+    drawEndGame(){
+        
+    }
 }

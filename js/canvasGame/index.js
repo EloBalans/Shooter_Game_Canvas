@@ -208,11 +208,11 @@ function spawnMobs(){
     }if(cookieMap==='map=7'){
         spawnMobsAsh();
     }if(cookieMap==='map=8'){
-        spawnMobsash2();
+        spawnMobsAsh2();
     }if(cookieMap==='map=9'){
         spawnMobsWater();
     }if(cookieMap==='map=10'){
-        spawnMobsash3()
+        spawnMobsAsh3()
     }if(cookieMap==='map=11'){
         spawnMobsWater() 
         spawnMobsWater()
@@ -262,12 +262,12 @@ function spawnMobsAsh(){
     spawnMobOldGuardian()
     spawnMobOldGolem()
 }
-function spawnMobsash2(){
+function spawnMobsAsh2(){
     spawnMobSprout()
     spawnMobSeeker()
     spawnMobOldGolem()
 }
-function spawnMobsash3(){
+function spawnMobsAsh3(){
     spawnMobSprout()
     spawnMobSkeleton();
     spawnMobOldGolem()
@@ -449,7 +449,7 @@ function spawnMobHydra(){
          const nr = 6;
         mobs.push(new Hydra(x,y,hp,velocity,nr,200,150))
     
-    },1000)
+    },2000)
 }
 
 function spawnMobGhost2(){
@@ -607,6 +607,7 @@ function SpawnShoots(){
     },1000)
 }
 setSpawnMap();
+init()
 animate()
 
 export function animate(){
@@ -658,8 +659,8 @@ export function animate(){
                 player.hp--;
                 
                 if(player.hp===0){
-                   
-                    // modalEl.style.display = 'flex'
+                    paramsStart(true,player.points,score())
+                    drawStartGame(animationID);
     
                 }
                 monsterShoots.splice(index,1) 
@@ -894,14 +895,29 @@ export function animate(){
                 mob.hp=mob.hp-10;
                 if(mob.hp<1){
                     if(mob.nr===1){
-                        player.points=player.points+10;
+                        player.points=player.points+5;
                     }if(mob.nr===2){
-                        player.points=player.points+20;
+                        player.points=player.points+15;
+                    }if(mob.nr===3){
+                        player.points=player.points+5;
                     }if(mob.nr===4){
                         player.points=player.points+5;
                     }if(mob.nr===5){
+                        player.points=player.points+10;
+                    }if(mob.nr===6){
+                        player.points=player.points+1000;
+                    }if(mob.nr===7){
+                        player.points=player.points+10;
+                    }if(mob.nr===8){
+                        player.points=player.points+20;
+                    }if(mob.nr===9){
                         player.points=player.points+5;
+                    }if(mob.nr===10){
+                        player.points=player.points+15;
+                    }if(mob.nr===11){
+                        player.points=player.points+20;
                     }
+                
                     
                    mobs.splice(index,1)
                     
