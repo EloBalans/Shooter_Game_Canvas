@@ -25,7 +25,7 @@ skills[9] = new SkillIcon(10,offsetX*9,0,skillWidth,skillHeigth ,document.getEle
 
 
 
-animate();
+window.onload = animate();
 
 function animate(){
     

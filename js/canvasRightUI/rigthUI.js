@@ -17,7 +17,7 @@ let hptower = 3
 let colorButton1 = '#Be4b25'
 let colorButton2 = '#Be4b25'
 
-animate();
+window.onload = animate();
 export function rightUIParams(...params) {
     points = params[0];
     mana = params[1];

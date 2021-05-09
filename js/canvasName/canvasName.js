@@ -5,7 +5,7 @@ const bg = document.getElementById("dragonBG");
 canvas.height = 100;
 canvas.width = 640;
 
-animate()
+window.onload = animate()
 
 function animate(){
     

@@ -606,9 +606,9 @@ function SpawnShoots(){
            
     },1000)
 }
-setSpawnMap();
-init()
-animate()
+window.onload = setSpawnMap();
+window.onload = init()
+window.onload = animate()
 
 export function animate(){
     animationID = requestAnimationFrame(animate);

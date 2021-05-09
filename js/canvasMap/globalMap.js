@@ -40,7 +40,7 @@ locations[9] = new Location(440,70,30,10,"Wymarły las",document.getElementById(
 locations[10] = new Location(590,120,30,11,"Atlantyda",document.getElementById("backgroundMap3"),highScoreMap[10])
 locations[11] = new Location(595,235,30,12,"Zamek upadłego rodu",document.getElementById("backgroundMap9"),highScoreMap[11])
 
-animate();
+window.onload = animate();
 
 
 
