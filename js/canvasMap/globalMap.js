@@ -40,7 +40,7 @@ locations[9] = new Location(440,70,30,10,"Wymarły las",document.getElementById(
 locations[10] = new Location(590,120,30,11,"Atlantyda",document.getElementById("backgroundMap3"),highScoreMap[10])
 locations[11] = new Location(595,235,30,12,"Zamek upadłego rodu",document.getElementById("backgroundMap9"),highScoreMap[11])
 
-animate();
+window.onload = animate();
 
 
 
@@ -51,9 +51,10 @@ function location(){
 
     for( let i = 0; i<locations.length;i++){
         locations[i].beforeLoc = highScoreMap[i-1] || 2000;
+        console.log(highScoreMap[i-1])
         if(locations[i].isInPath(mousePos.x,mousePos.y)){
             locations[i].radius = 40;
-            if(locations[i].beforeLoc>700){
+            if(locations[i].beforeLoc>=700){
                 loc = locations[i].nr;
             }
             return;
@@ -95,6 +96,7 @@ document.addEventListener('mousemove', function(e){
 
     mousePos.x = e.pageX-rect.left
     mousePos.y = e.pageY-rect.top;
+    
 }, false);
 
 window.addEventListener('click', event =>{
@@ -103,6 +105,7 @@ window.addEventListener('click', event =>{
         if(loc===i){
             document.cookie = ("map="+i);
             window.location = "game.html";  
+            console.log()
         }
     }
 });
