@@ -6,8 +6,8 @@ var map = document.getElementById("map");
 canvas.width = 640;
 canvas.height = 480;
 let loc = null;
-var locations = [];
-var highScoreMap = [];
+let locations = [];
+let highScoreMap = [];
 let mousePos = {
     x:0,
     y:0,
@@ -40,7 +40,7 @@ locations[9] = new Location(440,70,30,10,"Wymarły las",document.getElementById(
 locations[10] = new Location(590,120,30,11,"Atlantyda",document.getElementById("backgroundMap3"),highScoreMap[10])
 locations[11] = new Location(595,235,30,12,"Zamek upadłego rodu",document.getElementById("backgroundMap9"),highScoreMap[11])
 
-window.onload = animate();
+animate();
 
 
 
@@ -50,7 +50,6 @@ function location(){
     });
 
     for( let i = 0; i<locations.length;i++){
-
         locations[i].beforeLoc = highScoreMap[i-1] || 2000;
         if(locations[i].isInPath(mousePos.x,mousePos.y)){
             locations[i].radius = 40;

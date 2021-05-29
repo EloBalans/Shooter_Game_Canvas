@@ -60,9 +60,8 @@ export function drawStartGame(animationID){
 
 function onClick(){
     if(pasuePos()&&startOn){
-        init();
         startOn = false;
-        
+        init()
         animate();
     }
     

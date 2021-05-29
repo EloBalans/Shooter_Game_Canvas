@@ -26,8 +26,6 @@ import { BlackHole } from "./spells/blackHole.js";
 import { Hp } from "./buffs/hp.js";
 import { Particle } from "./particle.js";
 
-import { StartGame } from "./startGameTest.js"
-
 import { cooldownIcon,cooldownTime, disableSkillIcon } from "../canvasSkills/skills.js";
 import { rightUIParams } from "../canvasRightUI/rigthUI.js";
 import { drawPause } from "./pause.js";
@@ -87,18 +85,18 @@ const randomY = (from, to) => Math.floor(Math.random()*(to-from))+from;
 
 let highScoreMap = [];
 
-highScoreMap[0] = localStorage.getItem('gameHighScoreMap1') || localStorage.setItem('gameHighScoreMap1',0);
-highScoreMap[1] = localStorage.getItem('gameHighScoreMap2') || localStorage.setItem('gameHighScoreMap2',0);
-highScoreMap[2] = localStorage.getItem('gameHighScoreMap3') || localStorage.setItem('gameHighScoreMap3',0);
-highScoreMap[3] = localStorage.getItem('gameHighScoreMap4') || localStorage.setItem('gameHighScoreMap4',0);
-highScoreMap[4] = localStorage.getItem('gameHighScoreMap5') || localStorage.setItem('gameHighScoreMap5',0);
-highScoreMap[5] = localStorage.getItem('gameHighScoreMap6') || localStorage.setItem('gameHighScoreMap6',0);
-highScoreMap[6] = localStorage.getItem('gameHighScoreMap7') || localStorage.setItem('gameHighScoreMap7',0);
-highScoreMap[7] = localStorage.getItem('gameHighScoreMap8') || localStorage.setItem('gameHighScoreMap8',0);
-highScoreMap[8] = localStorage.getItem('gameHighScoreMap9') || localStorage.setItem('gameHighScoreMap9',0);
-highScoreMap[9] = localStorage.getItem('gameHighScoreMap10') || localStorage.setItem('gameHighScoreMap10',0);
-highScoreMap[10] = localStorage.getItem('gameHighScoreMap11') || localStorage.setItem('gameHighScoreMap11',0);
-highScoreMap[11] = localStorage.getItem('gameHighScoreMap12') || localStorage.setItem('gameHighScoreMap12',0);
+highScoreMap[0] = localStorage.getItem('gameHighScoreMap1');
+highScoreMap[1] = localStorage.getItem('gameHighScoreMap2');
+highScoreMap[2] = localStorage.getItem('gameHighScoreMap3');
+highScoreMap[3] = localStorage.getItem('gameHighScoreMap4');
+highScoreMap[4] = localStorage.getItem('gameHighScoreMap5');
+highScoreMap[5] = localStorage.getItem('gameHighScoreMap6');
+highScoreMap[6] = localStorage.getItem('gameHighScoreMap7');
+highScoreMap[7] = localStorage.getItem('gameHighScoreMap8');
+highScoreMap[8] = localStorage.getItem('gameHighScoreMap9');
+highScoreMap[9] = localStorage.getItem('gameHighScoreMap10');
+highScoreMap[10] = localStorage.getItem('gameHighScoreMap11');
+highScoreMap[11] = localStorage.getItem('gameHighScoreMap12');
 
 let animationID;
 
@@ -117,7 +115,6 @@ export function init(){
     fireWalls = [];
     shields = [];
     blackHoles = [];
-
     buffs = [];
     monsterShoots = [];
     
@@ -293,7 +290,9 @@ function checkhighScore(highScoree){
         localStorage.setItem(highScoree, player.points)
         highscore = localStorage.getItem(highScoree);
     }
+
     paramsStart(true,player.points,highscore)
+    console.log(true,player.points,highscore)
 }
 
 function getMousePos(canvas, evt) {
@@ -606,9 +605,9 @@ function SpawnShoots(){
            
     },1000)
 }
-window.onload = setSpawnMap();
-window.onload = init()
-window.onload = animate()
+init()
+setSpawnMap();
+animate()
 
 export function animate(){
     animationID = requestAnimationFrame(animate);
