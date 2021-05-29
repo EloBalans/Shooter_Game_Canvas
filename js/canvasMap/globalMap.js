@@ -51,7 +51,6 @@ function location(){
 
     for( let i = 0; i<locations.length;i++){
         locations[i].beforeLoc = highScoreMap[i-1] || 2000;
-        console.log(highScoreMap[i-1])
         if(locations[i].isInPath(mousePos.x,mousePos.y)){
             locations[i].radius = 40;
             if(locations[i].beforeLoc>=700){
@@ -105,7 +104,6 @@ window.addEventListener('click', event =>{
         if(loc===i){
             document.cookie = ("map="+i);
             window.location = "game.html";  
-            console.log()
         }
     }
 });

@@ -292,7 +292,6 @@ function checkhighScore(highScoree){
     }
 
     paramsStart(true,player.points,highscore)
-    console.log(true,player.points,highscore)
 }
 
 function getMousePos(canvas, evt) {
